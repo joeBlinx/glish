@@ -24,6 +24,7 @@ else(WIN32)
 
 endif(WIN32)
 add_library(glish STATIC ${SOURCE_FILES})
+add_subdirectory(utils)
 add_dependencies(glish utils)
 
 
