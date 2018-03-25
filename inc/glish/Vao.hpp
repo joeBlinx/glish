@@ -8,6 +8,7 @@
 #include "Vbo.hpp"
 #include <utility>
 #include <array>
+#include <string>
 namespace glish {
 
     template<unsigned nbVbo>

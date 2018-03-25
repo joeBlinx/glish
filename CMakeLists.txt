@@ -24,10 +24,9 @@ else(WIN32)
 
 endif(WIN32)
 add_library(glish STATIC ${SOURCE_FILES})
-add_dependencies(glish utils)
 
 
-target_link_libraries(glish PUBLIC SDL2 PUBLIC SDL2_image PUBLIC utils)
+target_link_libraries(glish PUBLIC SDL2 PUBLIC SDL2_image  )
 
 install(
         TARGETS glish
