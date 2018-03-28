@@ -137,10 +137,6 @@ enum class compileType{
          * associer a ce program*/
         void useProgram();
 
-
-
-    protected:
-
         ~Program();
 
     };
