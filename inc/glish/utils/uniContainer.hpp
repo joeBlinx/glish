@@ -10,6 +10,7 @@
 #include <glish/uniBase.hpp>
 #include <glish/program/Program.hpp>
 #include <glish/Uniform.hpp>
+#include <utility>
 
 namespace glish {
 	class UniContainer {
@@ -28,6 +29,22 @@ namespace glish {
 		UniBase &operator[](std::string && uniform);
 
 		void use();
+
+		template<class TypeUniform, class ...Ts>
+				void update(std::string && name, TypeUniform && value, Ts && ... args) {
+			auto it = uniforms.find(name);
+					if(it != uniforms.end()){
+						**it = std::move(value);
+					}else{
+						std::cerr << "the key " << name << " doesn't exist and will be ignored\n"
+					}
+
+					if constexpr (sizeof...(args)){
+						update(std::forward<Ts>(args)...);
+					}
+
+
+		}
 	};
 }
 
