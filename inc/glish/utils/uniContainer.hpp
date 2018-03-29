@@ -39,7 +39,7 @@ namespace glish {
 						std::cerr << "the key " << name << " doesn't exist and will be ignored\n"
 					}
 
-					if constexpr (sizeof...(args)){
+					if constexpr (sizeof...(args) >= 2){
 						update(std::forward<Ts>(args)...);
 					}
 
