@@ -44,9 +44,22 @@ namespace glish {
             uni = glGetUniformLocation(prog->getProgram(),
                                              name.c_str());
         }
+
+        void updateProg(Program * prog){
+        	this->prog = prog;
+        }
         Uniform (Uniform const &) = delete;
+        Uniform & operator=(Uniform const &) = delete;
 
-
+		Uniform(Uniform && uni):prog(uni.prog), uni(uni.uni){
+			uni.prog = nullptr;
+		}
+		Uniform &operator=(Uniform && uni){
+			uni = uni.uni;
+			prog = uni.prog;
+			uni.prog = nullptr;
+			return *this;
+		}
         /*!
          * \param value: valeur à passer à l'uniform
          * \brief l'opérateur = a été surchargé pour permettre d'écrire uni = value

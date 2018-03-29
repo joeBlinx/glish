@@ -23,25 +23,33 @@ namespace glish {
 
 		template <class T>
 				void add(std::string && nameUni){
-			uniforms.insert(std::pair<std::string, std::unique_ptr<UniBase>{nameUni, new Uniform<T>{&prog, nameUni}});
+			std::string a = nameUni;
+			uniforms.insert(std::make_pair(a, std::make_unique<Uniform<T>>(&prog, std::move(nameUni))));
 		}
 
 		UniBase &operator[](std::string && uniform);
 
 		void use();
 
+
+		template<class TypeUniform>
+		void update(std::string && name, TypeUniform && value) {
+
+			auto it = uniforms.find(name);
+			if(it != uniforms.end()){
+				(uniforms[std::move(name)])->updateProg(&prog);
+				*(uniforms[std::move(name)]) = (std::move(value));
+			}else{
+				std::cerr << "the key " << name << " doesn't exist and will be ignored\n";
+			}
+		}
 		template<class TypeUniform, class ...Ts>
 				void update(std::string && name, TypeUniform && value, Ts && ... args) {
 			auto it = uniforms.find(name);
-					if(it != uniforms.end()){
-						**it = std::move(value);
-					}else{
-						std::cerr << "the key " << name << " doesn't exist and will be ignored\n"
-					}
 
-					if constexpr (sizeof...(args) >= 2){
-						update(std::forward<Ts>(args)...);
-					}
+					update(std::move(name), std::move(value));
+					update(std::forward<Ts>(args)...);
+
 
 
 		}
