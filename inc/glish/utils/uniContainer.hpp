@@ -45,7 +45,6 @@ namespace glish {
 		}
 		template<class TypeUniform, class ...Ts>
 				void update(std::string && name, TypeUniform && value, Ts && ... args) {
-			auto it = uniforms.find(name);
 
 					update(std::move(name), std::move(value));
 					update(std::forward<Ts>(args)...);

@@ -144,7 +144,7 @@ namespace glish {
     Texture Texture::makeTextureCubeMap(const std::array<std::string, 6> &pathImage) {
 	    Texture texture(GL_TEXTURE_CUBE_MAP);
 
-	    for(int i = 0; i < pathImage.size() ; i++){
+	    for(size_t i = 0; i < pathImage.size() ; i++){
 		    texture.loadTexture(pathImage[i], GL_TEXTURE_CUBE_MAP_POSITIVE_X +i);
 	    }
 
