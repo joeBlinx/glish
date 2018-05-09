@@ -29,6 +29,13 @@ namespace glish {
 
 		UniBase &operator[](std::string && uniform);
 
+		template <class ... Args>
+		void changeProgram(Args && ... args){
+			prog = Program(std::forward<Args>(args)...);
+			for(auto &[key, uni] : uniforms){
+				uni->updateProg(&prog);
+			}
+		}
 		void use();
 
 
@@ -37,7 +44,7 @@ namespace glish {
 
 			auto it = uniforms.find(name);
 			if(it != uniforms.end()){
-				(uniforms[std::move(name)])->updateProg(&prog);
+				//(uniforms[std::move(name)])->updateProg(&prog);
 				*(uniforms[std::move(name)]) = (std::move(value));
 			}else{
 				std::cerr << "the key " << name << " doesn't exist and will be ignored\n";

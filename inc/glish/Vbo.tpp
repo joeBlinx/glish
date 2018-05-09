@@ -5,7 +5,7 @@
 namespace glish{
 
     template<typename T>
-    Vbo::Vbo(GLuint index, const std::vector<T> &data, GLenum usage ,GLenum target ) {
+    Vbo::Vbo(GLuint index, const std::vector<T> &data, GLenum usage ,GLenum target ):target(target) {
         glGenBuffers(1,&vbo); getError();
         glBindBuffer(target,vbo); getError();
         glBufferData(target, data.size()*sizeof(T), data.data(), usage);
