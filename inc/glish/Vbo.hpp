@@ -26,19 +26,10 @@ namespace glish {
         /* template<typename T>
         Vbo(GLuint index, GLint size, const std::vector<T> &data);*/
         template<typename T>
-        Vbo(GLuint index, const std::vector<T> &data, GLenum target = GL_ARRAY_BUFFER);
+        Vbo(GLuint index, const std::vector<T> &data, GLenum usage = GL_STATIC_DRAW, GLenum target = GL_ARRAY_BUFFER);
 
         Vbo(std::vector<int> const & elements);
-        /*!
-         * \brief destruction du constructeur de copie
-         */
 
-        /*!
-         * \brief redéfinition du constructeur de déplacement
-         */
-        /*!
-         * \brief detruit le vbo
-         */
         void deleteBuffer();
 
         /*!
@@ -57,6 +48,10 @@ namespace glish {
         void bind()const;
 
        operator bool() const;
+       template<class T>
+		       void update(T && value, int offset);
+       template<class T>
+		       void update(std::vector<T> &&data, int offset);
     public:
         /*!
          * \param index :identifiant qui sera utilisé dans le vertex shader pour récuperer les valeurs contenu dans le vbo

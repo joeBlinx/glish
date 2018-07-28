@@ -24,7 +24,8 @@ namespace glish {
 
         Program *prog = nullptr;
         GLint uni;
-        //T type;
+        T lastValue;
+        std::string uniName;
 
     public :
 
@@ -33,20 +34,23 @@ namespace glish {
          * \param name: identifiant de l'uniform dans le shader dans lequel  va être utilisé
          */
         Uniform () = default;
-        Uniform(Program *program, std::string &&name){
+        Uniform(Program *program, std::string &&name):uniName(std::move(name)){
             prog = program;
             uni = glGetUniformLocation(prog->getProgram(),
-                                       name.c_str());
+                                       uniName.c_str());
         }
         void init (Program *program, std::string &&name){
 
             prog = program;
+            uniName = std::move(name);
             uni = glGetUniformLocation(prog->getProgram(),
-                                             name.c_str());
+                                       uniName.c_str());
         }
 
         void updateProg(Program * prog){
         	this->prog = prog;
+        	uni = glGetUniformLocation(prog->getProgram(), uniName.c_str());
+        	this->operator=(lastValue);
         }
         Uniform (Uniform const &) = delete;
         Uniform & operator=(Uniform const &) = delete;
