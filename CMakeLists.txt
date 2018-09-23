@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.7)
 project(glish)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -9,11 +9,11 @@ file(GLOB_RECURSE CPP_FILES src/*.cpp)
 set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
 
 
+
 include_directories(BEFORE_SYSTEM PRIVATE inc )
 include_directories(BEFORE_SYSTEM PRIVATE inc/glish)
-include_directories(BEFORE_SYSTEM PRIVATE ../utils/inc/)
-include_directories(BEFORE_SYSTEM PRIVATE ../
-        )
+
+
 if(WIN32)
     include_directories(BEFORE_SYSTEM PRIVATE ../windows/GL/include)
     include_directories(BEFORE_SYSTEM PRIVATE ../windows/SDL2/include)
@@ -23,11 +23,11 @@ else(WIN32)
 
 endif(WIN32)
 add_library(glish STATIC ${SOURCE_FILES})
+add_subdirectory(utils)
+add_dependencies(glish utils)
 
 
-
-
-target_link_libraries(glish PUBLIC SDL2 PUBLIC SDL2_image  )
+target_link_libraries(glish PUBLIC SDL2 PUBLIC SDL2_image PUBLIC utils)
 
 install(
         TARGETS glish

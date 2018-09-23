@@ -8,7 +8,6 @@
 #include "Vbo.hpp"
 #include <utility>
 #include <array>
-#include <string>
 namespace glish {
 
     template<unsigned nbVbo>
@@ -30,7 +29,7 @@ namespace glish {
 
         Vao& operator=(Vao && vao);
         template<class  T>
-        void addVbo(GLuint index, const std::vector<T> &data, GLenum usage = GL_STATIC_DRAW, GLenum target = GL_ARRAY_BUFFER);
+        void addVbo(GLuint index, const std::vector<T> &data, GLenum target = GL_ARRAY_BUFFER);
 
         ~Vao();
 
@@ -45,12 +44,7 @@ namespace glish {
 
         void addIndices(std::vector<int> const & indices);
 
-        template<class T>
-        void update(int id, T && data, int offset);
-
     };
-
-
 
     template<unsigned nbVbo>
     Vao<nbVbo>::Vao(Vao const & vao):vao(vao.vao), vbos(vao.vbos), elements(vao.elements){
@@ -95,12 +89,12 @@ namespace glish {
 
     template <unsigned nbVbo>
     template <class T>
-    void Vao<nbVbo>::addVbo(GLuint index, const std::vector<T> &data, GLenum usage, GLenum target) {
+    void Vao<nbVbo>::addVbo(GLuint index, const std::vector<T> &data, GLenum target){
         if(i == nbVbo){
             throw std::runtime_error("too many Vbo added to vao " + std::to_string(nbVbo));
         }
         bind();
-        vbos[i++] = Vbo(index, data, usage, target);
+        vbos[i++] = Vbo(index, data, target);
 
     }
     template <unsigned nbVbo>
@@ -131,11 +125,5 @@ namespace glish {
         elements = vao.elements;
         return *this;
     }
-
-	template<unsigned int nbVbo>
-	template<class T>
-	void Vao<nbVbo>::update(int id, T &&data, int offset) {
-		vbos[id].update(std::forward<T>(data), offset);
-	}
 }
 #endif //GLENGINE_VAO_HPP

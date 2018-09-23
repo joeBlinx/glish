@@ -9,12 +9,10 @@
 
 namespace glish{
     void getError(){
-        if(debug) {
-            GLenum error = glGetError();
-            if (error) {
-                std::cout << gluErrorString(error) << std::endl;
-                assert(false);
-            }
+        GLenum error = glGetError();
+        if (error) {
+            std::cout << gluErrorString(error) << std::endl;
+            assert(false);
         }
     }
 }
