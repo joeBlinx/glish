@@ -20,7 +20,7 @@ struct Log{
 
 private:
 	std::ofstream stream;
-
+	std::string time;
 	void initHTML();
 };
 #endif //GLISH3_LOG_HPP

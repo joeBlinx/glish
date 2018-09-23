@@ -14,7 +14,7 @@
 Log::Log(const std::string &path) {
 
 	std::time_t result = std::time(nullptr);
-	std::string time = std::asctime(std::localtime(&result));
+	time = std::asctime(std::localtime(&result));
 	utils::replace(time, " ", "_");
 	utils::replace(time, ":", "_");
 	stream = std::ofstream(path + "/" + time +".html");
@@ -47,7 +47,7 @@ Log::~Log() {
 }
 
 void Log::initHTML() {
-	stream << "<html> \n <head> \n <title> Log </title> \n </head>" <<std::endl;
+	stream << "<html> \n <head> \n <title> Log " << time << "\n</title> \n </head>" <<std::endl;
 	stream << "<body>";
 }
 
