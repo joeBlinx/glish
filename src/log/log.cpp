@@ -51,14 +51,14 @@ void Log::initCSS() {
 	stream << "<style> \n"
 		   "div.center{ "
 	 "	text-align :center"
-  "</style>";
+  "</style>\n";
 }
 
 void Log::initHTML() {
 	stream << "<html> \n <head> \n <title> Log " << time << "\n</title> \n </head>" <<std::endl;
 	stream << "<body>";
 	initCSS();
-	stream << "<div class = a>\n"
+	stream << "<div class = "a">\n"
 		   "<h1> Log " << time  << "\n"
 							 "</h1> \n</div>";
 }
