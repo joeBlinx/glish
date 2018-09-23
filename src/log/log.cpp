@@ -21,6 +21,7 @@ Log::Log(const std::string &path) {
 	if(!stream.is_open()){
 		stream = std::ofstream("log.txt");
 		stream << "path given is invalid : " << path << std::endl;
+		stream.close();
 	}else{
 		initHTML();
 	}
