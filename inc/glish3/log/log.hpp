@@ -22,5 +22,6 @@ private:
 	std::ofstream stream;
 	std::string time;
 	void initHTML();
+	void initCSS();
 };
 #endif //GLISH3_LOG_HPP
