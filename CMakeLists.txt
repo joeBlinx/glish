@@ -36,3 +36,7 @@ install(
         DIRECTORY inc/glish3
         DESTINATION include
 )
+
+add_executable(testProject test/main.cpp)
+add_dependencies(testProject glish3)
+target_link_libraries(testProject glish3 GL GLU SDL2 GLEW )

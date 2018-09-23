@@ -11,13 +11,14 @@
 #include <utils/stringUtil.h>
 #include <iostream>
 
-Log::Log(const std::string &path) {
+Log::Log(const std::string &path, std::string const &project) :project(project){
 
 	std::time_t result = std::time(nullptr);
 	time = std::asctime(std::localtime(&result));
-	utils::replace(time, " ", "_");
-	utils::replace(time, ":", "_");
-	stream = std::ofstream(path + "/" + time +".html");
+	std::string filePath = time;
+	utils::replace(filePath, " ", "_");
+	utils::replace(filePath, ":", "_");
+	stream = std::ofstream(path + "/" + filePath +".html");
 	if(!stream.is_open()){
 		stream = std::ofstream("log.txt");
 		stream << "path given is invalid : " << path << std::endl;
@@ -30,15 +31,17 @@ Log::Log(const std::string &path) {
 }
 
 void Log::info(const std::string &info) {
-	stream << "test";
+	stream << "[INFO]: " << info << std::endl;
 }
 
 void Log::warning(const std::string &warn) {
-
+	stream << "<p><span class = \"warning\">\n"
+			  "\t[WARNING]: </span> "<< warn<< "</p>" << std::endl;
 }
 
 void Log::error(const std::string &error) {
-
+	stream << "<p><span class = \"error\">\n"
+		   "\t[ERROR]: </span> "<< error<< "</p>" << std::endl;
 }
 
 Log::~Log() {
@@ -49,17 +52,26 @@ Log::~Log() {
 void Log::initCSS() {
 
 	stream << "<style> \n"
-		   "div.center{ "
-	 "	text-align :center"
-  "</style>\n";
+		   "div.center{\n "
+	 "\ttext-align :center\n}\n"
+  ".error{\n "
+  "\tcolor :red}\n"
+			  ".warning{\n "
+			  "\tcolor :yellow}\n"
+			  "</style>\n";
 }
 
 void Log::initHTML() {
-	stream << "<html> \n <head> \n <title> Log " << time << "\n</title> \n </head>" <<std::endl;
+	stream << "<html> \n <head> \n <title>" << time << "\n</title> \n </head>" <<std::endl;
 	stream << "<body>";
 	initCSS();
-	stream << "<div class = \"a\">\n"
-		   "<h1> Log " << time  << "\n"
-							 "</h1> \n</div>";
+	stream << "<div class = \"center\">\n"
+		   "<h1> " << time  << "\n"
+							 "</h1> \n"<<
+		"<h2>Project : " << project << "</h2>\n</div>";
+}
+
+bool Log::isInit() const {
+	return init;
 }
 
