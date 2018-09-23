@@ -16,9 +16,11 @@ struct Log{
 
 	void error(const std::string &error);
 
-
+	~Log();
 
 private:
 	std::ofstream stream;
+
+	void initHTML();
 };
 #endif //GLISH3_LOG_HPP
