@@ -12,6 +12,7 @@
 #include <utils/log.hpp>
 #include <utils/stringUtil.h>
 #include <array>
+#include <glish/utils/log.hpp>
 
 namespace glish {
 

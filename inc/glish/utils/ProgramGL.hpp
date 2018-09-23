@@ -15,7 +15,7 @@
 namespace glish {
     template<class Enum, class ...T >
     class ProgramGL {
-        template<class = std::enable_if_t<std::is_enum<Enum>::value>>
+        template <class = std::enable_if_t<std::is_enum<Enum>::value>>
         struct test;
         template <class First, class ...U>
         struct uniforms{

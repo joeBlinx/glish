@@ -43,7 +43,7 @@ enum class compileType{
         friend  class ProgramPipeline;
         /*! \var  programID
         * identifiant du program*/
-        GLuint programID;
+        GLuint programID = 0;
         public:
 
         static std::string extractShader(const char * path);
@@ -136,10 +136,6 @@ enum class compileType{
          * A utiliser avant chaque appel de fonction modidifiant les uniforms
          * associer a ce program*/
         void useProgram();
-
-
-
-    protected:
 
         ~Program();
 
