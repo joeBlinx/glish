@@ -10,12 +10,17 @@
 
 
 namespace glish3{
+#define PARAM const char* file, int line
+	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, PARAM);
+	void enable(GLenum cap, PARAM);
+	void blendFunc(GLenum sfactor, GLenum dfactor, PARAM);
 
-	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, const char *file, int line);
-	void enable(GLenum cap);
-	void blendFunc(GLenum sfactor, GLenum dfactor);
 
 }
-#define glishClearColor(r, g, b, a) glish3::clearColor(r, g, b, a, __FILE__, __LINE__)
+#define FILE_LINE __FILE__, __LINE__
+// macro to have the file and the line in the log file
+#define glishClearColor(r, g, b, a) glish3::clearColor(r, g, b, a, FILE_LINE)
+#define glishEnable(cap) glish3::enable(cap, FILE_LINE)
+#define glishBlendFunc(sfactor, dfactor) glish3::blendFunc(sfactor, dfactor, FILE_LINE)
 
 #endif //GLISH3_ERRORHANLDER_HPP

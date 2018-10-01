@@ -18,7 +18,7 @@ if(WIN32) # do it again, it sucks
 	add_compile_options(/Wall)
 else(WIN32)
 	MESSAGE("OS is not WINDOWS")
-    add_compile_options(-Wall -pedantic -Wextra)
+	add_compile_options(-Wall -pedantic -Wextra)
 
 endif(WIN32)
 
@@ -30,12 +30,12 @@ add_dependencies(glish3 utils)
 target_link_libraries(glish3 PUBLIC utils)
 
 install(
-        TARGETS glish3
-        ARCHIVE DESTINATION lib
+		TARGETS glish3
+		ARCHIVE DESTINATION lib
 )
 install(
-        DIRECTORY inc/glish3
-        DESTINATION include
+		DIRECTORY inc/glish3
+		DESTINATION include
 )
 
 add_executable(testProject test/main.cpp)

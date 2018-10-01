@@ -6,21 +6,21 @@
 #include <glish3/log/errorHandler.hpp>
 
 namespace glish3{
-#
+#define glishError(function) getError(function, file, std::to_string(line))
 	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, const char *file, int line) {
 		glClearColor(red, green, blue, alpha);
-		getError("glClearColor", file, std::to_string(line));
+		glishError("glClearColor");
 	}
 
-	void enable(GLenum cap) {
+	void enable(GLenum cap, PARAM) {
 		glEnable(cap);
-		//getError("glEnable");
+		glishError("glEnable");
 
 	}
 
-	void blendFunc(GLenum sfactor, GLenum dfactor) {
+	void blendFunc(GLenum sfactor, GLenum dfactor, PARAM) {
 		glBlendFunc(sfactor, dfactor);
-		//getError("glBlendFunc");
+		glishError("glBlendFunc");
 
 	}
 }
