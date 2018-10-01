@@ -24,7 +24,7 @@ namespace glish3 {
 	static void getError(std::string const &functionName, std::string const & file, std::string const & line) {
 		if constexpr(debug) {
 			GLenum error = glGetError();
-			if (!error) {
+			if (error) {
 				char unsigned const * a = gluErrorString(error);
 				char * b = new char[std::strlen((char * const)a)];
 				std::strcpy(b, (char * const)a);

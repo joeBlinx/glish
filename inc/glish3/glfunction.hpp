@@ -14,6 +14,7 @@ namespace glish3{
 	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, PARAM);
 	void enable(GLenum cap, PARAM);
 	void blendFunc(GLenum sfactor, GLenum dfactor, PARAM);
+	void clear(GLbitfield mask, PARAM);
 
 
 }
@@ -22,5 +23,6 @@ namespace glish3{
 #define glishClearColor(r, g, b, a) glish3::clearColor(r, g, b, a, FILE_LINE)
 #define glishEnable(cap) glish3::enable(cap, FILE_LINE)
 #define glishBlendFunc(sfactor, dfactor) glish3::blendFunc(sfactor, dfactor, FILE_LINE)
+#define glishClear(mask) glish3::clear(mask, FILE_LINE);
 
 #endif //GLISH3_ERRORHANLDER_HPP

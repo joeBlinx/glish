@@ -23,4 +23,8 @@ namespace glish3{
 		glishError("glBlendFunc");
 
 	}
+	void clear(GLbitfield mask, PARAM){
+		glClear(mask);
+		glishError("glClear");
+	}
 }
