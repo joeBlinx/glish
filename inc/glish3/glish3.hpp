@@ -7,4 +7,5 @@
 
 #include <glish3/glfunction.hpp>
 #include <glish3/log/errorHandler.hpp>
+#include <glish3/ProgramGL.hpp>
 #endif //GLISH3_GLISH3_HPP

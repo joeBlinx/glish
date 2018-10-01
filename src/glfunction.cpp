@@ -7,7 +7,7 @@
 
 namespace glish3{
 #define glishError(function) getError(function, file, std::to_string(line))
-	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, const char *file, int line) {
+	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, PARAM) {
 		glClearColor(red, green, blue, alpha);
 		glishError("glClearColor");
 	}
@@ -26,5 +26,14 @@ namespace glish3{
 	void clear(GLbitfield mask, PARAM){
 		glClear(mask);
 		glishError("glClear");
+	}
+	void deleteProgram(GLuint program, PARAM){
+
+		glDeleteProgram(program);
+		glishError("glDeleteProgram");
+	}
+	void useProgram(GLuint program, PARAM){
+		glUseProgram(program);
+		glishError("glUseProgram");
 	}
 }

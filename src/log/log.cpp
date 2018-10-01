@@ -20,7 +20,7 @@ Log::Log(const std::string &path, std::string const &project) :project(project){
 	utils::replace(filePath, ":", "_");
 	stream = std::ofstream(path + "/" + filePath +".html");
 	if(!stream.is_open()){
-		stream = std::ofstream("log.txt");
+		stream = std::ofstream("logTest.txt");
 		stream << "path given is invalid : " << path << std::endl;
 		stream.close();
 	}else{
