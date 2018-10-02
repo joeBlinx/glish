@@ -36,4 +36,19 @@ namespace glish3{
 		glUseProgram(program);
 		glishError("glUseProgram");
 	}
+	GLuint createShader(GLenum type, PARAM){
+		GLuint shader = glCreateShader(type);
+		glishError("glCreateShader");
+		return shader;
+	}
+	void compileShader(GLuint shaderId, PARAM){
+		glCompileShader(shaderId);
+		glishError("glCompileShader");
+	}
+	void shaderSource(GLuint shader, GLsizei count,
+					  const GLchar** string, const GLint *length,
+						PARAM){
+		glShaderSource(shader, count, string, length);
+		glishError("glShaderSource");
+	}
 }

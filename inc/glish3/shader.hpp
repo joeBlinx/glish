@@ -12,11 +12,12 @@ namespace glish3 {
 
 	class Shader {
 
-		GLuint shaderId;
+		GLuint shaderId = 0;
 		GLenum shaderType;
-		Shader() = delete;
+		Shader() = default;
 
 		Shader(GLenum shaderType, const char * data);
+		void compileShader(const char * data);
 
 	public:
 

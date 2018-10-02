@@ -17,6 +17,11 @@ namespace glish3{
 	void clear(GLbitfield mask, PARAM);
 	void deleteProgram(GLuint program, PARAM);
 	void useProgram(GLuint program, PARAM);
+	GLuint createShader(GLenum type, PARAM);
+	void compileShader(GLuint shaderId, PARAM);
+	void shaderSource(GLuint shader, GLsizei count,
+					  const GLchar** string, const GLint *length,
+					  PARAM);
 
 
 }
@@ -28,5 +33,7 @@ namespace glish3{
 #define glishClear(mask) glish3::clear(mask, FILE_LINE)
 #define glishDeleteProgram(program) glish3::deleteProgram(program, FILE_LINE)
 #define glishUseProgram(program) glish3::useProgram(program, FILE_LINE)
-
+#define glishCreateShader(type) glish3::createShader(type, FILE_LINE)
+#define glishCompileShader(shaderId) glish3::compileShader(shaderId, FILE_LINE)
+#define glishShadersource(shader, count, string, length) glish3::shaderSource(shader, count, string, length, FILE_LINE)
 #endif //GLISH3_ERRORHANLDER_HPP
