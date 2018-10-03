@@ -8,7 +8,8 @@
 
 #include "glish3/shader.hpp"
 namespace glish3 {
-	Shader::Shader(GLenum shaderType, const char *data):shaderId(glishCreateShader(shaderType)),
+	Shader::Shader(GLenum shaderType, const char *data):
+	shaderId(glishCreateShader(shaderType)),
 	shaderType(shaderType){
 		compileShader(data);
 	}
