@@ -23,6 +23,7 @@ Log::Log(const std::string &path, std::string const &project) :project(project){
 	if(!stream.is_open()){
 		stream = std::ofstream("logTest.txt");
 		stream << "path given is invalid : " << path << std::endl;
+		fileNotFound(path);
 		stream.close();
 	}else{
 		initHTML();
