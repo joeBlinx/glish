@@ -18,6 +18,10 @@ struct Log{
 
 	void error(const std::string &error);
 
+	void title(const std::string &title);
+
+	void fileNotFound (const std::string & file);
+
 	Log(Log&&) = default;
 	Log&operator=(Log&&) = default;
 	~Log();

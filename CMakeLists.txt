@@ -18,7 +18,7 @@ if(WIN32) # do it again, it sucks
 	add_compile_options(/Wall)
 else(WIN32)
 	MESSAGE("OS is not WINDOWS")
-	add_compile_options(-Wall -pedantic -Wextra)
+	add_compile_options(-Wall -pedantic -Wextra )
 
 endif(WIN32)
 
@@ -40,4 +40,4 @@ install(
 
 add_executable(testProject test/main.cpp)
 add_dependencies(testProject glish3)
-target_link_libraries(testProject glish3 GL GLU SDL2 GLEW )
+target_link_libraries(testProject glish3 GL GLU SDL2 GLEW stdc++fs )

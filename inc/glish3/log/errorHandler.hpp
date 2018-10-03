@@ -21,13 +21,15 @@ namespace glish3 {
 
 	std::string createLink(std::string const & functionName);
 
-	static void getError(std::string const &functionName, std::string const & file, std::string const & line) {
+	[[maybe_unused]] static void getError(std::string const &functionName,
+			std::string const & file, std::string const & line) {
+
 		if constexpr(debug) {
 			GLenum error = glGetError();
 			if (error) {
-				char unsigned const * a = gluErrorString(error);
-				char * b = new char[std::strlen((char * const)a)];
-				std::strcpy(b, (char * const)a);
+				size_t constexpr size = 50;
+				char b [size];
+				std::memcpy(b, gluErrorString(error), size);
 				std::string message = "file : " + file + ", line: " + line +" "+ b;
 				log.error(message+", " + createLink(functionName)) ;
 			}

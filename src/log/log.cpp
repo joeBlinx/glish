@@ -10,6 +10,7 @@
 #include <ctime>
 #include <utils/stringUtil.h>
 #include <iostream>
+#include <filesystem>
 
 Log::Log(const std::string &path, std::string const &project) :project(project){
 
@@ -73,5 +74,17 @@ void Log::initHTML() {
 
 bool Log::isInit() const {
 	return init;
+}
+
+void Log::title(const std::string &title) {
+	stream << "<h4> " << title << "</h4>";
+}
+
+void Log::fileNotFound(const std::string &file) {
+	std::string warn{"file not found : \""};
+	warn += file + std::string("\"");
+	warn += "<br/> Working directory is :";
+	warn += std::filesystem::current_path();
+	warning(warn);
 }
 

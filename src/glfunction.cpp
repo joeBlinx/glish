@@ -51,4 +51,18 @@ namespace glish3{
 		glShaderSource(shader, count, string, length);
 		glishError("glShaderSource");
 	}
+	void getShaderiv(GLuint shader, GLenum pname, GLint* param, PARAM){
+		glGetShaderiv(shader, pname, param);
+		glishError("glGetShaderiv");
+	}
+	void getShaderInfoLog(GLuint shader, GLsizei bufsize,
+			GLsizei* length, GLchar* infoLog, PARAM){
+		glGetShaderInfoLog(shader, bufsize, length, infoLog);
+		glishError("glGetShaderInfoLog");
+	}
+
+	void deleteShader(GLuint shader, PARAM){
+		glDeleteShader(shader);
+		glishError("glDeleteShader");
+	}
 }

@@ -22,6 +22,9 @@ namespace glish3{
 	void shaderSource(GLuint shader, GLsizei count,
 					  const GLchar** string, const GLint *length,
 					  PARAM);
+	void getShaderiv(GLuint shader, GLenum pname, GLint* param, PARAM);
+	void getShaderInfoLog(GLuint shader, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
+	void deleteShader(GLuint shader, PARAM);
 
 
 }
@@ -36,4 +39,8 @@ namespace glish3{
 #define glishCreateShader(type) glish3::createShader(type, FILE_LINE)
 #define glishCompileShader(shaderId) glish3::compileShader(shaderId, FILE_LINE)
 #define glishShadersource(shader, count, string, length) glish3::shaderSource(shader, count, string, length, FILE_LINE)
+#define glishGetShaderiv(shader, pname, param) glish3::getShaderiv(shader, pname, param, FILE_LINE)
+#define glishGetShaderInfoLog(shader, bufsize, length, infoLog) glish3::getShaderInfoLog(shader, bufsize, length, infoLog, FILE_LINE)
+#define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE);
+
 #endif //GLISH3_ERRORHANLDER_HPP
