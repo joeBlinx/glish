@@ -3,7 +3,7 @@
 //
 
 #include <glish3/glfunction.hpp>
-#include <glish3/ProgramGL.hpp>
+#include <glish3/programGL.hpp>
 
 namespace glish3 {
 	ProgramGL::~ProgramGL() {
@@ -13,18 +13,20 @@ namespace glish3 {
 		}
 	}
 
-	ProgramGL::ProgramGL(ProgramGL &&programGL) :program(programGL.program){
-		programGL.program = 0;
+	ProgramGL::ProgramGL(ProgramGL &&ProgramGL) :program(ProgramGL.program){
+		ProgramGL.program = 0;
 	}
 
-	ProgramGL &ProgramGL::operator=(ProgramGL &&programGL) {
-		program = programGL.program;
-		programGL.program = 0;
+	ProgramGL &ProgramGL::operator=(ProgramGL &&ProgramGL) {
+		program = ProgramGL.program;
+		ProgramGL.program = 0;
 		return *this;
 	}
 
 	void ProgramGL::use() {
 		glishUseProgram(program);
 	}
+
+
 }
 

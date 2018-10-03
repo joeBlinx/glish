@@ -24,6 +24,7 @@ namespace glish3 {
 			log.warning("data pass to shader is null, shader will not be compiled");
 			return;
 		}
+
 		compileShader(data);
 	}
 
@@ -66,7 +67,7 @@ namespace glish3 {
 		return Shader(shaderType, data);
 	}
 
-	Shader::operator  GLuint () const{
+	Shader::operator  GLuint () {
 		return shaderType;
 	}
 

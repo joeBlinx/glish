@@ -65,4 +65,32 @@ namespace glish3{
 		glDeleteShader(shader);
 		glishError("glDeleteShader");
 	}
+	void attachShader(GLuint programId, GLuint shader, PARAM){
+		glAttachShader(programId, shader);
+		glishError("glAttachShader");
+	}
+	void detachShader(GLuint programId, GLuint shader, PARAM){
+		glDetachShader(programId, shader);
+		glishError("glDetachShader");
+	}
+	GLuint createProgram(PARAM){
+		GLuint res = glCreateProgram();
+		glishError("glCreateProgram");
+		return res;
+	}
+
+	void linkProgram(GLuint programId, PARAM){
+		glLinkProgram(programId);
+		glishError("glLinkProgram");
+	}
+	void getProgramiv(GLuint shader, GLenum pname, GLint* param, PARAM){
+		glGetShaderiv(shader, pname, param);
+		glishError("glGetShaderiv");
+	}
+	void getProgramInfoLog(GLuint shader, GLsizei bufsize,
+						  GLsizei* length, GLchar* infoLog, PARAM){
+		glGetShaderInfoLog(shader, bufsize, length, infoLog);
+		glishError("glGetShaderInfoLog");
+	}
+
 }

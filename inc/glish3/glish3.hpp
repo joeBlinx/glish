@@ -7,6 +7,6 @@
 
 #include <glish3/glfunction.hpp>
 #include <glish3/log/errorHandler.hpp>
-#include <glish3/ProgramGL.hpp>
+#include <glish3/programGL.hpp>
 #include <glish3/shader.hpp>
 #endif //GLISH3_GLISH3_HPP

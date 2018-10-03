@@ -25,7 +25,12 @@ namespace glish3{
 	void getShaderiv(GLuint shader, GLenum pname, GLint* param, PARAM);
 	void getShaderInfoLog(GLuint shader, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
 	void deleteShader(GLuint shader, PARAM);
-
+	void attachShader(GLuint programId, GLuint shader, PARAM);
+	void detachShader(GLuint programId, GLuint shader, PARAM);
+	GLuint createProgram(PARAM);
+	void linkProgram(GLuint programId, PARAM);
+	void getProgramiv(GLuint programId, GLenum pname, GLint* param, PARAM);
+	void getProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
 
 }
 #define FILE_LINE __FILE__, __LINE__
@@ -42,5 +47,10 @@ namespace glish3{
 #define glishGetShaderiv(shader, pname, param) glish3::getShaderiv(shader, pname, param, FILE_LINE)
 #define glishGetShaderInfoLog(shader, bufsize, length, infoLog) glish3::getShaderInfoLog(shader, bufsize, length, infoLog, FILE_LINE)
 #define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE);
-
+#define glishAttachShader(programId, shader) glish3::attachShader(programId, shader, FILE_LINE)
+#define glishDetachShader(programId, shader) glish3::detachShader(programId, shader, FILE_LINE)
+#define glishCreateProgram() glish3::createProgram(FILE_LINE)
+#define glishLinkProgram(programId) glish3::linkProgram(programId, FILE_LINE)
+#define glishGetProgramiv(programId, pname, param) glish3::getShaderiv(programId, pname, param, FILE_LINE)
+#define glishGetProgramInfoLog(programId, bufsize, length, infoLog) glish3::getShaderInfoLog(programId, bufsize, length, infoLog, FILE_LINE)
 #endif //GLISH3_ERRORHANLDER_HPP
