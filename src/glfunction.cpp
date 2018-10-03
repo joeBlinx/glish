@@ -53,7 +53,7 @@ namespace glish3{
 	}
 	void getShaderiv(GLuint shader, GLenum pname, GLint* param, PARAM){
 		glGetShaderiv(shader, pname, param);
-		glishError("glGetShaderiv");
+		glishError("glGetShader");
 	}
 	void getShaderInfoLog(GLuint shader, GLsizei bufsize,
 			GLsizei* length, GLchar* infoLog, PARAM){
@@ -84,12 +84,12 @@ namespace glish3{
 		glishError("glLinkProgram");
 	}
 	void getProgramiv(GLuint shader, GLenum pname, GLint* param, PARAM){
-		glGetShaderiv(shader, pname, param);
-		glishError("glGetShaderiv");
+		glGetProgramiv(shader, pname, param);
+		glishError("glGetProgram");
 	}
 	void getProgramInfoLog(GLuint shader, GLsizei bufsize,
 						  GLsizei* length, GLchar* infoLog, PARAM){
-		glGetShaderInfoLog(shader, bufsize, length, infoLog);
+		glGetProgramInfoLog(shader, bufsize, length, infoLog);
 		glishError("glGetShaderInfoLog");
 	}
 

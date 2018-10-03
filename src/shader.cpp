@@ -68,7 +68,7 @@ namespace glish3 {
 	}
 
 	Shader::operator  GLuint () {
-		return shaderType;
+		return shaderId;
 	}
 
 	Shader::~Shader() {

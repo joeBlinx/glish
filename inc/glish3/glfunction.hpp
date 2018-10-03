@@ -51,6 +51,6 @@ namespace glish3{
 #define glishDetachShader(programId, shader) glish3::detachShader(programId, shader, FILE_LINE)
 #define glishCreateProgram() glish3::createProgram(FILE_LINE)
 #define glishLinkProgram(programId) glish3::linkProgram(programId, FILE_LINE)
-#define glishGetProgramiv(programId, pname, param) glish3::getShaderiv(programId, pname, param, FILE_LINE)
-#define glishGetProgramInfoLog(programId, bufsize, length, infoLog) glish3::getShaderInfoLog(programId, bufsize, length, infoLog, FILE_LINE)
+#define glishGetProgramiv(programId, pname, param) glish3::getProgramiv(programId, pname, param, FILE_LINE)
+#define glishGetProgramInfoLog(programId, bufsize, length, infoLog) glish3::getProgramInfoLog(programId, bufsize, length, infoLog, FILE_LINE)
 #endif //GLISH3_ERRORHANLDER_HPP

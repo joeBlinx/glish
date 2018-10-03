@@ -32,7 +32,7 @@ namespace glish3{
 			glishLinkProgram(program);
 			(glishDetachShader(program, (GLuint)shaders), ...);
 			GLint Result;
-			int InfoLogLength;
+			int InfoLogLength = 0;
 			glishGetProgramiv(program, GL_LINK_STATUS, &Result);
 			glishGetProgramiv(program, GL_INFO_LOG_LENGTH, &InfoLogLength);
 			if (InfoLogLength > 0) {
