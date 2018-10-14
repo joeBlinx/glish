@@ -93,4 +93,35 @@ namespace glish3{
 		glishError("glGetShaderInfoLog");
 	}
 
+	void deleteBuffer(GLsizei n, GLuint *vbo, PARAM) {
+		glDeleteBuffers(n, vbo);
+		glishError("glDeleteBuffers");
+	}
+
+	void bindBuffer(GLenum target, GLuint vbo, PARAM) {
+		glBindBuffer(target, vbo);
+		glishError("glBindBuffer");
+	}
+
+	void genBuffers(GLsizei n, GLuint *vbo, PARAM) {
+		glGenBuffers(n, vbo);
+		glishError("glGenBuffers");
+	}
+
+	void bufferData(GLenum target, GLsizeiptr size, const void *data, GLenum usage, PARAM) {
+		glBufferData(target, size, data, usage);
+		glishError("glBufferData");
+	}
+
+	void enableVertexAttribArray(GLuint index, PARAM) {
+		glEnableVertexAttribArray(index);
+		glishError("glEnableVertexAttribArray");
+	}
+
+	void vertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride,
+									 const void *pointer, PARAM) {
+		glVertexAttribPointer(index, size, type, normalized, stride, pointer);
+		glishError("glVertexAttribPointer");
+	}
+
 }

@@ -9,7 +9,42 @@
 #include <ctime>
 #include <utils/stringUtil.h>
 #include <glish3/glish3.hpp>
+#include <glm/vec2.hpp>
+#include <vector>
 
+template <class T>
+concept bool Vertices =
+		std::is_same_v<decltype(T::x), decltype(T::y)> &&
+		std::is_same_v<decltype(T::y), decltype(T::z)>;
+template <class T>
+concept bool Vertices2 =
+		std::is_same_v<decltype(T::x), decltype(T::y)>;
+
+template <class T>
+struct trait;
+
+template<Vertices V>
+struct trait<V>{
+	static int constexpr a = 3;
+};
+template<Vertices2 V>
+struct trait<V>{
+	static int constexpr a = 2;
+};
+template <class T>
+int returnTrait(T){
+	return trait<T>::a;
+}
+
+template<template<class, class...>class  Container, class U, class ...Ts>
+		concept bool ContinuousContainer = requires (Container<U, Ts...> a){
+{a[0]} -> U;
+		};
+
+
+
+ template<template<class...> class T, class U, class ...Ts>
+ void f(T<U, Ts ...>&&) requires ContinuousContainer<T, U, Ts...>{}
 int main() {
 
 	SDL_Window * window = nullptr;
@@ -54,6 +89,11 @@ int main() {
 				  "void main(){}");
 	glish3::ProgramGL programGL{vertex, frag};
 	SDL_Event ev;
+
+
+
+	f(std::vector<glm::vec2>());
+	std::cout <<returnTrait(glm::vec2());
 	bool run = true;
 	while(run){
 		glishClear(GL_COLOR_BUFFER_BIT);

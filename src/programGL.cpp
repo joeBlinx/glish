@@ -7,7 +7,6 @@
 
 namespace glish3 {
 	ProgramGL::~ProgramGL() {
-
 		if (program) {
 			glishDeleteProgram(program);
 		}
