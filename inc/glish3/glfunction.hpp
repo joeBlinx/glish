@@ -32,6 +32,10 @@ namespace glish3{
 	void getProgramiv(GLuint programId, GLenum pname, GLint* param, PARAM);
 	void getProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
 
+	void genVertexArrays(GLsizei n, GLuint *vao, PARAM);
+
+
+
 	void genBuffers(GLsizei n, GLuint * vbo, PARAM);
 	void bindBuffer(GLenum target, GLuint vbo, PARAM);
 	void bufferData(GLenum target, GLsizeiptr size, const void* data, GLenum usage,
@@ -66,6 +70,10 @@ namespace glish3{
 #define glishGetShaderiv(shader, pname, param) glish3::getShaderiv(shader, pname, param, FILE_LINE)
 #define glishGetShaderInfoLog(shader, bufsize, length, infoLog) glish3::getShaderInfoLog(shader, bufsize, length, infoLog, FILE_LINE)
 #define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE)
+
+
+#define glishVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
+
 
 #define glishBindBuffer(target, vbo) 	bindBuffer(target, vbo, FILE_LINE)
 #define glishBufferData(target, size, pdata, usage) \

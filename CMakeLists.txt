@@ -18,7 +18,7 @@ if(WIN32) # do it again, it sucks
 	add_compile_options(/Wall)
 else(WIN32)
 	MESSAGE("OS is not WINDOWS")
-	add_compile_options(-Wall -pedantic -Wextra -fconcepts -std=c++2a)
+	add_compile_options(-Wall -pedantic -Wextra -fconcepts )
 
 endif(WIN32)
 
