@@ -98,7 +98,18 @@ namespace glish3{
 		glishError("glDeleteBuffers");
 	}
 
-	void bindBuffer(GLenum target, GLuint vbo, PARAM) {
+    void genVertexArrays(GLsizei n, GLuint *vao, PARAM){
+	    glGenVertexArrays(n, vao);
+        glishError("glGenVertexArrays");
+    }
+
+    void deleteVertexArrays(GLsizei n, GLuint *vao, PARAM){
+        glDeleteVertexArrays(n, vao);
+        glishError("glDeleteVertexArrays");
+
+    }
+
+    void bindBuffer(GLenum target, GLuint vbo, PARAM) {
 		glBindBuffer(target, vbo);
 		glishError("glBindBuffer");
 	}

@@ -3,10 +3,11 @@
 //
 
 #include <glish3/Vao.hpp>
+#include <glish3/glfunction.hpp>
 
 namespace glish3 {
     Vao::Vao() {
-        glGenVertexArrays();
+        glishGenVertexArrays(1, &vao);
     }
 
     Vao::Vao(Vao &&vao):vao(vao.vao) {
@@ -19,6 +20,10 @@ namespace glish3 {
         return *this;
     }
 
+    void Vao::bind() {
+
+    }
+
     Vao::operator bool() const {
         return (bool)vao;
     }
@@ -29,7 +34,7 @@ namespace glish3 {
 
     Vao::~Vao() {
         if(vao){
-
+            glishDeleteVertexArrays(1, &vao);
         }
     }
 

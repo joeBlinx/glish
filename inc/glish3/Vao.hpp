@@ -20,6 +20,7 @@ namespace glish3{
         Vao(Vao && vao);
         Vao&operator=(Vao && vao);
 
+        void bind();
         operator bool() const;
         operator GLuint();
         ~Vao();

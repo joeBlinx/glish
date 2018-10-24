@@ -15,8 +15,12 @@ namespace glish3{
 	void enable(GLenum cap, PARAM);
 	void blendFunc(GLenum sfactor, GLenum dfactor, PARAM);
 	void clear(GLbitfield mask, PARAM);
+
+	//PROGRAM
 	void deleteProgram(GLuint program, PARAM);
 	void useProgram(GLuint program, PARAM);
+
+	//SHADER
 	GLuint createShader(GLenum type, PARAM);
 	void compileShader(GLuint shaderId, PARAM);
 	void shaderSource(GLuint shader, GLsizei count,
@@ -31,11 +35,11 @@ namespace glish3{
 	void linkProgram(GLuint programId, PARAM);
 	void getProgramiv(GLuint programId, GLenum pname, GLint* param, PARAM);
 	void getProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
-
+	//VAO
 	void genVertexArrays(GLsizei n, GLuint *vao, PARAM);
+	void deleteVertexArrays(GLsizei n, GLuint *vao, PARAM);
 
-
-
+	//BUUFER
 	void genBuffers(GLsizei n, GLuint * vbo, PARAM);
 	void bindBuffer(GLenum target, GLuint vbo, PARAM);
 	void bufferData(GLenum target, GLsizeiptr size, const void* data, GLenum usage,
@@ -72,7 +76,9 @@ namespace glish3{
 #define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE)
 
 
-#define glishVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
+#define glishGenVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
+#define glishDeleteVertexArrays(n, vao) glish3::deleteVertexArrays(n, vao, FILE_LINE)
+
 
 
 #define glishBindBuffer(target, vbo) 	bindBuffer(target, vbo, FILE_LINE)
