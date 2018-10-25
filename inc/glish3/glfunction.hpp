@@ -37,6 +37,7 @@ namespace glish3{
 	void getProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
 	//VAO
 	void genVertexArrays(GLsizei n, GLuint *vao, PARAM);
+	void bindVertexArray(GLuint vao, PARAM);
 	void deleteVertexArrays(GLsizei n, GLuint *vao, PARAM);
 
 	//BUUFER
@@ -77,6 +78,8 @@ namespace glish3{
 
 
 #define glishGenVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
+#define glishBindVertexArray glish3::bindVertexArray(vao, FILE_LINE);
+
 #define glishDeleteVertexArrays(n, vao) glish3::deleteVertexArrays(n, vao, FILE_LINE)
 
 

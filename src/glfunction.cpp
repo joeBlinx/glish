@@ -103,6 +103,11 @@ namespace glish3{
         glishError("glGenVertexArrays");
     }
 
+    void bindVertexArray(GLuint vao, PARAM){
+        glBindVertexArray(vao);
+        glishError("glBindVertexArray");
+	}
+
     void deleteVertexArrays(GLsizei n, GLuint *vao, PARAM){
         glDeleteVertexArrays(n, vao);
         glishError("glDeleteVertexArrays");

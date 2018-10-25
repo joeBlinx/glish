@@ -45,21 +45,22 @@ template<template<class, class...>class  Container, class U, class ...Ts>
 
  template<template<class...> class T, class U, class ...Ts>
  void f(T<U, Ts ...>&&) requires ContinuousContainer<T, U, Ts...>{}
+ using namespace glish3;
 int main() {
 
 	SDL_Window * window = nullptr;
 	SDL_GLContext  context = nullptr;
 	glish3::init("../logTest", "testProject");
 
-	int constexpr width = 1366;
+	int constexpr width = 768;
 	int constexpr height = 768;
 // INIT SDL et GL
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
 	}
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	window = SDL_CreateWindow("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -84,13 +85,30 @@ int main() {
 	glishBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 // END Init
 	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "../test/vert.glsl");
-	glish3::Shader frag = glish3::Shader::createShaderFromData(GL_FRAGMENT_SHADER,
-															   "#version 330\n"
-				  "void main(){}");
-	glish3::ProgramGL programGL{vertex, frag};
+	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
+															   "../test/frag.glsl");
+	glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
+			"../test/geometry.glsl");
+	glish3::ProgramGL programGL{vertex, geo, frag};
+	programGL.use();
+
 	SDL_Event ev;
+	Vao vao;
 
-
+	std::vector<glm::vec2> square{
+			{-0.5, 0.5},
+			{-0.5, -0.5},
+			{0.5, 0.5},
+			{0.5, -0.5}
+	};
+	//VBO
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glishBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glishBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
+	square.data(), GL_STATIC_DRAW);
+	glishEnableVertexAttribArray(0);
+	glishVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	f(std::vector<glm::vec2>());
 	std::cout <<returnTrait(glm::vec2());
@@ -109,7 +127,7 @@ int main() {
 					break;
 			}
 		}
-
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		SDL_GL_SwapWindow(window);
 	}
 
