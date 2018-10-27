@@ -84,7 +84,7 @@ namespace glish3{
 
 
 
-#define glishBindBuffer(target, vbo) 	bindBuffer(target, vbo, FILE_LINE)
+#define glishBindBuffer(target, vbo) 	glish3::bindBuffer(target, vbo, FILE_LINE)
 #define glishBufferData(target, size, pdata, usage) \
 				glish3::bufferData(target, size, pdata, usage, FILE_LINE)
 #define glishEnableVertexAttribArray(index) glish3::enableVertexAttribArray(index, FILE_LINE)
