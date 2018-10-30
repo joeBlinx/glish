@@ -24,7 +24,7 @@ namespace glish3 {
 			log.warning("data pass to shader is null, shader will not be compiled");
 			return;
 		}
-
+		findUniformsName(data);
 		compileShader(data);
 	}
 
@@ -76,5 +76,30 @@ namespace glish3 {
 			glishDeleteShader(shaderId);
 		}
 
+	}
+
+	void Shader::findUniformsName(const char *data) {
+
+		data = strstr(data, "uniform");
+		int constexpr size_max = 50;
+		char name[size_max];
+		while(data){
+
+			data = strstr(data, " ");
+			data++;
+			data = strstr(data, " ");
+			data++;
+			unsigned long size =  strstr(data,";") - data ;
+			std::strncpy(name, data, size);
+			name[size] = 0;
+
+			uniformsName.emplace_back(name);
+			data = strstr(data, "uniform");
+		}
+
+	}
+
+	std::vector<std::string> const &Shader::getUniformsName() {
+		return uniformsName;
 	}
 }

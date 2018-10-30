@@ -1,7 +1,8 @@
 #version 330
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 30) out;
-
+uniform int tartes;
+uniform int test;
 void main() {
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();

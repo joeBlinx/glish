@@ -16,6 +16,7 @@ namespace glish3{
 
 	public:
 
+		Vbo(GLenum target);
 		Vbo(Vbo const &) = delete;
 		Vbo& operator=(Vbo const &) = delete;
 

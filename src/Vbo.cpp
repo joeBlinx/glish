@@ -8,6 +8,11 @@
 
 namespace glish3{
 
+	Vbo::Vbo(GLenum target):target(target) {
+		glishGenBuffers(1, &vbo);
+		bind();
+	}
+
 	Vbo::operator GLuint() {
 		return vbo;
 	}

@@ -102,9 +102,7 @@ int main() {
 			{0.5, -0.5}
 	};
 	//VBO
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glishBindBuffer(GL_ARRAY_BUFFER, vbo);
+	Vbo vbo(GL_ARRAY_BUFFER);
 	glishBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
 	square.data(), GL_STATIC_DRAW);
 	glishEnableVertexAttribArray(0);

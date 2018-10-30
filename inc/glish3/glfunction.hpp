@@ -83,7 +83,7 @@ namespace glish3{
 #define glishDeleteVertexArrays(n, vao) glish3::deleteVertexArrays(n, vao, FILE_LINE)
 
 
-
+#define glishGenBuffers(n, p_vbo) glish3::genBuffers(n, p_vbo, FILE_LINE)
 #define glishBindBuffer(target, vbo) 	glish3::bindBuffer(target, vbo, FILE_LINE)
 #define glishBufferData(target, size, pdata, usage) \
 				glish3::bufferData(target, size, pdata, usage, FILE_LINE)

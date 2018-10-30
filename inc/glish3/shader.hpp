@@ -7,17 +7,21 @@
 
 
 #include <GL/gl.h>
-
+#include <string>
+#include <vector>
 namespace glish3 {
 
 	class Shader {
 
 		GLuint shaderId = 0;
 		GLenum shaderType;
+
+		std::vector<std::string> uniformsName;
 		Shader() = default;
 
 		Shader(GLenum shaderType, const char * data);
 		void compileShader(const char * data);
+		void findUniformsName(const char * data);
 
 	public:
 
@@ -26,6 +30,8 @@ namespace glish3 {
 
 		Shader(Shader &&)= delete;
 		Shader& operator=(Shader &&) = delete;
+
+		std::vector<std::string> const & getUniformsName();
 
 		static Shader createShaderFromFile(GLenum shaderType, const char * path);
 		static Shader createShaderFromData(GLenum shaderType, const char * data);
