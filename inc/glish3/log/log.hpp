@@ -28,11 +28,11 @@ struct Log{
 
 	bool isInit() const;
 private:
-	std::ofstream stream;
-	std::string time;
-	std::string project;
+	std::ofstream _stream;
+	std::string _time;
+	std::string _project;
 
-	bool init = false;
+	bool _init = false;
 	void initHTML();
 	void initCSS();
 };

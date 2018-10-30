@@ -12,19 +12,19 @@
 #include <iostream>
 #include <filesystem>
 
-Log::Log(const std::string &path, std::string const &project) :project(project){
+Log::Log(const std::string &path, std::string const &project) :_project(project){
 
 	std::time_t result = std::time(nullptr);
-	time = std::asctime(std::localtime(&result));
-	std::string filePath = time;
+	_time = std::asctime(std::localtime(&result));
+	std::string filePath = _time;
 	utils::replace(filePath, " ", "_");
 	utils::replace(filePath, ":", "_");
-	stream = std::ofstream(path + "/" + filePath +".html");
-	if(!stream.is_open()){
-		stream = std::ofstream("logTest.txt");
-		stream << "path given is invalid : " << path << std::endl;
+	_stream = std::ofstream(path + "/" + filePath +".html");
+	if(!_stream.is_open()){
+		_stream = std::ofstream("logTest.txt");
+		_stream << "path given is invalid : " << path << std::endl;
 		fileNotFound(path);
-		stream.close();
+		_stream.close();
 	}else{
 		initHTML();
 	}
@@ -33,27 +33,27 @@ Log::Log(const std::string &path, std::string const &project) :project(project){
 }
 
 void Log::info(const std::string &info) {
-	stream << "[INFO]: " << info << std::endl;
+	_stream << "[INFO]: " << info << std::endl;
 }
 
 void Log::warning(const std::string &warn) {
-	stream << "<p><span class = \"warning\">\n"
+	_stream << "<p><span class = \"warning\">\n"
 			  "\t[WARNING]: </span> "<< warn<< "</p>" << std::endl;
 }
 
 void Log::error(const std::string &error) {
-	stream << "<p><span class = \"error\">\n"
+	_stream << "<p><span class = \"error\">\n"
 		   "\t[ERROR]: </span> "<< error<< "</p>" << std::endl;
 }
 
 Log::~Log() {
 
-	stream << "\n </body> \n </html>";
+	_stream << "\n </body> \n </html>";
 }
 
 void Log::initCSS() {
 
-	stream << "<style> \n"
+	_stream << "<style> \n"
 		   "div.center{\n "
 	 "\ttext-align :center\n}\n"
   ".error{\n "
@@ -64,21 +64,21 @@ void Log::initCSS() {
 }
 
 void Log::initHTML() {
-	stream << "<html> \n <head> \n <title>" << time << "\n</title> \n </head>" <<std::endl;
-	stream << "<body>";
+	_stream << "<html> \n <head> \n <title>" << _time << "\n</title> \n </head>" <<std::endl;
+	_stream << "<body>";
 	initCSS();
-	stream << "<div class = \"center\">\n"
-		   "<h1> " << time  << "\n"
+	_stream << "<div class = \"center\">\n"
+		   "<h1> " << _time  << "\n"
 							 "</h1> \n"<<
-		"<h2>Project : " << project << "</h2>\n</div>";
+		"<h2>Project : " << _project << "</h2>\n</div>";
 }
 
 bool Log::isInit() const {
-	return init;
+	return _init;
 }
 
 void Log::title(const std::string &title) {
-	stream << "<h4> " << title << "</h4>";
+	_stream << "<h4> " << title << "</h4>";
 }
 
 void Log::fileNotFound(const std::string &file) {
