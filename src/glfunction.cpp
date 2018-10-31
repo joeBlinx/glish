@@ -92,6 +92,12 @@ namespace glish3{
 		glGetProgramInfoLog(shader, bufsize, length, infoLog);
 		glishError("glGetShaderInfoLog");
 	}
+	GLint getUniformLocation(GLuint program, char const * name, PARAM){
+		GLint uni = glGetUniformLocation(program, name);
+		glishError("glGetUniformLocation");
+		return uni;
+
+	}
 
 	void deleteBuffer(GLsizei n, GLuint *vbo, PARAM) {
 		glDeleteBuffers(n, vbo);

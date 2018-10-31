@@ -10,12 +10,17 @@
 #include <glish3/glfunction.hpp>
 #include <glish3/log/errorHandler.hpp>
 #include <vector>
+#include <map>
+#include "uniform.hpp"
+
 namespace glish3{
+    class Shader;
 	class ProgramGL{
 
-		GLuint program;
+		GLuint program = 0;
+		std::map<std::string, Uniform> uniforms;
 
-
+        void createUniform(Shader &shader);
 	public:
 		ProgramGL(ProgramGL const &) = delete;
 		ProgramGL& operator=(ProgramGL const &) = delete;
@@ -41,8 +46,12 @@ namespace glish3{
 				log.title("compile Program");
 				log.info(ProgramErrorMessage.data());
 			}
+            (createUniform(shaders), ...);
 		}
 		void use();
+		explicit operator GLuint()const ;
+
+		Uniform &operator[](const std::string &name);
 
 		~ProgramGL();
 

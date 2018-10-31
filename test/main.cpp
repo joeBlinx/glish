@@ -11,6 +11,8 @@
 #include <glish3/glish3.hpp>
 #include <glm/vec2.hpp>
 #include <vector>
+#include <glish3/uniform.hpp>
+#include <map>
 
 template <class T>
 concept bool Vertices =
@@ -91,7 +93,7 @@ int main() {
 			"../test/geometry.glsl");
 	glish3::ProgramGL programGL{vertex, geo, frag};
 	programGL.use();
-
+	Uniform uni("test", programGL);
 	SDL_Event ev;
 	Vao vao;
 
@@ -101,6 +103,7 @@ int main() {
 			{0.5, 0.5},
 			{0.5, -0.5}
 	};
+	glUniform1f((GLint)programGL["col"], 0.2f);
 	//VBO
 	Vbo vbo(GL_ARRAY_BUFFER);
 	glishBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
@@ -111,6 +114,7 @@ int main() {
 	f(std::vector<glm::vec2>());
 	std::cout <<returnTrait(glm::vec2());
 	bool run = true;
+	float test= 0;
 	while(run){
 		glishClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
@@ -125,6 +129,13 @@ int main() {
 					break;
 			}
 		}
+		test+=0.1;
+		SDL_Delay(100);
+		if(test > 1){
+			test = 0;
+		}
+		glUniform1f((GLint)programGL["col"], test);
+		glish3::getError("glUniform1f", "test", "138");
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		SDL_GL_SwapWindow(window);
 	}

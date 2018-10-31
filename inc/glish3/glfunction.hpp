@@ -35,6 +35,8 @@ namespace glish3{
 	void linkProgram(GLuint programId, PARAM);
 	void getProgramiv(GLuint programId, GLenum pname, GLint* param, PARAM);
 	void getProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei* length, GLchar* infoLog, PARAM);
+	GLint getUniformLocation(GLuint program, char const * name, PARAM);
+
 	//VAO
 	void genVertexArrays(GLsizei n, GLuint *vao, PARAM);
 	void bindVertexArray(GLuint vao, PARAM);
@@ -75,7 +77,7 @@ namespace glish3{
 #define glishGetShaderiv(shader, pname, param) glish3::getShaderiv(shader, pname, param, FILE_LINE)
 #define glishGetShaderInfoLog(shader, bufsize, length, infoLog) glish3::getShaderInfoLog(shader, bufsize, length, infoLog, FILE_LINE)
 #define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE)
-
+#define glishGetUniformLocation(program, name) glish3::getUniformLocation(program, name, FILE_LINE)
 
 #define glishGenVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
 #define glishBindVertexArray glish3::bindVertexArray(vao, FILE_LINE);
