@@ -9,14 +9,16 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <utils/stringUtil.h>
 
 namespace glish3 {
-	std::map<GLenum, std::string> match{
+	static std::map<GLenum, std::string> match{
 			{GL_VERTEX_SHADER, "vertex shader"},
 			{GL_FRAGMENT_SHADER, "fragment shader"},
 			{GL_GEOMETRY_SHADER, "geometry shader"},
 			{GL_COMPUTE_SHADER, "compute shader"}
 	};
+
 	Shader::Shader(GLenum shaderType, const char *data):
 	shaderId(glishCreateShader(shaderType)),
 	shaderType(shaderType){
@@ -81,25 +83,33 @@ namespace glish3 {
 	void Shader::findUniformsName(const char *data) {
 
 		data = strstr(data, "uniform");
-		int constexpr size_max = 50;
-		char name[size_max];
+		uni_settings settings{};
+		unsigned long  size;
+
 		while(data){
 
 			data = strstr(data, " ");
-			data++;
-			data = strstr(data, " ");
-			data++;
-			unsigned long size =  strstr(data,";") - data ;
-			std::strncpy(name, data, size);
-			name[size] = 0;
+			utils::advanceWhile(&data, ' ');
 
-			uniformsName.emplace_back(name);
+			size =  strstr(data," ") - data ; // get type
+			settings.type.resize(size);
+			std::strncpy(settings.type.data(), data, size);
+
+			data = strstr(data, " ");
+			utils::advanceWhile(&data, ' ');
+			size =  strstr(data,";") - data ; //get name
+
+			settings.name.resize(size);
+			std::strncpy(settings.name.data(), data, size);
+
+			uniforms_settings.emplace_back(settings);
+
 			data = strstr(data, "uniform");
 		}
 
 	}
 
-	std::vector<std::string> const &Shader::getUniformsName() {
-		return uniformsName;
+	const std::vector<uni_settings> & Shader::getUniSettings() {
+		return uniforms_settings;
 	}
 }

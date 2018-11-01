@@ -7,6 +7,7 @@
 #include <glish3/log/log.hpp>
 #include <glish3/programGL.hpp>
 #include <glish3/shader.hpp>
+#include <glish3/uniform.hpp>
 #include <glish3/Vao.hpp>
 #include <glish3/Vbo.hpp>
 

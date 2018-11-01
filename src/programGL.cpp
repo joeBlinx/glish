@@ -23,7 +23,10 @@ namespace glish3 {
 	}
 
 	void ProgramGL::use() {
-		glishUseProgram(program);
+		if (ProgramGL::currentProgram != program) {
+			glishUseProgram(program);
+			ProgramGL::currentProgram = program;
+		}
 	}
 
     ProgramGL::operator GLuint() const {
@@ -32,9 +35,9 @@ namespace glish3 {
 
 	void ProgramGL::createUniform(Shader &shader) {
 
-		std::vector<std::string> const & uniformsName = shader.getUniformsName();
-		for(auto & name: uniformsName){
-			uniforms[name] = Uniform(name, *this);
+		auto const & uniformsName = shader.getUniSettings();
+		for(auto & settings: uniformsName){
+			uniforms[settings.name] = Uniform(settings, *this);
 		}
 	}
 

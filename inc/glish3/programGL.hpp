@@ -16,7 +16,7 @@
 namespace glish3{
     class Shader;
 	class ProgramGL{
-
+		inline static GLuint currentProgram = 0;
 		GLuint program = 0;
 		std::map<std::string, Uniform> uniforms;
 
@@ -32,6 +32,7 @@ namespace glish3{
 
 		template <class ...Shaders>
 		ProgramGL(Shaders  &... shaders){
+
 			program = glishCreateProgram();
 			(glishAttachShader(program, (GLuint)shaders), ...);
 			glishLinkProgram(program);
@@ -40,6 +41,7 @@ namespace glish3{
 			int InfoLogLength = 0;
 			glishGetProgramiv(program, GL_LINK_STATUS, &Result);
 			glishGetProgramiv(program, GL_INFO_LOG_LENGTH, &InfoLogLength);
+
 			if (InfoLogLength > 0) {
 				std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
 				glishGetProgramInfoLog(program, InfoLogLength, NULL, ProgramErrorMessage.data());

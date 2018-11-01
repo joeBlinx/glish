@@ -14,40 +14,7 @@
 #include <glish3/uniform.hpp>
 #include <map>
 
-template <class T>
-concept bool Vertices =
-		std::is_same_v<decltype(T::x), decltype(T::y)> &&
-		std::is_same_v<decltype(T::y), decltype(T::z)>;
-template <class T>
-concept bool Vertices2 =
-		std::is_same_v<decltype(T::x), decltype(T::y)>;
-
-template <class T>
-struct trait;
-
-template<Vertices V>
-struct trait<V>{
-	static int constexpr a = 3;
-};
-template<Vertices2 V>
-struct trait<V>{
-	static int constexpr a = 2;
-};
-template <class T>
-int returnTrait(T){
-	return trait<T>::a;
-}
-
-template<template<class, class...>class  Container, class U, class ...Ts>
-		concept bool ContinuousContainer = requires (Container<U, Ts...> a){
-{a[0]} -> U;
-		};
-
-
-
- template<template<class...> class T, class U, class ...Ts>
- void f(T<U, Ts ...>&&) requires ContinuousContainer<T, U, Ts...>{}
- using namespace glish3;
+using namespace glish3;
 int main() {
 
 	SDL_Window * window = nullptr;
@@ -93,7 +60,6 @@ int main() {
 			"../test/geometry.glsl");
 	glish3::ProgramGL programGL{vertex, geo, frag};
 	programGL.use();
-	Uniform uni("test", programGL);
 	SDL_Event ev;
 	Vao vao;
 
@@ -103,7 +69,7 @@ int main() {
 			{0.5, 0.5},
 			{0.5, -0.5}
 	};
-	glUniform1f((GLint)programGL["col"], 0.2f);
+
 	//VBO
 	Vbo vbo(GL_ARRAY_BUFFER);
 	glishBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
@@ -111,10 +77,9 @@ int main() {
 	glishEnableVertexAttribArray(0);
 	glishVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	f(std::vector<glm::vec2>());
-	std::cout <<returnTrait(glm::vec2());
+
 	bool run = true;
-	float test= 0;
+	float test [2] = {0, 0};
 	while(run){
 		glishClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
@@ -129,12 +94,12 @@ int main() {
 					break;
 			}
 		}
-		test+=0.1;
+		*test+=0.1;
 		SDL_Delay(100);
-		if(test > 1){
-			test = 0;
+		if(*test > 1){
+			*test = 0;
 		}
-		glUniform1f((GLint)programGL["col"], test);
+		programGL["col"] = &test;
 		glish3::getError("glUniform1f", "test", "138");
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		SDL_GL_SwapWindow(window);

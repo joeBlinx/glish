@@ -9,6 +9,8 @@
 #include <GL/gl.h>
 #include <string>
 #include <vector>
+#include <glish3/uniform.hpp>
+
 namespace glish3 {
 
 	class Shader {
@@ -16,7 +18,7 @@ namespace glish3 {
 		GLuint shaderId = 0;
 		GLenum shaderType;
 
-		std::vector<std::string> uniformsName;
+		std::vector<uni_settings> uniforms_settings;
 		Shader() = default;
 
 		Shader(GLenum shaderType, const char * data);
@@ -31,7 +33,7 @@ namespace glish3 {
 		Shader(Shader &&)= delete;
 		Shader& operator=(Shader &&) = delete;
 
-		std::vector<std::string> const & getUniformsName();
+		const std::vector<uni_settings> & getUniSettings();
 
 		static Shader createShaderFromFile(GLenum shaderType, const char * path);
 		static Shader createShaderFromData(GLenum shaderType, const char * data);

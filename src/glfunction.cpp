@@ -146,4 +146,37 @@ namespace glish3{
 		glishError("glVertexAttribPointer");
 	}
 
+	void uniform1fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM){
+		glUniform1fv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform2fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM){
+		glUniform2fv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform3fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM){
+		glUniform3fv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform4fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM){
+		glUniform4fv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform1iv(GLint location,  GLsizei count,  const GLint *value, PARAM){
+		glUniform1iv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform2iv(GLint location,  GLsizei count,  const GLint *value, PARAM){
+		glUniform2iv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform3iv(GLint location,  GLsizei count,  const GLint *value, PARAM){
+		glUniform3iv(location, count, value);
+		glishError("glUniform");
+	}
+	void uniform4iv(GLint location,  GLsizei count,  const GLint *value, PARAM){
+		glUniform4iv(location, count, value);
+		glishError("glUniform");
+	}
+
 }

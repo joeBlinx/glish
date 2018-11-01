@@ -6,11 +6,23 @@
 #include <glish3/programGL.hpp>
 
 namespace glish3 {
-    Uniform::Uniform(std::string_view name, ProgramGL &prog):
-                                                name(name),
+    std::map<std::string, void(Uniform::*)(void*)> Uniform::function{
+			{"int", &Uniform::uniform1iv},
+			{"ivec2", &Uniform::uniform2iv},
+			{"ivec3", &Uniform::uniform3iv},
+			{"ivec4", &Uniform::uniform4iv},
+
+			{"float", &Uniform::uniform1fv},
+			{"vec2", &Uniform::uniform2fv},
+			{"vec3", &Uniform::uniform3fv},
+			{"vec4", &Uniform::uniform4fv}
+
+    };
+    Uniform::Uniform(uni_settings const & settings, ProgramGL &prog):
+    											settings(settings),
                                                 program(&prog)
     {
-        uniform = glishGetUniformLocation((GLuint)prog, this->name.c_str());
+        uniform = glishGetUniformLocation((GLuint)prog, this->settings.name.c_str());
     }
 
     Uniform::operator bool() const {
@@ -20,4 +32,40 @@ namespace glish3 {
     Uniform::operator GLint() {
         return uniform;
     }
+
+	void Uniform::uniform1fv(void *value) {
+		glishUniform1fv(uniform, 1, (GLfloat*) value);
+	}
+
+	void Uniform::uniform2fv(void *value) {
+		glishUniform2fv(uniform, 1, (GLfloat*) value);
+	}
+
+	void Uniform::uniform3fv(void *value) {
+		glishUniform3fv(uniform, 1, (GLfloat*) value);
+	}
+
+	void Uniform::uniform4fv(void *value) {
+		glishUniform4fv(uniform, 1, (GLfloat*) value);
+	}
+
+	void Uniform::uniform1iv(void *value) {
+		glishUniform1iv(uniform, 1, (GLint*)value);
+	}
+
+	void Uniform::uniform2iv(void *value) {
+		glishUniform2iv(uniform, 1, (GLint*)value);
+	}
+
+	void Uniform::uniform3iv(void *value) {
+		glishUniform3iv(uniform, 1, (GLint*)value);
+	}
+
+	void Uniform::uniform4iv(void *value) {
+		glishUniform4iv(uniform, 1, (GLint*)value);
+	}
+
+	void Uniform::use_program() {
+		program->use();
+	}
 }

@@ -42,7 +42,7 @@ namespace glish3{
 	void bindVertexArray(GLuint vao, PARAM);
 	void deleteVertexArrays(GLsizei n, GLuint *vao, PARAM);
 
-	//BUUFER
+	//BUFFER
 	void genBuffers(GLsizei n, GLuint * vbo, PARAM);
 	void bindBuffer(GLenum target, GLuint vbo, PARAM);
 	void bufferData(GLenum target, GLsizeiptr size, const void* data, GLenum usage,
@@ -53,6 +53,14 @@ namespace glish3{
 			GLsizei stride,
 			const void * pointer, PARAM);
 	void deleteBuffer(GLsizei n, GLuint * vbo, PARAM);
+	void uniform1fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM);
+	void uniform2fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM);
+	void uniform3fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM);
+	void uniform4fv(GLint location,  GLsizei count,  const GLfloat *value, PARAM);
+	void uniform1iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
+	void uniform2iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
+	void uniform3iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
+	void uniform4iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
 
 }
 #define FILE_LINE __FILE__, __LINE__
@@ -61,7 +69,7 @@ namespace glish3{
 #define glishEnable(cap) glish3::enable(cap, FILE_LINE)
 #define glishBlendFunc(sfactor, dfactor) glish3::blendFunc(sfactor, dfactor, FILE_LINE)
 #define glishClear(mask) glish3::clear(mask, FILE_LINE)
-
+//PROGRAM
 #define glishDeleteProgram(program) glish3::deleteProgram(program, FILE_LINE)
 #define glishUseProgram(program) glish3::useProgram(program, FILE_LINE)
 #define glishAttachShader(programId, shader) glish3::attachShader(programId, shader, FILE_LINE)
@@ -70,21 +78,25 @@ namespace glish3{
 #define glishLinkProgram(programId) glish3::linkProgram(programId, FILE_LINE)
 #define glishGetProgramiv(programId, pname, param) glish3::getProgramiv(programId, pname, param, FILE_LINE)
 #define glishGetProgramInfoLog(programId, bufsize, length, infoLog) glish3::getProgramInfoLog(programId, bufsize, length, infoLog, FILE_LINE)
-
+//SHADER
 #define glishCreateShader(type) glish3::createShader(type, FILE_LINE)
 #define glishCompileShader(shaderId) glish3::compileShader(shaderId, FILE_LINE)
 #define glishShadersource(shader, count, string, length) glish3::shaderSource(shader, count, string, length, FILE_LINE)
 #define glishGetShaderiv(shader, pname, param) glish3::getShaderiv(shader, pname, param, FILE_LINE)
 #define glishGetShaderInfoLog(shader, bufsize, length, infoLog) glish3::getShaderInfoLog(shader, bufsize, length, infoLog, FILE_LINE)
 #define glishDeleteShader(shader) glish3::deleteShader(shader, FILE_LINE)
+
+//UNIFORM
 #define glishGetUniformLocation(program, name) glish3::getUniformLocation(program, name, FILE_LINE)
 
+
+//VAO
 #define glishGenVertexArrays(n, vao) glish3::genVertexArrays(n, vao, FILE_LINE)
 #define glishBindVertexArray glish3::bindVertexArray(vao, FILE_LINE);
 
 #define glishDeleteVertexArrays(n, vao) glish3::deleteVertexArrays(n, vao, FILE_LINE)
 
-
+//BUFFERS
 #define glishGenBuffers(n, p_vbo) glish3::genBuffers(n, p_vbo, FILE_LINE)
 #define glishBindBuffer(target, vbo) 	glish3::bindBuffer(target, vbo, FILE_LINE)
 #define glishBufferData(target, size, pdata, usage) \
@@ -98,5 +110,13 @@ namespace glish3{
 
 
 #define glishDeleteBuffer(n, pVbo) glish3::deleteBuffer(n, pVbo, FILE_LINE)
+#define glishUniform1fv(location, count, pvalue) glish3::uniform1fv(location, count,  pvalue, FILE_LINE)
+#define glishUniform2fv(location, count, pvalue) glish3::uniform2fv(location, count,  pvalue, FILE_LINE)
+#define glishUniform3fv(location, count, pvalue) glish3::uniform3fv(location, count,  pvalue, FILE_LINE)
+#define glishUniform4fv(location, count, pvalue) glish3::uniform4fv(location, count,  pvalue, FILE_LINE)
+#define glishUniform1iv(location, count, pvalue) glish3::uniform1iv(location, count,  pvalue, FILE_LINE)
+#define glishUniform2iv(location, count, pvalue) glish3::uniform2iv(location, count,  pvalue, FILE_LINE)
+#define glishUniform3iv(location, count, pvalue) glish3::uniform3iv(location, count,  pvalue, FILE_LINE)
+#define glishUniform4iv(location, count, pvalue) glish3::uniform4iv(location, count,  pvalue, FILE_LINE)
 
 #endif //GLISH3_ERRORHANLDER_HPP
