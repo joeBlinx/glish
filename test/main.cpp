@@ -58,7 +58,7 @@ int main() {
 															   "../test/frag.glsl");
 	glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
 			"../test/geometry.glsl");
-	glish3::ProgramGL programGL{vertex, geo, frag};
+	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
 	programGL.use();
 	SDL_Event ev;
 	Vao vao;
@@ -79,6 +79,11 @@ int main() {
 
 
 	bool run = true;
+
+	float pos[] = {0, 0};
+	float size [] = {1/6.0f, 1/6.0f};
+	programGL["size"] = &size;
+	programGL["posChange"] = &pos;
 	float test [2] = {0, 0};
 	while(run){
 		glishClear(GL_COLOR_BUFFER_BIT);
@@ -99,9 +104,17 @@ int main() {
 		if(*test > 1){
 			*test = 0;
 		}
-		programGL["col"] = &test;
-		glish3::getError("glUniform1f", "test", "138");
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		float constexpr tile = 10.0f;
+	//	programGL["col"] = &test;
+		for(int i = 0; i < tile; i++){
+			for(int j = 0; j < tile; j++){
+				pos[0] = -1 +1/tile + i*2/tile;
+				pos[1] = -1 +1/tile + j*2/tile;
+				programGL["posChange"] = &pos;
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			}
+		}
+
 		SDL_GL_SwapWindow(window);
 	}
 
