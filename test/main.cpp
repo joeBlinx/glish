@@ -21,8 +21,8 @@ int main() {
 	SDL_GLContext  context = nullptr;
 	glish3::init("../logTest", "testProject");
 
-	int constexpr width = 768;
-	int constexpr height = 768;
+	float constexpr width = 768;
+	float constexpr height = 768;
 // INIT SDL et GL
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
@@ -85,6 +85,7 @@ int main() {
 	programGL["size"] = &size;
 	programGL["posChange"] = &pos;
 	float test [2] = {0, 0};
+	int mouse_x, mouse_y;
 	while(run){
 		glishClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
@@ -105,11 +106,23 @@ int main() {
 			*test = 0;
 		}
 		float constexpr tile = 10.0f;
+		SDL_GetMouseState(&mouse_x, &mouse_y);
+		std::cout << mouse_x <<std::endl;
+		mouse_x = -1+ 2.0f*(float)mouse_x/width;
+		mouse_y = -1*(-1+ 2.0f*mouse_y/height);
+		std::cout << mouse_x <<std::endl;
 	//	programGL["col"] = &test;
 		for(int i = 0; i < tile; i++){
 			for(int j = 0; j < tile; j++){
 				pos[0] = -1 +1/tile + i*2/tile;
 				pos[1] = -1 +1/tile + j*2/tile;
+				int is_select = 0;
+				
+				if(mouse_x > pos[0] - size[0] && mouse_x < pos[0] + size[0] ){
+					is_select = 1;
+					
+				}
+				programGL["is_select"] = &is_select;
 				programGL["posChange"] = &pos;
 				glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 			}
