@@ -62,6 +62,8 @@ namespace glish3{
 	void uniform3iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
 	void uniform4iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
 
+	void drawArrays(GLenum mode, GLint first, GLsizei count, PARAM);
+
 }
 #define FILE_LINE __FILE__, __LINE__
 // macro to have the file and the line in the logTest file
@@ -119,4 +121,6 @@ namespace glish3{
 #define glishUniform3iv(location, count, pvalue) glish3::uniform3iv(location, count,  pvalue, FILE_LINE)
 #define glishUniform4iv(location, count, pvalue) glish3::uniform4iv(location, count,  pvalue, FILE_LINE)
 
+
+#define glishDrawArrays(mode, first, count) glish3::drawArrays(mode, first, count, FILE_LINE )
 #endif //GLISH3_ERRORHANLDER_HPP

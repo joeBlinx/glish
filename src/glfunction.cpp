@@ -179,4 +179,8 @@ namespace glish3{
 		glishError("glUniform");
 	}
 
+	void drawArrays(GLenum mode, GLint first, GLsizei count, PARAM){
+		glDrawArrays(mode, first, count);
+		glishError("glDrawArrays");
+	}
 }
