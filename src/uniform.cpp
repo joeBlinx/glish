@@ -28,12 +28,6 @@ namespace glish3 {
     Uniform::operator bool() const {
         return (bool) uniform;
     }
-	Uniform &	Uniform::operator=(Uniform && uni)
-	{
-		program = uni.program;
-		settings = uni.settings;
-		return *this;
-	}
     Uniform::operator GLint() {
         return uniform;
     }
@@ -71,7 +65,15 @@ namespace glish3 {
 	}
 
 	void Uniform::use_program() {
-
+		std::cout << *this << std::endl;
 		program->use();
 	}
+
+	 std::ostream& operator<<(std::ostream &stream, Uniform const & uni){
+                std::cout << "my address is " << &uni << std::endl;
+                std::cout << "my name is "<< uni.settings.name << std::endl;
+                std::cout << "my program is " << uni.program << std::endl;
+                std::cout << "my program ID is " << (GLuint)*uni.program << std::endl;
+                return stream;
+        }
 }

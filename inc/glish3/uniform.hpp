@@ -41,10 +41,10 @@ namespace glish3 {
 
         Uniform(uni_settings const & settings, ProgramGL &prog);
 
-        Uniform(Uniform&&) = delete;
-        Uniform&operator=(Uniform&& uni);
-		Uniform(Uniform const&) = delete;
-		Uniform&operator=(Uniform const&) = delete;
+        Uniform(Uniform&&) = default;
+        Uniform&operator=(Uniform&& uni) = default;
+		Uniform(Uniform const&) = default;
+		Uniform&operator=(Uniform const&) = default;
 	
         operator bool() const;
 
@@ -52,12 +52,7 @@ namespace glish3 {
 
         template<class T> void operator=(T * value);
 
-	friend std::ostream& operator<<(std::ostream &stream, Uniform const & uni){
-		std::cout << "my address is " << &uni << std::endl;
-		std::cout << "my name is "<< uni.settings.name << std::endl;
-		std::cout << "my program is " << uni.program << std::endl;
-		return stream;
-	}
+	friend std::ostream& operator<<(std::ostream &stream, Uniform const & uni);
     };
 }
 
