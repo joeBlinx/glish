@@ -28,7 +28,12 @@ namespace glish3 {
     Uniform::operator bool() const {
         return (bool) uniform;
     }
-
+	Uniform &	Uniform::operator=(Uniform && uni)
+	{
+		program = uni.program;
+		settings = uni.settings;
+		return *this;
+	}
     Uniform::operator GLint() {
         return uniform;
     }
@@ -66,6 +71,7 @@ namespace glish3 {
 	}
 
 	void Uniform::use_program() {
+
 		program->use();
 	}
 }

@@ -9,7 +9,7 @@
 
 #include <string>
 #include <map>
-
+#include <iostream>
 namespace glish3 {
 	class ProgramGL;
 	struct uni_settings{
@@ -41,18 +41,23 @@ namespace glish3 {
 
         Uniform(uni_settings const & settings, ProgramGL &prog);
 
-        Uniform(Uniform&&) = default;
-        Uniform&operator=(Uniform&&) = default;
-		Uniform(Uniform const&) = default;
-		Uniform&operator=(Uniform const&) = default;
-
+        Uniform(Uniform&&) = delete;
+        Uniform&operator=(Uniform&& uni);
+		Uniform(Uniform const&) = delete;
+		Uniform&operator=(Uniform const&) = delete;
+	
         operator bool() const;
 
         explicit operator GLint();
 
         template<class T> void operator=(T * value);
 
-
+	friend std::ostream& operator<<(std::ostream &stream, Uniform const & uni){
+		std::cout << "my address is " << &uni << std::endl;
+		std::cout << "my name is "<< uni.settings.name << std::endl;
+		std::cout << "my program is " << uni.program << std::endl;
+		return stream;
+	}
     };
 }
 
