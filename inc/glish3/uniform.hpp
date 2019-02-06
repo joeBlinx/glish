@@ -18,7 +18,7 @@ namespace glish3 {
 	};
 
     class Uniform {
-
+		friend class ProgramGL;
     	static std::map<std::string, void(Uniform::*)(void*)> function;
     	uni_settings settings;
 		ProgramGL *program = nullptr;

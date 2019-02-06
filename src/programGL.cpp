@@ -16,12 +16,20 @@ namespace glish3 {
 
 	ProgramGL::ProgramGL(ProgramGL &&ProgramGL) :program(ProgramGL.program), uniforms(std::move(ProgramGL.uniforms)){
 		ProgramGL.program = 0;
+		for(auto & [key, uni] : uniforms)
+		{
+			uni.program = this;
+		}
 	}
 
 	ProgramGL &ProgramGL::operator=(ProgramGL &&ProgramGL) {
 		program = ProgramGL.program;
-		ProgramGL.program = 0;
 		uniforms = std::move(ProgramGL.uniforms);
+		for(auto & [key, uni] : uniforms)
+		{
+			uni.program = this;
+		}
+		ProgramGL.program = 0;
 		return *this;
 	}
 
@@ -41,7 +49,6 @@ namespace glish3 {
 		auto const & uniformsName = shader.getUniSettings();
 		for(auto & settings: uniformsName){
 			uniforms[settings.name] = Uniform(settings, *this);
-			std::cout << uniforms[settings.name] ;
 		}
 	}
 
