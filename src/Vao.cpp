@@ -11,13 +11,14 @@ namespace glish3 {
         bind();
     }
 
-    Vao::Vao(Vao &&vao):vao(vao.vao) {
+    Vao::Vao(Vao &&vao):vao(vao.vao), _vbos(std::move(vao._vbos)) {
         vao.vao = 0;
     }
 
     Vao &Vao::operator=(Vao &&vao) {
         this->vao = vao.vao;
         vao.vao = 0;
+        _vbos = std::move(vao._vbos);
         return *this;
     }
 
@@ -39,5 +40,9 @@ namespace glish3 {
             vao = 0;
         }
     }
+
+	void Vao::addVbo(Vbo &&vbo) {
+        _vbos.push_back(std::move(vbo));
+	}
 
 }

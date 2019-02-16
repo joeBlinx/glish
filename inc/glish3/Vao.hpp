@@ -6,10 +6,14 @@
 #define GLISH3_VAP_H
 
 #include <glish3/gl_glew.hpp>
+#include <vector>
+#include <glish3/Vbo.hpp>
+
 namespace glish3{
 
     class Vao{
         GLuint vao = 0;
+        std::vector<Vbo> _vbos;
 
 
     public:
@@ -21,6 +25,7 @@ namespace glish3{
         Vao&operator=(Vao && vao);
 
         void bind();
+        void addVbo (Vbo && vbo);
         operator bool() const;
         operator GLuint();
         ~Vao();
