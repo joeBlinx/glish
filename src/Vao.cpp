@@ -42,6 +42,7 @@ namespace glish3 {
     }
 
 	void Vao::addVbo(Vbo &&vbo) {
+        bind();
         _vbos.push_back(std::move(vbo));
 	}
 
