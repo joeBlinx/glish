@@ -183,4 +183,47 @@ namespace glish3{
 		glDrawArrays(mode, first, count);
 		glishError("glDrawArrays");
 	}
+	void genTextures(GLsizei n, GLuint * ids, PARAM)
+	{
+		glGenTextures(n, ids);
+		glishError("glGenTextures");
+	}
+	void bindTextures(GLenum target , GLuint id, PARAM)
+	{
+		glBindTexture(target, id);
+		glishError("glBindTexture");
+	}
+	void texImage2D(	GLenum target,
+						GLint level,
+						GLint internalFormat,
+						GLsizei width,
+						GLsizei height,
+						GLint border,
+						GLenum format,
+						GLenum type,
+						const GLvoid * data, PARAM)
+	{
+		glTexImage2D(target,
+					 level,
+					 internalFormat,
+					 width,
+					 height,
+					 border,
+					 format,
+					 type, data);
+		glishError("glTexImage2D");
+	}
+	void activeTexture(GLenum texture, PARAM)
+	{
+		glActiveTexture(texture);
+		glishError("glActiveTexture");
+	}
+
+	void deleteTexture(GLsizei count, GLuint *ids, PARAM)
+	{
+		glDeleteTextures(count, ids);
+		glishError("glDeleteTextures");
+	}
+
+
 }

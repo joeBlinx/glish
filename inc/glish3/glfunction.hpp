@@ -64,6 +64,23 @@ namespace glish3{
 
 	void drawArrays(GLenum mode, GLint first, GLsizei count, PARAM);
 
+	//TEXTURES
+	void genTextures(GLsizei n, GLuint * ids, PARAM);
+	void bindTextures(GLenum target , GLuint id, PARAM);
+
+	void texImage2D(	GLenum target,
+						  GLint level,
+						  GLint internalFormat,
+						  GLsizei width,
+						  GLsizei height,
+						  GLint border,
+						  GLenum format,
+						  GLenum type,
+						  const GLvoid * data, PARAM);
+	void activeTexture(GLenum texture, PARAM);
+	void deleteTexture(GLsizei count, GLuint *ids, PARAM);
+
+
 }
 #define FILE_LINE __FILE__, __LINE__
 // macro to have the file and the line in the logTest file
@@ -121,6 +138,31 @@ namespace glish3{
 #define glishUniform3iv(location, count, pvalue) glish3::uniform3iv(location, count,  pvalue, FILE_LINE)
 #define glishUniform4iv(location, count, pvalue) glish3::uniform4iv(location, count,  pvalue, FILE_LINE)
 
+
+//TEXTURE
+#define glishGenTextures(n, pids)  glish3::genTextures(n, pids, FILE_LINE)
+#define glishBindTextures(target, id) glish3::bindTextures(target, id, FILE_LINE)
+
+#define glishTexImage2D(	target, \
+					  level,\
+					  internalFormat,\
+					  width,\
+					  height,\
+					  border,\
+					  format,\
+					  type,\
+					  pdata) glish3::texImage2D(target,\
+									level,\
+									internalFormat, \
+									width, \
+									height, \
+									border, \
+									format, \
+									type, \
+									pdata, FILE_LINE)
+
+#define glishActiveTexture(texture) glish3::activeTexture(texture, FILE_LINE)
+#define glishDeleteTextures(count, pid) glish3::deleteTexture(count, pid, FILE_LINE)
 
 #define glishDrawArrays(mode, first, count) glish3::drawArrays(mode, first, count, FILE_LINE )
 #endif //GLISH3_ERRORHANLDER_HPP
