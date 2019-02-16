@@ -61,6 +61,9 @@ namespace glish3{
 	void uniform2iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
 	void uniform3iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
 	void uniform4iv(GLint location,  GLsizei count,  const GLint *value, PARAM);
+	void uniform_matrix2fv(GLint location,  GLsizei count, GLboolean transpose, const GLfloat *value, PARAM);
+	void uniform_matrix3fv(GLint location,  GLsizei count, GLboolean transpose, const GLfloat *value, PARAM);
+	void uniform_matrix4fv(GLint location,  GLsizei count, GLboolean transpose, const GLfloat *value, PARAM);
 
 	void drawArrays(GLenum mode, GLint first, GLsizei count, PARAM);
 
@@ -137,7 +140,9 @@ namespace glish3{
 #define glishUniform2iv(location, count, pvalue) glish3::uniform2iv(location, count,  pvalue, FILE_LINE)
 #define glishUniform3iv(location, count, pvalue) glish3::uniform3iv(location, count,  pvalue, FILE_LINE)
 #define glishUniform4iv(location, count, pvalue) glish3::uniform4iv(location, count,  pvalue, FILE_LINE)
-
+#define glishUniformMatrix2fv(location, count, transpose, pvalue) glish3::uniform2fv(location, count, transpose, pvalue, FILE_LINE)
+#define glishUniformMatrix3fv(location, count, transpose, pvalue) glish3::uniform3fv(location, count, transpose, pvalue, FILE_LINE)
+#define glishUniformMatrix4fv(location, count, transpose, pvalue) glish3::uniform4fv(location, count, transpose, pvalue, FILE_LINE)
 
 //TEXTURE
 #define glishGenTextures(n, pids)  glish3::genTextures(n, pids, FILE_LINE)

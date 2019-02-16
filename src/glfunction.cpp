@@ -178,7 +178,18 @@ namespace glish3{
 		glUniform4iv(location, count, value);
 		glishError("glUniform");
 	}
-
+	void uniform_matrix2fv(GLint location,  GLsizei count, GLboolean transpose,const GLfloat *value, PARAM){
+		glUniformMatrix2fv(location, count, transpose, value);
+		glishError("glUniformMatrix2fv");
+	}
+	void uniform_matrix3fv(GLint location,  GLsizei count, GLboolean transpose,const GLfloat *value, PARAM){
+		glUniformMatrix3fv(location, count, transpose, value);
+		glishError("glUniformMatrix3fv");
+	}
+	void uniform_matrix4fv(GLint location,  GLsizei count, GLboolean transpose,const GLfloat *value, PARAM){
+		glUniformMatrix4fv(location, count, transpose, value);
+		glishError("glUniformMatrix4fv");
+	}
 	void drawArrays(GLenum mode, GLint first, GLsizei count, PARAM){
 		glDrawArrays(mode, first, count);
 		glishError("glDrawArrays");

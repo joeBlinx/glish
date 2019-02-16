@@ -17,7 +17,10 @@ namespace glish3 {
 			{"float", &Uniform::uniform1fv},
 			{"vec2", &Uniform::uniform2fv},
 			{"vec3", &Uniform::uniform3fv},
-			{"vec4", &Uniform::uniform4fv}
+			{"vec4", &Uniform::uniform4fv},
+			{"mat2", &Uniform::uniform_matrix2fv},
+			{"mat3", &Uniform::uniform_matrix3fv},
+			{"mat4", &Uniform::uniform_matrix4fv}
 
     };
     Uniform::Uniform(uni_settings const & settings, ProgramGL &prog):
@@ -78,4 +81,21 @@ namespace glish3 {
                 std::cout << "my program ID is " << (GLuint)*uni.program << std::endl;
                 return stream;
         }
+
+
+
+	void Uniform::uniform_matrix2fv(void *value) {
+		glUniformMatrix2fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+	}
+
+	void Uniform::uniform_matrix3fv(void *value) {
+		glUniformMatrix3fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+	}
+
+	void Uniform::uniform_matrix4fv(void *value) {
+		glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+	}
+
+
+
 }

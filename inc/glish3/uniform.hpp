@@ -34,6 +34,12 @@ namespace glish3 {
 		void uniform3iv(void * value);
 		void uniform4iv(void * value);
 
+
+		void uniform_matrix2fv(void * value);
+		void uniform_matrix3fv(void * value);
+		void uniform_matrix4fv(void * value);
+
+
 		void use_program(); // here to avoid circular dependencies
     public:
 
