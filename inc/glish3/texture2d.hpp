@@ -20,6 +20,7 @@ namespace glish3 {
 		static GLenum constexpr target = GL_TEXTURE_2D;
 
 	public:
+		Texture2D() = default;
 		Texture2D(const texture_settings &settings);
 
 		void bind();
