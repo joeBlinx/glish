@@ -52,6 +52,16 @@ namespace glish3{
 			(set<T>(sets),...);
 
 		}
+		template<class T, class ...Settings>
+				Vbo(GLenum target, T * data, size_t size, Settings && ...sets)
+		{
+			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
+			glishGenBuffers(1, &vbo);
+			bind();
+			glishBufferData(target, size*sizeof(T),
+							data, GL_STATIC_DRAW);
+			(set<T>(sets),...);
+		}
 		Vbo(Vbo const &) = delete;
 		Vbo& operator=(Vbo const &) = delete;
 
