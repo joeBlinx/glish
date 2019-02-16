@@ -9,6 +9,7 @@ namespace glish3 {
     std::map<std::string, void(Uniform::*)(void*)> Uniform::function{
 			{"int", &Uniform::uniform1iv},
 			{"sampler2D", &Uniform::uniform1iv},
+			{"bool", &Uniform::uniform1iv},
 			{"ivec2", &Uniform::uniform2iv},
 			{"ivec3", &Uniform::uniform3iv},
 			{"ivec4", &Uniform::uniform4iv},
