@@ -53,7 +53,8 @@ namespace glish3{
 
 		}
 		template<class T, class ...Settings>
-				Vbo(GLenum target, T * data, size_t size, Settings && ...sets)
+				Vbo(GLenum target, T * data, size_t size, Settings && ...sets):
+				target(target)
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
 			glishGenBuffers(1, &vbo);
