@@ -58,6 +58,7 @@ namespace glish3 {
 
         template<class T> void operator=(T * value);
 
+        //for debugging purpose
 	friend std::ostream& operator<<(std::ostream &stream, Uniform const & uni);
     };
 }

@@ -70,7 +70,7 @@ namespace glish3 {
 	}
 
 	void Uniform::use_program() {
-		std::cout << *this << std::endl;
+		//std::cout << *this << std::endl;
 		program->use();
 	}
 
