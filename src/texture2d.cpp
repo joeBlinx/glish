@@ -7,6 +7,8 @@
 #include "glish3/texture2d.hpp"
 
 #include <glish3/glfunction.hpp>
+#include <SDL2/SDL_image.h>
+
 namespace glish3 {
 	Texture2D::Texture2D(const texture_settings &settings) {
 
@@ -50,5 +52,12 @@ namespace glish3 {
 		rhs.textureId = 0;
 
 		return *this;
+	}
+
+	texture_settings Texture2D::readImage(const std::string &path) {
+
+		SDL_Surface * image = IMG_Load(path.c_str());
+		texture_settings textureSettings{image->w, image->h, image->pixels, decltype(texture_settings::surface)(image) };
+		return textureSettings;
 	}
 }
