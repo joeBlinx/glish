@@ -6,12 +6,24 @@
 #define TESTGLISH3_TEXTURE_HPP
 
 #include <glish3/gl_glew.hpp>
+#include <string>
+#include <memory>
+#include <SDL2/SDL_surface.h>
+
 namespace glish3 {
+	struct deleter
+	{
+		void operator()(SDL_Surface * surface)
+		{
+			SDL_FreeSurface(surface);
+		}
+	};
 	struct texture_settings
 	{
 		int width;
 		int height;
 		void * data;
+		std::unique_ptr<SDL_Surface, deleter> surface;
 
 	};
 	class Texture2D {
@@ -34,6 +46,8 @@ namespace glish3 {
 		Texture2D(Texture2D  && rhs) ;
 
 		Texture2D &operator=(Texture2D && rhs);
+
+		static texture_settings readImage(const std::string &path);
 
 		~Texture2D();
 	};
