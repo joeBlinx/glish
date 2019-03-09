@@ -14,10 +14,18 @@ namespace glish3 {
 
 		glishGenTextures(1, &textureId);
 		bind();
-		glishTexImage2D(target, 0, GL_RGBA, settings.width,
-				settings.height,
-				0, GL_RGBA, GL_UNSIGNED_BYTE,
-				settings.data);
+		if(settings.surface->format->format == SDL_PIXELFORMAT_RGB24)
+		{
+			glishTexImage2D(target, 0, GL_RGB, settings.width,
+							settings.height,
+							0, GL_RGB, GL_UNSIGNED_BYTE,
+							settings.data);
+		} else {
+			glishTexImage2D(target, 0, GL_RGBA, settings.width,
+							settings.height,
+							0, GL_RGBA, GL_UNSIGNED_BYTE,
+							settings.data);
+		}
 
 		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 

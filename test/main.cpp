@@ -53,9 +53,9 @@ int main() {
 	glishEnable (GL_BLEND);
 	glishBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 // END Init
-	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "../test/vert.glsl");
+	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "../test/vert_no_sprite.glsl");
 	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
-															   "../test/frag.glsl");
+															   "../test/frag_no_sprite.glsl");
 	glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
 			"../test/geometry.glsl");
 	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
