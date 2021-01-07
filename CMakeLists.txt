@@ -9,10 +9,6 @@ file(GLOB_RECURSE CPP_FILES src/*.cpp)
 set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
 
 
-include_directories(BEFORE_SYSTEM PRIVATE inc)
-include_directories(BEFORE_SYSTEM PRIVATE utils/inc)
-
-
 if(WIN32) # do it again, it sucks
 	MESSAGE("OS is Windows")
 	add_compile_options(/Wall)
