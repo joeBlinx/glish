@@ -28,7 +28,7 @@ add_dependencies(glish3 utils)
 
 
 target_link_libraries(glish3 PUBLIC utils)
-
+target_include_directories(glish3 PUBLIC inc utils/inc)
 execute_process(COMMAND ${CMAKE_HOME_DIRECTORY}/headerGeneration glish3
 		WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/inc)
 install(
