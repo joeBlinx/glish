@@ -1,39 +1,45 @@
 cmake_minimum_required(VERSION 3.7)
-project(glish)
+project(glish3)
 
 set(CMAKE_CXX_STANDARD 17)
 
-file(GLOB_RECURSE HPP_FILES inc/glish/*.hpp inc/glish/*.tpp)
+file(GLOB_RECURSE HPP_FILES inc/glish3/*.hpp inc/glish3/*.tpp)
 file(GLOB_RECURSE CPP_FILES src/*.cpp)
 
 set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
 
 
+include_directories(BEFORE_SYSTEM PRIVATE inc)
+include_directories(BEFORE_SYSTEM PRIVATE utils/inc)
 
-include_directories(BEFORE_SYSTEM PRIVATE inc )
-include_directories(BEFORE_SYSTEM PRIVATE inc/glish)
 
-
-if(WIN32)
-    include_directories(BEFORE_SYSTEM PRIVATE ../windows/GL/include)
-    include_directories(BEFORE_SYSTEM PRIVATE ../windows/SDL2/include)
-    MESSAGE("OS is Windows")
+if(WIN32) # do it again, it sucks
+	MESSAGE("OS is Windows")
+	add_compile_options(/Wall)
 else(WIN32)
-    add_compile_options(-Wall -pedantic -Wextra)
+	MESSAGE("OS is not WINDOWS")
+	add_compile_options(-Wall -pedantic -Wextra -fconcepts )
 
 endif(WIN32)
-add_library(glish STATIC ${SOURCE_FILES})
+
+add_library(glish3 STATIC ${SOURCE_FILES})
 add_subdirectory(utils)
-add_dependencies(glish utils)
+add_dependencies(glish3 utils)
 
 
-target_link_libraries(glish PUBLIC SDL2 PUBLIC SDL2_image PUBLIC utils)
+target_link_libraries(glish3 PUBLIC utils)
 
+execute_process(COMMAND ${CMAKE_HOME_DIRECTORY}/headerGeneration glish3
+		WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/inc)
 install(
-        TARGETS glish
-        ARCHIVE DESTINATION lib
+		TARGETS glish3
+		ARCHIVE DESTINATION lib
 )
 install(
-        DIRECTORY inc/glish
-        DESTINATION include
+		DIRECTORY inc/glish3
+		DESTINATION include
 )
+
+#add_executable(testProject test/main.cpp)
+#add_dependencies(testProject glish3)
+#target_link_libraries(testProject glish3 GL GLU SDL2 GLEW stdc++fs )

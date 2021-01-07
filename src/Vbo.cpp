@@ -1,72 +1,44 @@
 //
-// Created by stiven aigle on 27/01/16.
+// Created by joe on 07/10/18.
 //
 
-#include <glish/Vbo.hpp>
+#include <glish3/Vbo.hpp>
+#include <glish3/glfunction.hpp>
+#include <utility>
 
-namespace glish {
+namespace glish3{
 
-    Vbo::Vbo(Vbo &&orig) : vbo(orig.vbo), target(orig.target) {
-        orig.vbo = 0;
-    }
+	/*Vbo::Vbo(GLenum target):target(target) {
+		glishGenBuffers(1, &vbo);
+		bind();
+	}*/
 
-    Vbo&  Vbo::operator=(Vbo &&orig) {
-        if (&orig != this) {
-            deleteBuffer();
-            vbo = orig.vbo;
-            orig.vbo = 0;
-            target  = orig.target;
-        }
-        return *this;
-    }
+	Vbo::operator GLuint() {
+		return vbo;
+	}
 
-    Vbo::~Vbo() {
-       deleteBuffer();
-    }
+	Vbo::~Vbo() {
+		if(!vbo){
+			glishDeleteBuffer(1, &vbo);
+		}
+	}
 
-    void Vbo::deleteBuffer() {
-        if(!hasBeenCopied) {
-            glDeleteBuffers(1, &vbo);
-            getError();
-        }
-    }
+	Vbo::Vbo(Vbo &&oldVbo) {
+		*this = std::move(oldVbo);
+	}
 
+	Vbo &Vbo::operator=(Vbo &&oldVbo) {
+		vbo = oldVbo.vbo;
+		target = oldVbo.target;
+		oldVbo.vbo = 0;
+		return *this;
+	}
 
-    GLuint Vbo::getVbo() {
-        return vbo;
-    }
+	Vbo::operator bool() const {
+		return (bool)vbo;
+	}
 
-    Vbo::Vbo():vbo(0) {
-
-    }
-
-    Vbo::Vbo(std::vector<int> const &elements):target(GL_ELEMENT_ARRAY_BUFFER) {
-
-        glGenBuffers(1, &vbo);getError();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);getError();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*elements.size(), elements.data(), GL_STATIC_DRAW);getError();
-
-
-    }
-
-    void Vbo::bind() const {
-        glBindBuffer(target, vbo);
-    }
-
-    Vbo::operator bool() const{
-        return vbo != 0;
-    }
-
-    Vbo::Vbo(Vbo const &vbo):vbo(vbo.vbo), target(vbo.target) {
-        vbo.hasBeenCopied = true;
-
-    }
-
-    Vbo &Vbo::operator=(Vbo const &vbo) {
-        this->vbo = vbo.vbo;
-        this->target = vbo.target;
-
-        vbo.hasBeenCopied = true;
-        return *this;
-    }
+	void Vbo::bind() {
+		glishBindBuffer(target, vbo);
+	}
 }
