@@ -1,7 +1,6 @@
 //
 // Created by joe on 23/09/18.
 //
-
 #include <glish3/glfunction.hpp>
 #include <glish3/log/errorHandler.hpp>
 
