@@ -2,7 +2,6 @@ kind: pipeline
 type: docker
 name: default
 
-
 steps:
   - name: build_image
     image: docker
@@ -12,19 +11,14 @@ steps:
     commands :
       - docker build docker/ -t ubuntu_glish3
 
-  - name: cmake_generation
+  - name: build_api
     image: ubuntu_glish3
     pull: never
     commands:
       - mkdir build || exit 0
       - cd build
       - cmake -DCMAKE_BUILD_TYPE=Release ..
-
-  - name: build_api
-    image: ubuntu_glish3
-    pull : never
-    commands:
-      - cmake --build build --target glish3
+      - cmake --build . --target glish3
 
   - name: package
     image: ubuntu_glish3

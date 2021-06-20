@@ -1,3 +1,4 @@
+[![Build Status](https://drone.aigle-grenier.ovh/api/badges/joeBlinx/glish/status.svg)](https://drone.aigle-grenier.ovh/joeBlinx/glish)
 # glish
 ### Info Version
 **V1** available..somewhere
