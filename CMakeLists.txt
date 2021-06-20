@@ -1,44 +1,23 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.12)
 project(glish3)
 
-set(CMAKE_CXX_STANDARD 17)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-file(GLOB_RECURSE HPP_FILES inc/glish3/*.hpp inc/glish3/*.tpp)
-file(GLOB_RECURSE CPP_FILES src/*.cpp)
+include(dependencies)
+add_subdirectory(utils)
 
-set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
-# Download automatically, you can also just copy the conan.cmake file
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-	message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-	file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
-			"${CMAKE_BINARY_DIR}/conan.cmake"
-			TLS_VERIFY ON)
+add_library(glish3 STATIC)
+
+if(WIN32)
+	target_compile_options(glish3 PRIVATE /Wall)
+else()
+	target_compile_options(glish3 PRIVATE -Wall -pedantic -Wextra -fconcepts )
 endif()
 
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_cmake_run(REQUIRES glm/0.9.9.8
-		stb/20200203
-		BASIC_SETUP CMAKE_TARGETS
-		BUILD missing)
-
-if(WIN32) # do it again, it sucks
-	MESSAGE("OS is Windows")
-	add_compile_options(/Wall)
-else(WIN32)
-	MESSAGE("OS is not WINDOWS")
-	add_compile_options(-Wall -pedantic -Wextra -fconcepts )
-
-endif(WIN32)
-
-add_library(glish3 STATIC ${SOURCE_FILES})
-add_subdirectory(utils)
-add_dependencies(glish3 utils)
-
-
 target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb)
-target_include_directories(glish3 PUBLIC inc utils/inc)
-execute_process(COMMAND ${CMAKE_HOME_DIRECTORY}/headerGeneration glish3
-		WORKING_DIRECTORY ${CMAKE_HOME_DIRECTORY}/inc)
+target_include_directories(glish3 PUBLIC inc)
+target_compile_features(glish3 PRIVATE cxx_std_20)
+
 install(
 		TARGETS glish3
 		ARCHIVE DESTINATION lib
@@ -47,3 +26,26 @@ install(
 		DIRECTORY inc/glish3
 		DESTINATION include
 )
+
+target_sources(glish3
+		PRIVATE
+
+		inc/glish3/gl_glew.hpp
+		inc/glish3/Vao.hpp
+		inc/glish3/log/errorHandler.hpp
+		inc/glish3/log/log.hpp
+		inc/glish3/texture2d.hpp
+		inc/glish3/glish3.hpp
+		inc/glish3/programGL.hpp
+		inc/glish3/shader.hpp
+		inc/glish3/uniform.hpp
+		inc/glish3/glfunction.hpp
+		inc/glish3/Vbo.hpp
+
+		src/programGL.cpp
+		src/log/errorHandler.cpp
+		src/log/log.cpp
+		src/shader.cpp
+		src/Vbo.cpp
+
+		)
