@@ -8,22 +8,21 @@
 #include <glish3/gl_glew.hpp>
 #include <string>
 #include <memory>
-#include <SDL2/SDL_surface.h>
+#include <stb_image.h>
 
 namespace glish3 {
 	struct deleter
 	{
-		void operator()(SDL_Surface * surface)
+		void operator()(void * surface)
 		{
-			SDL_FreeSurface(surface);
+			stbi_image_free(surface);
 		}
 	};
 	struct texture_settings
 	{
 		int width;
 		int height;
-		void * data;
-		std::unique_ptr<SDL_Surface, deleter> surface;
+		std::unique_ptr<void, deleter> data;
 
 	};
 	class Texture2D {

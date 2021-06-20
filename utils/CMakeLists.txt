@@ -2,19 +2,9 @@ cmake_minimum_required(VERSION 3.7)
 project(utils)
 
 set(CMAKE_CXX_STANDARD 17)
-# Download automatically, you can also just copy the conan.cmake file
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-	message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-	file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
-			"${CMAKE_BINARY_DIR}/conan.cmake"
-			TLS_VERIFY ON)
-endif()
 
-include(${CMAKE_BINARY_DIR}/conan.cmake)
 
-conan_cmake_run(REQUIRES glm/0.9.9.8
-		BASIC_SETUP CMAKE_TARGETS
-		BUILD missing)
+
 
 file(GLOB_RECURSE HPP_FILES inc/utils/*.h inc/utils/*.tpp)
 file(GLOB_RECURSE CPP_FILES src/*.cpp)
