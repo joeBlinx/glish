@@ -1,9 +1,6 @@
 [![Build Status](https://drone.aigle-grenier.ovh/api/badges/joeBlinx/glish/status.svg)](https://drone.aigle-grenier.ovh/joeBlinx/glish)
-# glish
-### Info Version
-**V1** available..somewhere
-**V2** is available at the tag glishV2
-**V3** dev began on September 23rd 2018
+# glish3
+glish3 is the third version of my OpenGL wrapper, the two previous version are sadly lost.
 
 Wrapper for OpenGL 4
 Written in C++17
