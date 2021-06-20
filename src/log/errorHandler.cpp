@@ -79,11 +79,12 @@ namespace glish3 {
 	}
 	void gl_debug_callback(GLenum source, GLenum type, GLuint,
                                   GLenum severity, GLsizei, const GLchar* message, const void*){
-
-	    std::cerr << "Source: " << enum_source_to_string(source)
-	                << "Type: " << enum_type_to_string(type)
-	                << "Severity: " << enum_severity_to_string(severity)
-	                << "Message: " << message << "\n";
+        if(severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
+            std::cerr << "GLCALLBACK: \tSource: " << enum_source_to_string(source)
+                      << "\n\tType: " << enum_type_to_string(type)
+                      << "\n\tSeverity: " << enum_severity_to_string(severity)
+                      << "\n\tMessage: " << message << "\n\n";
+        }
 
 	}
     void use_debug_output(){

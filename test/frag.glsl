@@ -1,12 +1,9 @@
-#version 330 core
+#version 400 core
 out vec4 color;
-uniform float a;
-in vec2 c;
-in vec2 uvout;
-uniform sampler2D text;
+
 void main() {
 
-    color = vec4(uvout, 0, 1);
-    color = texture(text, uvout);
+    color = vec4(0.5, 1, 0, 1);
+
 
 }

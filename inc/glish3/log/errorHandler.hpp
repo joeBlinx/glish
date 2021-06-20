@@ -30,7 +30,7 @@ namespace glish3 {
 			if (error) {
 				size_t constexpr size = 50;
 				char b [size];
-				std::memcpy(b, gluErrorString(error), size);
+				std::memcpy(b, glewGetErrorString(error), size);
 				std::string message = "file : " + file + ", line: " + line +" "+ b;
 				log.error(message+", " + createLink(functionName)) ;
 			}

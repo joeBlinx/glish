@@ -10,4 +10,5 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(REQUIRES glm/0.9.9.8
         stb/20200203
         BASIC_SETUP CMAKE_TARGETS
-        BUILD missing)
+        BUILD missing
+        NO_OUTPUT_DIRS)

@@ -8,11 +8,14 @@
 #include <GL/gl.h>
 #include <ctime>
 #include <utils/stringUtil.h>
-#include <glish3/glish3.hpp>
 #include <glm/vec2.hpp>
 #include <vector>
 #include <glish3/uniform.hpp>
 #include <map>
+#include <glish3/log/errorHandler.hpp>
+#include <glish3/shader.hpp>
+#include <glish3/Vao.hpp>
+#include <glish3/programGL.hpp>
 
 using namespace glish3;
 int main() {
@@ -48,20 +51,21 @@ int main() {
 		throw std::runtime_error("error while initialize glew" );
 	}
 	glGetError();
+	glish3::use_debug_output();
 // Init code outside the scope of OpenGL API
-	glishClearColor(0.5, 0.5, 0.5, 1);
-	glishEnable (GL_BLEND);
-	glishBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(0.5, 0.5, 0.5, 1);
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 // END Init
-	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "../test/vert_no_sprite.glsl");
+	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
 	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
-															   "../test/frag_no_sprite.glsl");
-	glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
-			"../test/geometry.glsl");
+															   "frag.glsl");
+	//glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
+	//		"geometry.glsl");
 	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
 	programGL.use();
 	SDL_Event ev;
-	Vao vao;
+	glish3::Vao vao;
 
 	std::vector<glm::vec2> square{
 			{-0.5, 0.5},
@@ -71,23 +75,20 @@ int main() {
 	};
 
 	//VBO
-	Vbo vbo(GL_ARRAY_BUFFER);
-	glishBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
+	GLuint vbo;
+	glCreateBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
 	square.data(), GL_STATIC_DRAW);
-	glishEnableVertexAttribArray(0);
-	glishVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 
 	bool run = true;
 
-	float pos[] = {0, 0};
-	float size [] = {1/6.0f, 1/6.0f};
-	programGL["size"] = &size;
-	programGL["posChange"] = &pos;
-	float test [2] = {0, 0};
 	int mouse_x, mouse_y;
 	while(run){
-		glishClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
 			switch(ev.type){
 				case SDL_KEYDOWN:
@@ -100,34 +101,8 @@ int main() {
 					break;
 			}
 		}
-		*test+=0.1;
-		SDL_Delay(100);
-		if(*test > 1){
-			*test = 0;
-		}
-		float constexpr tile = 10.0f;
-		SDL_GetMouseState(&mouse_x, &mouse_y);
-		std::cout << mouse_x <<std::endl;
-		mouse_x = -1+ 2.0f*(float)mouse_x/width;
-		mouse_y = -1*(-1+ 2.0f*mouse_y/height);
-		std::cout << mouse_x <<std::endl;
-	//	programGL["col"] = &test;
-		for(int i = 0; i < tile; i++){
-			for(int j = 0; j < tile; j++){
-				pos[0] = -1 +1/tile + i*2/tile;
-				pos[1] = -1 +1/tile + j*2/tile;
-				int is_select = 0;
-				
-				if(mouse_x > pos[0] - size[0] && mouse_x < pos[0] + size[0] ){
-					is_select = 1;
-					
-				}
-				programGL["is_select"] = &is_select;
-				programGL["posChange"] = &pos;
-				glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-			}
-		}
 
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		SDL_GL_SwapWindow(window);
 	}
 

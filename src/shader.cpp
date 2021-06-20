@@ -10,6 +10,8 @@
 #include <map>
 #include <vector>
 #include <utils/stringUtil.h>
+#include <sstream>
+#include <filesystem>
 
 namespace glish3 {
 	static std::map<GLenum, std::string> match{
@@ -54,6 +56,14 @@ namespace glish3 {
 		std::string data;
 		if(!stream){
 			log.fileNotFound(path);
+			std::stringstream error_message;
+			error_message << "File: " << path << " not found. cwd is " << std::filesystem::current_path();
+			std::string error = error_message.str();
+            glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
+                    GL_DEBUG_TYPE_ERROR,
+                    0, GL_DEBUG_SEVERITY_HIGH,
+                    error.size(),
+                    error.c_str());
 		}else{
 			std::string read;
 			while (getline(stream, read)) {
