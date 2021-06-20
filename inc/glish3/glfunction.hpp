@@ -7,8 +7,6 @@
 
 #include <GL/glew.h>
 
-
-
 namespace glish3{
 #define PARAM const char* file, int line
 	void clearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha, PARAM);

@@ -5,6 +5,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(dependencies)
 add_subdirectory(utils)
+option(BUILD_SAMPLE OFF)
 
 add_library(glish3 STATIC)
 
@@ -13,8 +14,9 @@ if(WIN32)
 else()
 	target_compile_options(glish3 PRIVATE -Wall -pedantic -Wextra -fconcepts )
 endif()
+find_package(OpenGL REQUIRED)
 
-target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb)
+target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb OpenGL::GL)
 target_include_directories(glish3 PUBLIC inc)
 target_compile_features(glish3 PRIVATE cxx_std_20)
 
@@ -35,7 +37,6 @@ target_sources(glish3
 		inc/glish3/log/errorHandler.hpp
 		inc/glish3/log/log.hpp
 		inc/glish3/texture2d.hpp
-		inc/glish3/glish3.hpp
 		inc/glish3/programGL.hpp
 		inc/glish3/shader.hpp
 		inc/glish3/uniform.hpp

@@ -11,6 +11,7 @@
 #include "log.hpp"
 
 namespace glish3 {
+    void use_debug_output();
 #ifdef NDEBUG
 	bool constexpr debug = false;
 #else

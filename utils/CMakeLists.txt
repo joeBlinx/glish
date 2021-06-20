@@ -11,7 +11,6 @@ if(UNIX)
 	target_compile_options(utils PRIVATE -Wall -pedantic -Wextra -fPIC)
 endif()
 
-
 install(
 		TARGETS utils
 		ARCHIVE DESTINATION lib
