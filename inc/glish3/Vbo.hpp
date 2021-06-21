@@ -9,6 +9,8 @@
 #include <initializer_list>
 
 #include <type_traits>
+#include <glish3/gl_memory/unique_vbo.hpp>
+
 namespace glish3{
 
 	struct vbo_settings
@@ -27,7 +29,7 @@ namespace glish3{
 	};
 	class Vbo{
 
-		GLuint vbo = 0;
+		UniqueVbo _vbo;
 		GLenum target ;
 	template<class T>
 		void set(vbo_settings const & settings1)
@@ -44,7 +46,9 @@ namespace glish3{
 		:target(target)
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
+			GLuint vbo;
 			glGenBuffers(1, &vbo);
+			_vbo = UniqueVbo(vbo);
 			bind();
 			glBufferData(target, N*sizeof(T),
 							data, GL_STATIC_DRAW);
@@ -56,23 +60,21 @@ namespace glish3{
 				target(target)
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
-			glGenBuffers(1, &vbo);
+            GLuint vbo;
+            glGenBuffers(1, &vbo);
+            _vbo = UniqueVbo(vbo);
 			bind();
 			glBufferData(target, size*sizeof(T),
 							data, GL_STATIC_DRAW);
 			(set<T>(sets),...);
 		}
-		Vbo(Vbo const &) = delete;
-		Vbo& operator=(Vbo const &) = delete;
 
-		Vbo(Vbo && oldVbo);
-		Vbo& operator= (Vbo && oldVbo);
 
 		void bind();
 
 		explicit operator GLuint();
 		operator bool() const;
-		~Vbo();
+
 	};
 }
 #endif //GLISH3_VBO_HPP

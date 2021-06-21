@@ -3,43 +3,28 @@
 //
 
 #include <glish3/Vao.hpp>
-#include <glish3/glfunction.hpp>
 
 namespace glish3 {
     Vao::Vao() {
+        GLuint vao;
         glGenVertexArrays(1, &vao);
-        bind();
+        _vao = UniqueVao(vao);
     }
 
-    Vao::Vao(Vao &&vao):vao(vao.vao), _vbos(std::move(vao._vbos)) {
-        vao.vao = 0;
-    }
-
-    Vao &Vao::operator=(Vao &&vao) {
-        this->vao = vao.vao;
-        vao.vao = 0;
-        _vbos = std::move(vao._vbos);
-        return *this;
-    }
 
     void Vao::bind() {
-        glBindVertexArray(vao);
+        glBindVertexArray(_vao.get());
     }
 
     Vao::operator bool() const {
-        return (bool)vao;
+        return (bool)_vao.get();
     }
 
     Vao::operator GLuint() {
-        return vao;
+        return _vao.get();
     }
 
-    Vao::~Vao() {
-        if(vao){
-            glDeleteVertexArrays(1, &vao);
-            vao = 0;
-        }
-    }
+
 
 	void Vao::addVbo(Vbo &&vbo) {
         bind();

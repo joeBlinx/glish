@@ -2,7 +2,6 @@
 // Created by stiven on 10/31/18.
 //
 #include <glish3/uniform.hpp>
-#include <glish3/glfunction.hpp>
 #include <glish3/programGL.hpp>
 
 namespace glish3 {

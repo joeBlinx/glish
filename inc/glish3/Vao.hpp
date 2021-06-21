@@ -8,27 +8,22 @@
 #include <glish3/gl_glew.hpp>
 #include <vector>
 #include <glish3/Vbo.hpp>
+#include "glish3/gl_memory/unique_vao.hpp"
 
 namespace glish3{
 
     class Vao{
-        GLuint vao = 0;
+        UniqueVao _vao;
         std::vector<Vbo> _vbos;
-
 
     public:
         Vao();
-        Vao(Vao const &) = delete;
-        Vao& operator=(Vao const &) = delete;
-
-        Vao(Vao && vao);
-        Vao&operator=(Vao && vao);
 
         void bind();
         void addVbo (Vbo && vbo);
         operator bool() const;
         operator GLuint();
-        ~Vao();
+
     };
 }
 #endif //GLISH3_VAP_H

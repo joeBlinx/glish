@@ -2,38 +2,19 @@
 // Created by joe on 07/10/18.
 //
 
-#include <glish3/Vbo.hpp>
-#include <glish3/glfunction.hpp>
-#include <utility>
+#include "glish3/Vbo.hpp"
 
 namespace glish3{
 
 	Vbo::operator GLuint() {
-		return vbo;
-	}
-
-	Vbo::~Vbo() {
-		if(!vbo){
-			glDeleteBuffers(1, &vbo);
-		}
-	}
-
-	Vbo::Vbo(Vbo &&oldVbo) {
-		*this = std::move(oldVbo);
-	}
-
-	Vbo &Vbo::operator=(Vbo &&oldVbo) {
-		vbo = oldVbo.vbo;
-		target = oldVbo.target;
-		oldVbo.vbo = 0;
-		return *this;
+		return _vbo.get();
 	}
 
 	Vbo::operator bool() const {
-		return (bool)vbo;
+		return (bool)_vbo.get();
 	}
 
 	void Vbo::bind() {
-		glBindBuffer(target, vbo);
+		glBindBuffer(target, _vbo.get());
 	}
 }

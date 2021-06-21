@@ -2,7 +2,6 @@
 // Created by joe on 01/10/18.
 //
 
-#include <glish3/glfunction.hpp>
 #include <glish3/programGL.hpp>
 
 #include <iostream>

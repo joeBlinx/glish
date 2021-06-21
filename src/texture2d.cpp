@@ -5,7 +5,6 @@
 #include <glish3/texture2d.hpp>
 
 #include "glish3/texture2d.hpp"
-#include <glish3/glfunction.hpp>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 namespace glish3 {

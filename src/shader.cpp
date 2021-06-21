@@ -4,7 +4,6 @@
 #include <glish3/gl_glew.hpp>
 #include <glish3/shader.hpp>
 #include <glish3/log/errorHandler.hpp>
-#include <glish3/glfunction.hpp>
 #include <fstream>
 #include <map>
 #include <vector>
