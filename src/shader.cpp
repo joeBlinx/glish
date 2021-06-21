@@ -20,7 +20,7 @@ namespace glish3 {
 	};
 
 	Shader::Shader(GLenum shaderType, const char *data):
-	shaderId(glCreateShader(shaderType)),
+	_shader(glCreateShader(shaderType)),
 	shaderType(shaderType){
 		if(!data){
 			log.warning("data pass to shader is null, shader will not be compiled");
@@ -33,15 +33,16 @@ namespace glish3 {
 	void Shader::compileShader(const char * data) {
 
 		GLint result = GL_FALSE;
+		auto shaderID = _shader.get();
 		int infoLog;
-		glShaderSource(shaderId, 1, &data, nullptr);
-		glCompileShader(shaderId);
-		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &result);
-		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infoLog);
+		glShaderSource(shaderID, 1, &data, nullptr);
+		glCompileShader(shaderID);
+		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
+		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLog);
 
 		if (infoLog > 0) {
 			std::vector<char> VertexShaderErrorMessage (infoLog + 1);
-			glGetShaderInfoLog(shaderId, infoLog, nullptr, VertexShaderErrorMessage.data());
+			glGetShaderInfoLog(shaderID, infoLog, nullptr, VertexShaderErrorMessage.data());
 			log.title("compile " + match[shaderType]);
 			log.info(VertexShaderErrorMessage.data());
 		}
@@ -78,14 +79,7 @@ namespace glish3 {
 	}
 
 	Shader::operator  GLuint () {
-		return shaderId;
-	}
-
-	Shader::~Shader() {
-		if(shaderId) {
-			glDeleteShader(shaderId);
-		}
-
+		return _shader.get();
 	}
 
 	void Shader::findUniformsName(const char *data) {

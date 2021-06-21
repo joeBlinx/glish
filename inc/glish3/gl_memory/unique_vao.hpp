@@ -13,7 +13,7 @@ namespace glish3 {
         UniqueVao &operator=(UniqueVao const &) = delete;
 
         UniqueVao(UniqueVao &&old) noexcept : _vao(old._vao) { old._vao = 0; }
-        UniqueVao &operator=(UniqueVao &&old) {
+        UniqueVao &operator=(UniqueVao &&old) noexcept {
             _vao = old._vao;
             old._vao = 0;
             return *this;

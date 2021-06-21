@@ -12,8 +12,8 @@ namespace glish3 {
         UniqueVbo(UniqueVbo const &) = delete;
         UniqueVbo &operator=(UniqueVbo const &) = delete;
 
-        UniqueVbo(UniqueVbo &&old) : _vbo(old._vbo) { old._vbo = 0; }
-        UniqueVbo &operator=(UniqueVbo &&old) {
+        UniqueVbo(UniqueVbo &&old)noexcept : _vbo(old._vbo) { old._vbo = 0; }
+        UniqueVbo &operator=(UniqueVbo &&old) noexcept {
             _vbo = old._vbo;
             old._vbo = 0;
             return *this;

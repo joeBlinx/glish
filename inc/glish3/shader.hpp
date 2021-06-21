@@ -10,12 +10,13 @@
 #include <string>
 #include <vector>
 #include <glish3/uniform.hpp>
+#include <glish3/gl_memory/unique_shader.hpp>
 
 namespace glish3 {
 
 	class Shader {
 
-		GLuint shaderId = 0;
+		UniqueShader _shader = 0;
 		GLenum shaderType;
 
 		std::vector<uni_settings> uniforms_settings;
@@ -27,18 +28,12 @@ namespace glish3 {
 
 	public:
 
-		Shader(Shader const &) = delete;
-		Shader& operator= (Shader const &) = delete;
-
-		Shader(Shader &&)= delete;
-		Shader& operator=(Shader &&) = delete;
-
 		const std::vector<uni_settings> & getUniSettings();
 
 		static Shader createShaderFromFile(GLenum shaderType, const char * path);
 		static Shader createShaderFromData(GLenum shaderType, const char * data);
 		explicit operator  GLuint ();
-		~Shader();
+
 
 	};
 }

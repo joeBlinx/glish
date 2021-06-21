@@ -11,8 +11,8 @@ namespace glish3 {
         UniqueProgramGL(UniqueProgramGL const &) = delete;
         UniqueProgramGL &operator=(UniqueProgramGL const &) = delete;
 
-        UniqueProgramGL(UniqueProgramGL &&old) : _program_gl(old._program_gl) { old._program_gl = 0; }
-        UniqueProgramGL &operator=(UniqueProgramGL &&old) {
+        UniqueProgramGL(UniqueProgramGL &&old) noexcept : _program_gl(old._program_gl) { old._program_gl = 0; }
+        UniqueProgramGL &operator=(UniqueProgramGL &&old) noexcept {
             _program_gl = old._program_gl;
             old._program_gl = 0;
             return *this;
