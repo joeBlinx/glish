@@ -42,7 +42,6 @@ target_sources(glish3
 		inc/glish3/programGL.hpp
 		inc/glish3/shader.hpp
 		inc/glish3/uniform.hpp
-		inc/glish3/glfunction.hpp
 		inc/glish3/Vbo.hpp
 
 		src/programGL.cpp
@@ -53,7 +52,6 @@ target_sources(glish3
 		src/Vao.cpp
 		src/texture2d.cpp
 		src/uniform.cpp
-		src/glfunction.cpp
 
 
 		)

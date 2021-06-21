@@ -8,18 +8,13 @@
 
 namespace glish3{
 
-	/*Vbo::Vbo(GLenum target):target(target) {
-		glishGenBuffers(1, &vbo);
-		bind();
-	}*/
-
 	Vbo::operator GLuint() {
 		return vbo;
 	}
 
 	Vbo::~Vbo() {
 		if(!vbo){
-			glishDeleteBuffer(1, &vbo);
+			glDeleteBuffers(1, &vbo);
 		}
 	}
 
@@ -39,6 +34,6 @@ namespace glish3{
 	}
 
 	void Vbo::bind() {
-		glishBindBuffer(target, vbo);
+		glBindBuffer(target, vbo);
 	}
 }

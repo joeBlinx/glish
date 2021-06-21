@@ -6,7 +6,6 @@
 #define GLISH3_VBO_HPP
 
 #include <glish3/gl_glew.hpp>
-#include <glish3/glfunction.hpp>
 #include <initializer_list>
 
 #include <type_traits>
@@ -33,8 +32,8 @@ namespace glish3{
 	template<class T>
 		void set(vbo_settings const & settings1)
 		{
-			glishEnableVertexAttribArray(settings1.index);
-			glishVertexAttribPointer(settings1.index, settings1.size,
+			glEnableVertexAttribArray(settings1.index);
+			glVertexAttribPointer(settings1.index, settings1.size,
 					GL_FLOAT, GL_FALSE, settings1.stride*sizeof(T) ,
 					(void*)(settings1.begin*sizeof(T)));
 		}
@@ -45,9 +44,9 @@ namespace glish3{
 		:target(target)
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
-			glishGenBuffers(1, &vbo);
+			glGenBuffers(1, &vbo);
 			bind();
-			glishBufferData(target, N*sizeof(T),
+			glBufferData(target, N*sizeof(T),
 							data, GL_STATIC_DRAW);
 			(set<T>(sets),...);
 
@@ -57,9 +56,9 @@ namespace glish3{
 				target(target)
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
-			glishGenBuffers(1, &vbo);
+			glGenBuffers(1, &vbo);
 			bind();
-			glishBufferData(target, size*sizeof(T),
+			glBufferData(target, size*sizeof(T),
 							data, GL_STATIC_DRAW);
 			(set<T>(sets),...);
 		}

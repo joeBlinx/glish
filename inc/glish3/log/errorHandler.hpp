@@ -5,8 +5,8 @@
 #ifndef GLISH3_ERRORHANDLER_HPP
 #define GLISH3_ERRORHANDLER_HPP
 
+#include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <cstring>
 #include "log.hpp"
 

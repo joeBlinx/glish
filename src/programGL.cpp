@@ -9,7 +9,7 @@
 namespace glish3 {
 	ProgramGL::~ProgramGL() {
 		if (program) {
-			glishDeleteProgram(program);
+			glDeleteProgram(program);
 			program = 0;
 		}
 	}
@@ -35,7 +35,7 @@ namespace glish3 {
 
 	void ProgramGL::use() {
 		if (ProgramGL::currentProgram != program) {
-			glishUseProgram(program);
+			glUseProgram(program);
 			ProgramGL::currentProgram = program;
 		}
 	}

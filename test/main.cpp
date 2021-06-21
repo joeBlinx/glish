@@ -22,7 +22,6 @@ int main() {
 
 	SDL_Window * window = nullptr;
 	SDL_GLContext  context = nullptr;
-	glish3::init("../logTest", "testProject");
 
 	float constexpr width = 768;
 	float constexpr height = 768;

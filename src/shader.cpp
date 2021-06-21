@@ -4,7 +4,6 @@
 #include <glish3/gl_glew.hpp>
 #include <glish3/shader.hpp>
 #include <glish3/log/errorHandler.hpp>
-
 #include <glish3/glfunction.hpp>
 #include <fstream>
 #include <map>
@@ -22,7 +21,7 @@ namespace glish3 {
 	};
 
 	Shader::Shader(GLenum shaderType, const char *data):
-	shaderId(glishCreateShader(shaderType)),
+	shaderId(glCreateShader(shaderType)),
 	shaderType(shaderType){
 		if(!data){
 			log.warning("data pass to shader is null, shader will not be compiled");
@@ -36,14 +35,14 @@ namespace glish3 {
 
 		GLint result = GL_FALSE;
 		int infoLog;
-		glishShadersource(shaderId, 1, &data, nullptr);
-		glishCompileShader(shaderId);
-		glishGetShaderiv(shaderId, GL_COMPILE_STATUS, &result);
-		glishGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infoLog);
+		glShaderSource(shaderId, 1, &data, nullptr);
+		glCompileShader(shaderId);
+		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &result);
+		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infoLog);
 
 		if (infoLog > 0) {
 			std::vector<char> VertexShaderErrorMessage (infoLog + 1);
-			glishGetShaderInfoLog(shaderId, infoLog, nullptr, VertexShaderErrorMessage.data());
+			glGetShaderInfoLog(shaderId, infoLog, nullptr, VertexShaderErrorMessage.data());
 			log.title("compile " + match[shaderType]);
 			log.info(VertexShaderErrorMessage.data());
 		}
@@ -85,7 +84,7 @@ namespace glish3 {
 
 	Shader::~Shader() {
 		if(shaderId) {
-			glishDeleteShader(shaderId);
+			glDeleteShader(shaderId);
 		}
 
 	}

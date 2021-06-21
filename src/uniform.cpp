@@ -27,7 +27,7 @@ namespace glish3 {
     											settings(settings),
                                                 program(&prog)
     {
-        uniform = glishGetUniformLocation((GLuint)prog, this->settings.name.c_str());
+        uniform = glGetUniformLocation((GLuint)prog, this->settings.name.c_str());
     }
 
     Uniform::operator bool() const {
@@ -38,35 +38,35 @@ namespace glish3 {
     }
 
 	void Uniform::uniform1fv(void *value) {
-		glishUniform1fv(uniform, 1, (GLfloat*) value);
+		glUniform1fv(uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform2fv(void *value) {
-		glishUniform2fv(uniform, 1, (GLfloat*) value);
+		glUniform2fv(uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform3fv(void *value) {
-		glishUniform3fv(uniform, 1, (GLfloat*) value);
+		glUniform3fv(uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform4fv(void *value) {
-		glishUniform4fv(uniform, 1, (GLfloat*) value);
+		glUniform4fv(uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform1iv(void *value) {
-		glishUniform1iv(uniform, 1, (GLint*)value);
+		glUniform1iv(uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform2iv(void *value) {
-		glishUniform2iv(uniform, 1, (GLint*)value);
+		glUniform2iv(uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform3iv(void *value) {
-		glishUniform3iv(uniform, 1, (GLint*)value);
+		glUniform3iv(uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform4iv(void *value) {
-		glishUniform4iv(uniform, 1, (GLint*)value);
+		glUniform4iv(uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::use_program() {

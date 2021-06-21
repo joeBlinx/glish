@@ -7,7 +7,7 @@
 
 namespace glish3 {
     Vao::Vao() {
-        glishGenVertexArrays(1, &vao);
+        glGenVertexArrays(1, &vao);
         bind();
     }
 
@@ -23,7 +23,7 @@ namespace glish3 {
     }
 
     void Vao::bind() {
-        glishBindVertexArray(vao);
+        glBindVertexArray(vao);
     }
 
     Vao::operator bool() const {
@@ -36,7 +36,7 @@ namespace glish3 {
 
     Vao::~Vao() {
         if(vao){
-            glishDeleteVertexArrays(1, &vao);
+            glDeleteVertexArrays(1, &vao);
             vao = 0;
         }
     }

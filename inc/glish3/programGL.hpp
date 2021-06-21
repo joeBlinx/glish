@@ -33,18 +33,18 @@ namespace glish3{
 		template <class ...Shaders>
 		ProgramGL(Shaders  &... shaders){
 
-			program = glishCreateProgram();
-			(glishAttachShader(program, (GLuint)shaders), ...);
-			glishLinkProgram(program);
-			(glishDetachShader(program, (GLuint)shaders), ...);
+			program = glCreateProgram();
+			(glAttachShader(program, (GLuint)shaders), ...);
+			glLinkProgram(program);
+			(glDetachShader(program, (GLuint)shaders), ...);
 			GLint Result;
 			int InfoLogLength = 0;
-			glishGetProgramiv(program, GL_LINK_STATUS, &Result);
-			glishGetProgramiv(program, GL_INFO_LOG_LENGTH, &InfoLogLength);
+			glGetProgramiv(program, GL_LINK_STATUS, &Result);
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &InfoLogLength);
 
 			if (InfoLogLength > 0) {
 				std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-				glishGetProgramInfoLog(program, InfoLogLength, NULL, ProgramErrorMessage.data());
+				glGetProgramInfoLog(program, InfoLogLength, NULL, ProgramErrorMessage.data());
 				log.title("compile Program");
 				log.info(ProgramErrorMessage.data());
 			}
