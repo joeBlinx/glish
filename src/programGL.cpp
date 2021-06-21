@@ -6,41 +6,16 @@
 
 #include <iostream>
 namespace glish3 {
-	ProgramGL::~ProgramGL() {
-		if (program) {
-			glDeleteProgram(program);
-			program = 0;
-		}
-	}
-
-	ProgramGL::ProgramGL(ProgramGL &&ProgramGL) :program(ProgramGL.program), uniforms(std::move(ProgramGL.uniforms)){
-		ProgramGL.program = 0;
-		for(auto & [key, uni] : uniforms)
-		{
-			uni.program = this;
-		}
-	}
-
-	ProgramGL &ProgramGL::operator=(ProgramGL &&ProgramGL) {
-		program = ProgramGL.program;
-		uniforms = std::move(ProgramGL.uniforms);
-		for(auto & [key, uni] : uniforms)
-		{
-			uni.program = this;
-		}
-		ProgramGL.program = 0;
-		return *this;
-	}
 
 	void ProgramGL::use() {
-		if (ProgramGL::currentProgram != program) {
-			glUseProgram(program);
-			ProgramGL::currentProgram = program;
+		if (ProgramGL::currentProgram != _program.get()) {
+			glUseProgram(_program.get());
+			ProgramGL::currentProgram = _program.get();
 		}
 	}
 
     ProgramGL::operator GLuint() const {
-        return program;
+        return _program.get();
     }
 
 	void ProgramGL::createUniform(Shader &shader) {

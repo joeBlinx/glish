@@ -10,29 +10,24 @@
 #include <glish3/log/errorHandler.hpp>
 #include <vector>
 #include <map>
+#include <glish3/gl_memory/unique_programgl.hpp>
 #include "uniform.hpp"
 
 namespace glish3{
     class Shader;
 	class ProgramGL{
 		inline static GLuint currentProgram = 0;
-		GLuint program = 0;
+		UniqueProgramGL _program = 0;
 		std::map<std::string, Uniform> uniforms;
 
         void createUniform(Shader &shader);
 	public:
-		ProgramGL(ProgramGL const &) = delete;
-		ProgramGL& operator=(ProgramGL const &) = delete;
 
-		ProgramGL(ProgramGL && ProgramGL);
-		ProgramGL& operator=(ProgramGL && ProgramGL);
-
-		ProgramGL() = default;
 
 		template <class ...Shaders>
 		ProgramGL(Shaders  &... shaders){
 
-			program = glCreateProgram();
+			GLuint program = glCreateProgram();
 			(glAttachShader(program, (GLuint)shaders), ...);
 			glLinkProgram(program);
 			(glDetachShader(program, (GLuint)shaders), ...);
@@ -47,6 +42,7 @@ namespace glish3{
 				log.title("compile Program");
 				log.info(ProgramErrorMessage.data());
 			}
+			_program = UniqueProgramGL(program);
             (createUniform(shaders), ...);
 		}
 		void use();
@@ -54,7 +50,6 @@ namespace glish3{
 
 		Uniform &operator[](const std::string &name);
 
-		~ProgramGL();
 
 	};
 }

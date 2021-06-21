@@ -72,7 +72,7 @@ int main() {
 			{0.5, 0.5},
 			{0.5, -0.5}
 	};
-
+    vao.bind();
 	//VBO
 	GLuint vbo;
 	glCreateBuffers(1, &vbo);
