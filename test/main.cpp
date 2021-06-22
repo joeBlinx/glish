@@ -29,9 +29,9 @@ int main() {
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
 	}
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	window = SDL_CreateWindow("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -74,18 +74,14 @@ int main() {
 	};
     vao.bind();
 	//VBO
-	GLuint vbo;
-	glCreateBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, square.size()*sizeof(glm::vec2),
-	square.data(), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    vao.addVbo(
+            glish3::Vbo(GL_ARRAY_BUFFER,
+                    square.data(),
+                    size(square),
+                    glish3::vbo_settings(2)));
 
+    bool run = true;
 
-	bool run = true;
-
-	int mouse_x, mouse_y;
 	while(run){
 		glClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){

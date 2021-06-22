@@ -7,6 +7,7 @@
 #include "glish3/gl_glew.hpp"
 namespace glish3 {
     struct UniqueVbo {
+        UniqueVbo() = default;
         UniqueVbo(GLuint vbo) noexcept: _vbo(vbo) {}
 
         UniqueVbo(UniqueVbo const &) = delete;
