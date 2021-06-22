@@ -11,7 +11,6 @@ namespace glish3 {
         _vao = UniqueVao(vao);
     }
 
-
     void Vao::bind() {
         glBindVertexArray(_vao.get());
     }
@@ -23,8 +22,6 @@ namespace glish3 {
     Vao::operator GLuint() {
         return _vao.get();
     }
-
-
 
 	void Vao::addVbo(Vbo &&vbo) {
         bind();

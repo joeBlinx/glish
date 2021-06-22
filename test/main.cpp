@@ -70,19 +70,19 @@ int main() {
 	SDL_Event ev;
 	glish3::Vao vao;
 
-	std::vector<glm::vec2> square{
-			{-0.5, 0.5},
-			{-0.5, -0.5},
-			{0.5, 0.5},
-			{0.5, -0.5}
+	float square[]={
+			-0.5, 0.5, 0, 0,
+			-0.5, -0.5, 0, 1,
+			0.5, 0.5, 1, 1,
+			0.5, -0.5, 1, 0
 	};
     vao.bind();
 	//VBO
     vao.addVbo(
             glish3::Vbo(GL_ARRAY_BUFFER,
-                    square.data(),
-                    size(square),
-                    glish3::vbo_settings(2)));
+                    square,
+                    glish3::vbo_settings(2, 0, 4, 0),
+                    glish3::vbo_settings(2, 1, 4, 2)));
 
     bool run = true;
 

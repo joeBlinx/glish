@@ -17,7 +17,7 @@ namespace glish3 {
 	class Shader {
 
 		UniqueShader _shader = 0;
-		GLenum shaderType;
+		GLenum shaderType{};
 
 		std::vector<uni_settings> uniforms_settings;
 		Shader() = default;

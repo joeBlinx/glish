@@ -47,6 +47,7 @@ target_sources(glish3
 		inc/glish3/gl_memory/unique_vbo.hpp
 		inc/glish3/gl_memory/unique_programgl.hpp
 		inc/glish3/gl_memory/unique_shader.hpp
+		inc/glish3/gl_memory/unique_texture.hpp
 
 		src/programGL.cpp
 		src/log/errorHandler.cpp
