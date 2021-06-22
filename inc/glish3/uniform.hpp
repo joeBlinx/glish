@@ -19,28 +19,28 @@ namespace glish3 {
 
     class Uniform {
 		friend class ProgramGL;
-    	static std::map<std::string, void(Uniform::*)(void*)> function;
+    	static std::map<std::string, void(Uniform::*)(void*)const> function;
     	uni_settings settings;
 		ProgramGL *program = nullptr;
 
         GLint uniform = 0;
 
-		void uniform1fv(void * value);
-		void uniform2fv(void * value);
-		void uniform3fv(void * value);
-		void uniform4fv(void * value);
-		void uniform1iv(void * value);
-		void uniform2iv(void * value);
-		void uniform3iv(void * value);
-		void uniform4iv(void * value);
+		void uniform1fv(void * value)const;
+		void uniform2fv(void * value)const;
+		void uniform3fv(void * value)const;
+		void uniform4fv(void * value)const;
+		void uniform1iv(void * value)const;
+		void uniform2iv(void * value)const;
+		void uniform3iv(void * value)const;
+		void uniform4iv(void * value)const;
 
 
-		void uniform_matrix2fv(void * value);
-		void uniform_matrix3fv(void * value);
-		void uniform_matrix4fv(void * value);
+		void uniform_matrix2fv(void * value)const;
+		void uniform_matrix3fv(void * value)const;
+		void uniform_matrix4fv(void * value)const;
 
 
-		void use_program(); // here to avoid circular dependencies
+		void use_program() const; // here to avoid circular dependencies
     public:
 
         Uniform() = default;
@@ -56,7 +56,7 @@ namespace glish3 {
 
         explicit operator GLint();
 
-        template<class T> void operator=(T * value);
+        template<class T> void operator=(T * value) const;
 
         //for debugging purpose
 	friend std::ostream& operator<<(std::ostream &stream, Uniform const & uni);
@@ -65,7 +65,7 @@ namespace glish3 {
 
 
 template<class T>
-void glish3::Uniform::operator=(T *  value){
+void glish3::Uniform::operator=(T *  value) const{
 	use_program();
 	(this->*Uniform::function[settings.type])((void*)value);
 }

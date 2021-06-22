@@ -26,8 +26,8 @@ namespace glish3 {
 		}
 	}
 
-	Uniform &ProgramGL::operator[](const std::string &name) {
-		return uniforms[name];
+	Uniform const& ProgramGL::operator[](const std::string &name) const{
+		return uniforms.at(name);
 	}
 
 

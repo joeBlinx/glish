@@ -18,13 +18,25 @@
 #include <glish3/programGL.hpp>
 
 using namespace glish3;
+void set_view_uniform(ProgramGL const& program_gl, int width, int height){
+    if (width == 0 && height == 0) {
+        return;
+    }
+    float const view[]={
+        2.0f/
+        static_cast<float>(width), 0, 0,
+        0, 2.0f/static_cast<float>(height), 0,
+        0, 0, 1
+    };
+    program_gl["view"] = view;
+}
 int main() {
 
 	SDL_Window * window = nullptr;
 	SDL_GLContext  context = nullptr;
 
-	float constexpr width = 768;
-	float constexpr height = 768;
+	int width = 768;
+	int height = 768;
 // INIT SDL et GL
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
@@ -85,7 +97,6 @@ int main() {
                     glish3::vbo_settings(2, 1, 4, 2)));
 
     bool run = true;
-
 	while(run){
 		glClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
@@ -98,6 +109,15 @@ int main() {
 				case SDL_QUIT:
 					run = false;
 					break;
+                case SDL_WINDOWEVENT:
+
+                    if (ev.window.event == SDL_WINDOWEVENT_RESIZED) {
+
+                        width = ev.window.data1;
+                        height = ev.window.data2;
+                        set_view_uniform(programGL, width, height);
+                    }
+                    break;
 			}
 		}
 

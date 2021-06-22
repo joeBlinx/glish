@@ -5,7 +5,7 @@
 #include <glish3/programGL.hpp>
 
 namespace glish3 {
-    std::map<std::string, void(Uniform::*)(void*)> Uniform::function{
+    std::map<std::string, void(Uniform::*)(void*)const> Uniform::function{
 			{"int", &Uniform::uniform1iv},
 			{"sampler2D", &Uniform::uniform1iv},
 			{"bool", &Uniform::uniform1iv},
@@ -36,40 +36,39 @@ namespace glish3 {
         return uniform;
     }
 
-	void Uniform::uniform1fv(void *value) {
+	void Uniform::uniform1fv(void *value) const {
 		glUniform1fv(uniform, 1, (GLfloat*) value);
 	}
 
-	void Uniform::uniform2fv(void *value) {
+	void Uniform::uniform2fv(void *value) const {
 		glUniform2fv(uniform, 1, (GLfloat*) value);
 	}
 
-	void Uniform::uniform3fv(void *value) {
+	void Uniform::uniform3fv(void *value) const {
 		glUniform3fv(uniform, 1, (GLfloat*) value);
 	}
 
-	void Uniform::uniform4fv(void *value) {
+	void Uniform::uniform4fv(void *value) const {
 		glUniform4fv(uniform, 1, (GLfloat*) value);
 	}
 
-	void Uniform::uniform1iv(void *value) {
+	void Uniform::uniform1iv(void *value) const {
 		glUniform1iv(uniform, 1, (GLint*)value);
 	}
 
-	void Uniform::uniform2iv(void *value) {
+	void Uniform::uniform2iv(void *value) const {
 		glUniform2iv(uniform, 1, (GLint*)value);
 	}
 
-	void Uniform::uniform3iv(void *value) {
+	void Uniform::uniform3iv(void *value) const {
 		glUniform3iv(uniform, 1, (GLint*)value);
 	}
 
-	void Uniform::uniform4iv(void *value) {
+	void Uniform::uniform4iv(void *value) const {
 		glUniform4iv(uniform, 1, (GLint*)value);
 	}
 
-	void Uniform::use_program() {
-		//std::cout << *this << std::endl;
+	void Uniform::use_program() const{
 		program->use();
 	}
 
@@ -83,15 +82,15 @@ namespace glish3 {
 
 
 
-	void Uniform::uniform_matrix2fv(void *value) {
+	void Uniform::uniform_matrix2fv(void *value) const {
 		glUniformMatrix2fv(uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 
-	void Uniform::uniform_matrix3fv(void *value) {
+	void Uniform::uniform_matrix3fv(void *value) const {
 		glUniformMatrix3fv(uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 
-	void Uniform::uniform_matrix4fv(void *value) {
+	void Uniform::uniform_matrix4fv(void *value) const {
 		glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 

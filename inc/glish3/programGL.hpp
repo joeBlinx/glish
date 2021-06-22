@@ -48,7 +48,7 @@ namespace glish3{
 		void use();
 		explicit operator GLuint()const ;
 
-		Uniform &operator[](const std::string &name);
+		Uniform const& operator[](const std::string &name) const;
 
 
 	};
