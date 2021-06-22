@@ -16,6 +16,7 @@
 #include <glish3/shader.hpp>
 #include <glish3/Vao.hpp>
 #include <glish3/programGL.hpp>
+#include <glish3/texture2d.hpp>
 
 using namespace glish3;
 void set_view_uniform(ProgramGL const& program_gl, int width, int height){
@@ -75,6 +76,9 @@ int main() {
 	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
 	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
 															   "frag.glsl");
+
+	glish3::Texture2D texture = glish3::Texture2D::readImage("black_hole.jpg");
+	texture.activeTexture(0);
 	//glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
 	//		"geometry.glsl");
 	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
@@ -85,8 +89,8 @@ int main() {
 	float square[]={
 			-0.5, 0.5, 0, 0,
 			-0.5, -0.5, 0, 1,
-			0.5, 0.5, 1, 1,
-			0.5, -0.5, 1, 0
+			0.5, 0.5, 1, 0,
+			0.5, -0.5, 1, 1
 	};
     vao.bind();
 	//VBO

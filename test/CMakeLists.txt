@@ -8,5 +8,9 @@ add_custom_target(copy_shaders
             ${CMAKE_CURRENT_LIST_DIR}/vert.glsl
             ${CMAKE_CURRENT_LIST_DIR}/frag.glsl ${CMAKE_CURRENT_BINARY_DIR}
         )
+add_custom_target(copy_image
+        COMMAND cmake -E copy_if_different
+        ${CMAKE_CURRENT_LIST_DIR}/black_hole.jpg ${CMAKE_CURRENT_BINARY_DIR}
+        )
 
-add_dependencies(sample_test copy_shaders)
+add_dependencies(sample_test copy_shaders copy_image)
