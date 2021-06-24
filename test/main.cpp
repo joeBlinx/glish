@@ -94,7 +94,7 @@ int main() {
 	};
     vao.bind();
 	//VBO
-    vao.add_vbo(Buffer(GL_ARRAY_BUFFER,
+    vao.add_vbo(buffer(GL_ARRAY_BUFFER,
                        square),
                 glish3::attrib_settings(2, 0, 4, 0),
                 glish3::attrib_settings(2, 1, 4, 2));
@@ -105,7 +105,7 @@ int main() {
             4, 1, 0, 1
     };
 
-    Buffer indirect_draw(GL_DRAW_INDIRECT_BUFFER, values);
+    buffer indirect_draw(GL_DRAW_INDIRECT_BUFFER, values);
     indirect_draw.bind();
 
     bool run = true;

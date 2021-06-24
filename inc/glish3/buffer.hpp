@@ -28,7 +28,7 @@ namespace glish3{
 		{
 		}
 	};
-	class Buffer{
+	class buffer{
         friend class Vao;
 		UniqueBuffer _buffer;
 		GLenum target ;
@@ -37,7 +37,7 @@ namespace glish3{
 	public:
 
 		template<class T, size_t N, class ...Settings>
-				Buffer(GLenum target, T(&data) [N])
+				buffer(GLenum target, T(&data) [N])
 		:_buffer(make_unique_buffer()), target(target), _size_of_data(sizeof(T))
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
@@ -46,7 +46,7 @@ namespace glish3{
 
 		}
 		template<class T, class ...Settings>
-				Buffer(GLenum target, T * data, size_t size):
+				buffer(GLenum target, T * data, size_t size):
 				_buffer(make_unique_buffer()),
 				target(target), _size_of_data(sizeof(T))
 		{
