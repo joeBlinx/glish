@@ -37,35 +37,35 @@ namespace glish3 {
     }
 
 	void Uniform::uniform1fv(void *value) const {
-		glUniform1fv(uniform, 1, (GLfloat*) value);
+		glProgramUniform1fv((GLuint)*program, uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform2fv(void *value) const {
-		glUniform2fv(uniform, 1, (GLfloat*) value);
+		glProgramUniform2fv((GLuint)*program, uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform3fv(void *value) const {
-		glUniform3fv(uniform, 1, (GLfloat*) value);
+		glProgramUniform3fv((GLuint)*program, uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform4fv(void *value) const {
-		glUniform4fv(uniform, 1, (GLfloat*) value);
+		glProgramUniform4fv((GLuint)*program, uniform, 1, (GLfloat*) value);
 	}
 
 	void Uniform::uniform1iv(void *value) const {
-		glUniform1iv(uniform, 1, (GLint*)value);
+		glProgramUniform1iv((GLuint)*program, uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform2iv(void *value) const {
-		glUniform2iv(uniform, 1, (GLint*)value);
+		glProgramUniform2iv((GLuint)*program, uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform3iv(void *value) const {
-		glUniform3iv(uniform, 1, (GLint*)value);
+		glProgramUniform3iv((GLuint)*program, uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::uniform4iv(void *value) const {
-		glUniform4iv(uniform, 1, (GLint*)value);
+		glProgramUniform4iv((GLuint)*program, uniform, 1, (GLint*)value);
 	}
 
 	void Uniform::use_program() const{
@@ -75,23 +75,23 @@ namespace glish3 {
 	 std::ostream& operator<<(std::ostream &stream, Uniform const & uni){
                 std::cout << "my address is " << &uni << std::endl;
                 std::cout << "my name is "<< uni.settings.name << std::endl;
-                std::cout << "my program is " << uni.program << std::endl;
-                std::cout << "my program ID is " << (GLuint)*uni.program << std::endl;
+                std::cout << "my (GLuint)program is " << uni.program << std::endl;
+                std::cout << "my (GLuint)program ID is " << (GLuint)*uni.program << std::endl;
                 return stream;
         }
 
 
 
 	void Uniform::uniform_matrix2fv(void *value) const {
-		glUniformMatrix2fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+		glProgramUniformMatrix2fv((GLuint)*program, uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 
 	void Uniform::uniform_matrix3fv(void *value) const {
-		glUniformMatrix3fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+		glProgramUniformMatrix3fv((GLuint)*program, uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 
 	void Uniform::uniform_matrix4fv(void *value) const {
-		glUniformMatrix4fv(uniform, 1, GL_FALSE, (GLfloat *)value);
+		glProgramUniformMatrix4fv((GLuint)*program, uniform, 1, GL_FALSE, (GLfloat *)value);
 	}
 
 

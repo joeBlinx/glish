@@ -66,7 +66,6 @@ namespace glish3 {
 
 template<class T>
 void glish3::Uniform::operator=(T *  value) const{
-	use_program();
 	(this->*Uniform::function[settings.type])((void*)value);
 }
 #endif //GLISH3_UNIFORM_H
