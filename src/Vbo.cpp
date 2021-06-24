@@ -3,7 +3,7 @@
 //
 
 #include "glish3/Vbo.hpp"
-
+#include "glish3/Vao.hpp"
 namespace glish3{
 
 	Vbo::operator GLuint() {
@@ -14,7 +14,4 @@ namespace glish3{
 		return (bool)_vbo.get();
 	}
 
-	void Vbo::bind() {
-		glBindBuffer(target, _vbo.get());
-	}
 }

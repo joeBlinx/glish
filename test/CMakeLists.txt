@@ -14,3 +14,6 @@ add_custom_target(copy_image
         )
 
 add_dependencies(sample_test copy_shaders copy_image)
+set_target_properties(sample_test PROPERTIES
+        CXX_STANDARD 20)
+target_compile_options(sample_test PRIVATE -fconcepts)
