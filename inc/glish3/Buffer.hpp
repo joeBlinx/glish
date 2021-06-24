@@ -9,7 +9,7 @@
 #include <initializer_list>
 
 #include <type_traits>
-#include <glish3/gl_memory/unique_vbo.hpp>
+#include <glish3/gl_memory/unique_buffer.hpp>
 
 
 namespace glish3{
@@ -30,7 +30,7 @@ namespace glish3{
 	};
 	class Buffer{
         friend class Vao;
-		UniqueVbo _vbo;
+		UniqueBuffer _buffer;
 		GLenum target ;
         std::size_t _size_of_data{};
 
@@ -43,9 +43,9 @@ namespace glish3{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
 			GLuint vbo;
 			glCreateBuffers(1, &vbo);
-			_vbo = UniqueVbo(vbo);
-			glNamedBufferData(_vbo.get(), N*sizeof(T),
-							data, GL_STATIC_DRAW);
+            _buffer = UniqueBuffer(vbo);
+			glNamedBufferData(_buffer.get(), N * sizeof(T),
+                              data, GL_STATIC_DRAW);
 
 		}
 		template<class T, class ...Settings>
@@ -55,9 +55,9 @@ namespace glish3{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
             GLuint vbo;
             glGenBuffers(1, &vbo);
-            _vbo = UniqueVbo(vbo);
-            glNamedBufferData(_vbo.get(), size*sizeof(T),
-							data, GL_STATIC_DRAW);
+            _buffer = UniqueBuffer(vbo);
+            glNamedBufferData(_buffer.get(), size * sizeof(T),
+                              data, GL_STATIC_DRAW);
 		}
         void bind()const;
 		explicit operator GLuint();

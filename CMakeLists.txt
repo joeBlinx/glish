@@ -44,7 +44,7 @@ target_sources(glish3
 		inc/glish3/uniform.hpp
 		inc/glish3/Buffer.hpp
 		inc/glish3/gl_memory/unique_vao.hpp
-		inc/glish3/gl_memory/unique_vbo.hpp
+		inc/glish3/gl_memory/unique_buffer.hpp
 		inc/glish3/gl_memory/unique_programgl.hpp
 		inc/glish3/gl_memory/unique_shader.hpp
 		inc/glish3/gl_memory/unique_texture.hpp

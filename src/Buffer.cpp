@@ -7,13 +7,13 @@
 namespace glish3{
 
 	Buffer::operator GLuint() {
-		return _vbo.get();
+		return _buffer.get();
 	}
 
 	Buffer::operator bool() const {
-		return (bool)_vbo.get();
+		return (bool)_buffer.get();
 	}
     void Buffer::bind() const {
-        glBindBuffer(target, _vbo.get());
+        glBindBuffer(target, _buffer.get());
     }
 }
