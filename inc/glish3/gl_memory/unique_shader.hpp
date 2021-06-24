@@ -30,5 +30,9 @@ namespace glish3 {
     private:
         GLuint _shader{};
     };
+
+    inline UniqueShader make_unique_shader(GLenum shader_type){
+        return {glCreateShader(shader_type)};
+    }
 }
 #endif //GLISH3_UNIQUE_SHADER_HPP

@@ -19,9 +19,9 @@ namespace glish3 {
 			{GL_COMPUTE_SHADER, "compute shader"}
 	};
 
-	Shader::Shader(GLenum shaderType, const char *data):
-	_shader(glCreateShader(shaderType)),
-	shaderType(shaderType){
+	Shader::Shader(GLenum shader_type, const char *data):
+	_shader(make_unique_shader(shader_type)),
+	shaderType(shader_type){
 		if(!data){
 			log.warning("data pass to shader is null, shader will not be compiled");
 			return;

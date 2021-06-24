@@ -30,5 +30,10 @@ namespace glish3 {
     private:
         GLuint _buffer{};
     };
+    inline UniqueBuffer make_unique_buffer(){
+        GLuint buffer;
+        glCreateBuffers(1, &buffer);
+        return {buffer};
+    }
 }
 #endif //GLISH3_UNIQUE_VBO_H

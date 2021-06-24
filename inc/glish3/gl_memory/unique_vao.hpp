@@ -28,5 +28,10 @@ namespace glish3 {
     private:
         GLuint _vao{};
     };
+    inline UniqueVao make_unique_vao(){
+        GLuint vao;
+        glCreateVertexArrays(1, &vao);
+        return {vao};
+    }
 }
 #endif //GLISH3_UNIQUE_VAO_HPP

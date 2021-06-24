@@ -5,11 +5,9 @@
 #include <glish3/Vao.hpp>
 
 namespace glish3 {
-    Vao::Vao() {
-        GLuint vao;
-        glCreateVertexArrays(1, &vao);
-        _vao = UniqueVao(vao);
-    }
+    Vao::Vao():
+    _vao(make_unique_vao())
+    {}
 
     void Vao::bind() {
         glBindVertexArray(_vao.get());

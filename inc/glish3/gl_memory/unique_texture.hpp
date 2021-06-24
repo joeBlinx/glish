@@ -30,5 +30,10 @@ namespace glish3 {
     private:
         GLuint _id{};
     };
+    inline UniqueTexture make_unique_texture(GLenum target){
+        GLuint texture;
+        glCreateTextures(target, 1, &texture);
+        return {texture};
+    }
 }
 #endif //GLISH3_UNIQUE_TEXTURE_HPP

@@ -9,10 +9,7 @@
 #include <filesystem>
 
 namespace glish3 {
-	Texture2D::Texture2D(const texture_settings &settings) {
-        GLuint texture_id{};
-		glCreateTextures(GL_TEXTURE_2D, 1, &texture_id);
-        _texture_id = UniqueTexture(texture_id);
+	Texture2D::Texture2D(const texture_settings &settings):_texture_id(make_unique_texture(GL_TEXTURE_2D)) {
 
         glTextureStorage2D(_texture_id.get(), 1, GL_RGBA8, settings.width, settings.height);
         glTextureSubImage2D(_texture_id.get(),

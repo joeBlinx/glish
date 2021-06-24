@@ -22,7 +22,7 @@ namespace glish3 {
 		std::vector<uni_settings> uniforms_settings;
 		Shader() = default;
 
-		Shader(GLenum shaderType, const char * data);
+		Shader(GLenum shader_type, const char * data);
 		void compileShader(const char * data);
 		void findUniformsName(const char * data);
 

@@ -25,24 +25,24 @@ namespace glish3{
 
 
 		template <class ...Shaders>
-		ProgramGL(Shaders  &... shaders){
+		ProgramGL(Shaders  &... shaders):_program(make_unique_gl_program()){
 
-			GLuint program = glCreateProgram();
-			(glAttachShader(program, (GLuint)shaders), ...);
-			glLinkProgram(program);
-			(glDetachShader(program, (GLuint)shaders), ...);
+
+			(glAttachShader(_program, (GLuint)shaders), ...);
+			glLinkProgram(_program);
+			(glDetachShader(_program, (GLuint)shaders), ...);
 			GLint Result;
 			int InfoLogLength = 0;
-			glGetProgramiv(program, GL_LINK_STATUS, &Result);
-			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &InfoLogLength);
+			glGetProgramiv(_program, GL_LINK_STATUS, &Result);
+			glGetProgramiv(_program, GL_INFO_LOG_LENGTH, &InfoLogLength);
 
 			if (InfoLogLength > 0) {
 				std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-				glGetProgramInfoLog(program, InfoLogLength, NULL, ProgramErrorMessage.data());
+				glGetProgramInfoLog(_program, InfoLogLength, nullptr, ProgramErrorMessage.data());
 				log.title("compile Program");
 				log.info(ProgramErrorMessage.data());
 			}
-			_program = UniqueProgramGL(program);
+
             (createUniform(shaders), ...);
 		}
 		void use();

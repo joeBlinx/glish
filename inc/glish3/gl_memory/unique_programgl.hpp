@@ -24,9 +24,13 @@ namespace glish3 {
             }
         }
         GLuint get() const{ return _program_gl;}
+        operator GLuint() const{return get();}
 
     private:
         GLuint _program_gl{};
     };
+    inline UniqueProgramGL make_unique_gl_program(){
+        return {glCreateProgram()};
+    }
 }
 #endif //GLISH3_UNIQUE_PROGRAMGL_HPP
