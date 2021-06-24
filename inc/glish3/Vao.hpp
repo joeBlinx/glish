@@ -7,7 +7,7 @@
 
 #include <glish3/gl_glew.hpp>
 #include <vector>
-#include <glish3/Vbo.hpp>
+#include <glish3/Buffer.hpp>
 #include "glish3/gl_memory/unique_vao.hpp"
 
 namespace glish3{
@@ -27,16 +27,16 @@ namespace glish3{
     };
     class Vao{
         UniqueVao _vao;
-        std::vector<Vbo> _vbos;
+        std::vector<Buffer> _vbos;
 
-        void set_attrib(const Vbo &vbo, const attrib_settings &settings);
+        void set_attrib(const Buffer &vbo, const attrib_settings &settings);
     public:
         Vao();
 
         void bind();
 
         template<class ...Settings>
-        void add_vbo (Vbo && vbo, Settings&& ... settings)
+        void add_vbo (Buffer && vbo, Settings&& ... settings)
         requires (std::is_same_v<Settings, attrib_settings> && ...){
             _vbos.push_back(std::move(vbo));
             (set_attrib(_vbos.back(), settings), ...);
@@ -47,5 +47,6 @@ namespace glish3{
         operator GLuint();
 
     };
+
 }
 #endif //GLISH3_VAP_H

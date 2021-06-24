@@ -94,20 +94,19 @@ int main() {
 	};
     vao.bind();
 	//VBO
-    vao.add_vbo(Vbo(GL_ARRAY_BUFFER,
-                    square),
-                    glish3::attrib_settings(2, 0, 4, 0),
-                    glish3::attrib_settings(2, 1, 4, 2));
+    vao.add_vbo(Buffer(GL_ARRAY_BUFFER,
+                       square),
+                glish3::attrib_settings(2, 0, 4, 0),
+                glish3::attrib_settings(2, 1, 4, 2));
     set_view_uniform(programGL, width, height);
 
-    GLuint indirect = 0;
-    glGenBuffers(1, &indirect);
+
     GLuint values[]={
             4, 1, 0, 1
     };
-    glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirect);
-    glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(values), values, GL_STATIC_DRAW);
 
+    Buffer indirect_draw(GL_DRAW_INDIRECT_BUFFER, values);
+    indirect_draw.bind();
 
     bool run = true;
 	while(run){
@@ -137,7 +136,7 @@ int main() {
         glDrawArraysIndirect(GL_TRIANGLE_STRIP, (void*)0);
 		SDL_GL_SwapWindow(window);
 	}
-    glDeleteBuffers(1, &indirect);
+
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

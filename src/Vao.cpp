@@ -24,7 +24,7 @@ namespace glish3 {
     }
 
 
-    void Vao::set_attrib(const Vbo &vbo, const attrib_settings &settings) {
+    void Vao::set_attrib(const Buffer &vbo, const attrib_settings &settings) {
 
         glVertexArrayVertexBuffer(_vao.get(), 0, (GLuint)vbo, 0, settings.stride*vbo._size_of_data);
         glEnableVertexArrayAttrib(_vao.get(), settings.index);

@@ -2,8 +2,8 @@
 // Created by joe on 07/10/18.
 //
 
-#ifndef GLISH3_VBO_HPP
-#define GLISH3_VBO_HPP
+#ifndef GLISH3_BUFFER_HPP
+#define GLISH3_BUFFER_HPP
 
 #include <glish3/gl_glew.hpp>
 #include <initializer_list>
@@ -28,7 +28,7 @@ namespace glish3{
 		{
 		}
 	};
-	class Vbo{
+	class Buffer{
         friend class Vao;
 		UniqueVbo _vbo;
 		GLenum target ;
@@ -37,7 +37,7 @@ namespace glish3{
 	public:
 
 		template<class T, size_t N, class ...Settings>
-				Vbo(GLenum target, T(&data) [N])
+				Buffer(GLenum target, T(&data) [N])
 		:target(target), _size_of_data(sizeof(T))
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
@@ -49,7 +49,7 @@ namespace glish3{
 
 		}
 		template<class T, class ...Settings>
-				Vbo(GLenum target, T * data, size_t size):
+				Buffer(GLenum target, T * data, size_t size):
 				target(target), _size_of_data(sizeof(T))
 		{
 			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
@@ -59,10 +59,10 @@ namespace glish3{
             glNamedBufferData(_vbo.get(), size*sizeof(T),
 							data, GL_STATIC_DRAW);
 		}
-
+        void bind()const;
 		explicit operator GLuint();
 		operator bool() const;
 
 	};
 }
-#endif //GLISH3_VBO_HPP
+#endif //GLISH3_BUFFER_HPP
