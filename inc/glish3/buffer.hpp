@@ -36,24 +36,19 @@ namespace glish3{
 
 	public:
 
-		template<class T, size_t N, class ...Settings>
+		template<class T, size_t N>
 				buffer(GLenum target, T(&data) [N])
 		:_buffer(make_unique_buffer()), target(target), _size_of_data(sizeof(T))
 		{
-			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
 			glNamedBufferData(_buffer.get(), N * sizeof(T),
                               data, GL_STATIC_DRAW);
 
 		}
-		template<class T, class ...Settings>
+		template<class T>
 				buffer(GLenum target, T * data, size_t size):
 				_buffer(make_unique_buffer()),
 				target(target), _size_of_data(sizeof(T))
 		{
-			static_assert((std::is_same<Settings, vbo_settings>::value && ... && true), "Type must be settings");
-            GLuint vbo;
-            glGenBuffers(1, &vbo);
-            _buffer = UniqueBuffer(vbo);
             glNamedBufferData(_buffer.get(), size * sizeof(T),
                               data, GL_STATIC_DRAW);
 		}

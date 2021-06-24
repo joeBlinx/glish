@@ -41,10 +41,15 @@ namespace glish3 {
 		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLog);
 
 		if (infoLog > 0) {
-			std::vector<char> VertexShaderErrorMessage (infoLog + 1);
-			glGetShaderInfoLog(shaderID, infoLog, nullptr, VertexShaderErrorMessage.data());
+			std::vector<char> error (infoLog + 1);
+			glGetShaderInfoLog(shaderID, infoLog, nullptr, error.data());
+            glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
+                                 GL_DEBUG_TYPE_ERROR,
+                                 0, GL_DEBUG_SEVERITY_HIGH,
+                                 error.size(),
+                                 error.data());
 			log.title("compile " + match[shaderType]);
-			log.info(VertexShaderErrorMessage.data());
+			log.info(error.data());
 		}
 	}
 
