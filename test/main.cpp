@@ -78,7 +78,7 @@ int main() {
 															   "frag.glsl");
 
 	glish3::Texture2D texture = glish3::Texture2D::readImage("black_hole.jpg");
-	texture.activeTexture(0);
+	texture.bind(0);
 	//glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
 	//		"geometry.glsl");
 	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
