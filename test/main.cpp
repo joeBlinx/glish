@@ -94,11 +94,19 @@ int main() {
 	};
     vao.bind();
 	//VBO
-    vao.addVbo(
-            glish3::Vbo(GL_ARRAY_BUFFER,
-                    square,
-                    glish3::vbo_settings(2, 0, 4, 0),
-                    glish3::vbo_settings(2, 1, 4, 2)));
+    vao.add_vbo(Buffer(GL_ARRAY_BUFFER,
+                       square),
+                glish3::attrib_settings(2, 0, 4, 0),
+                glish3::attrib_settings(2, 1, 4, 2));
+    set_view_uniform(programGL, width, height);
+
+
+    GLuint values[]={
+            4, 1, 0, 1
+    };
+
+    Buffer indirect_draw(GL_DRAW_INDIRECT_BUFFER, values);
+    indirect_draw.bind();
 
     bool run = true;
 	while(run){
@@ -125,7 +133,7 @@ int main() {
 			}
 		}
 
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArraysIndirect(GL_TRIANGLE_STRIP, (void*)0);
 		SDL_GL_SwapWindow(window);
 	}
 

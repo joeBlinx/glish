@@ -42,9 +42,9 @@ target_sources(glish3
 		inc/glish3/programGL.hpp
 		inc/glish3/shader.hpp
 		inc/glish3/uniform.hpp
-		inc/glish3/Vbo.hpp
+		inc/glish3/Buffer.hpp
 		inc/glish3/gl_memory/unique_vao.hpp
-		inc/glish3/gl_memory/unique_vbo.hpp
+		inc/glish3/gl_memory/unique_buffer.hpp
 		inc/glish3/gl_memory/unique_programgl.hpp
 		inc/glish3/gl_memory/unique_shader.hpp
 		inc/glish3/gl_memory/unique_texture.hpp
@@ -53,7 +53,7 @@ target_sources(glish3
 		src/log/errorHandler.cpp
 		src/log/log.cpp
 		src/shader.cpp
-		src/Vbo.cpp
+		src/Buffer.cpp
 		src/Vao.cpp
 		src/texture2d.cpp
 		src/uniform.cpp
