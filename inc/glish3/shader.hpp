@@ -24,11 +24,8 @@ namespace glish3 {
 
 		Shader(GLenum shader_type, const char * data);
 		void compileShader(const char * data);
-		void findUniformsName(const char * data);
 
 	public:
-
-		const std::vector<uni_settings> & getUniSettings();
 
 		static Shader createShaderFromFile(GLenum shaderType, const char * path);
 		static Shader createShaderFromData(GLenum shaderType, const char * data);

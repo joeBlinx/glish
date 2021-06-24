@@ -14,12 +14,12 @@ namespace glish3 {
 	class ProgramGL;
 	struct uni_settings{
 		std::string name;
-		std::string type;
+        GLint type;
 	};
 
     class Uniform {
 		friend class ProgramGL;
-    	static std::map<std::string, void(Uniform::*)(void*)const> function;
+    	static std::map<GLint, void(Uniform::*)(void*)const> function;
     	uni_settings settings;
 		ProgramGL *program = nullptr;
 

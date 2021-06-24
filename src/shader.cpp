@@ -4,7 +4,6 @@
 #include <glish3/gl_glew.hpp>
 #include <glish3/shader.hpp>
 #include <glish3/log/errorHandler.hpp>
-#include <fstream>
 #include <map>
 #include <vector>
 #include <utils/stringUtil.h>
@@ -26,7 +25,6 @@ namespace glish3 {
 			log.warning("data pass to shader is null, shader will not be compiled");
 			return;
 		}
-		findUniformsName(data);
 		compileShader(data);
 	}
 
@@ -87,36 +85,5 @@ namespace glish3 {
 		return _shader.get();
 	}
 
-	void Shader::findUniformsName(const char *data) {
 
-		data = strstr(data, "uniform");
-		uni_settings settings{};
-		unsigned long  size;
-
-		while(data){
-
-			data = strstr(data, " ");
-			utils::advanceWhile(&data, ' ');
-
-			size =  strstr(data," ") - data ; // get type
-			settings.type.resize(size);
-			std::strncpy(settings.type.data(), data, size);
-
-			data = strstr(data, " ");
-			utils::advanceWhile(&data, ' ');
-			size =  strstr(data,";") - data ; //get name
-
-			settings.name.resize(size);
-			std::strncpy(settings.name.data(), data, size);
-
-			uniforms_settings.emplace_back(settings);
-
-			data = strstr(data, "uniform");
-		}
-
-	}
-
-	const std::vector<uni_settings> & Shader::getUniSettings() {
-		return uniforms_settings;
-	}
 }

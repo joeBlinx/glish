@@ -18,11 +18,31 @@ namespace glish3 {
         return _program.get();
     }
 
-	void ProgramGL::createUniform(Shader &shader) {
+	void ProgramGL::createUniform() {
 
-		auto const & uniformsName = shader.getUniSettings();
-		for(auto & settings: uniformsName){
-			uniforms[settings.name] = Uniform(settings, *this);
+		GLint active_uniform {};
+		glGetProgramInterfaceiv(_program, GL_UNIFORM, GL_ACTIVE_RESOURCES, &active_uniform);
+		for (GLint i = 0; i < active_uniform; i++){
+            constexpr int buf_size = 15;
+            char name[buf_size];
+		    GLsizei length{};
+		    glGetProgramResourceName(_program, GL_UNIFORM, i, buf_size, &length, name);
+		    GLenum prop = GL_TYPE;
+		    GLint type{};
+		    glGetProgramResourceiv(_program,
+		            GL_UNIFORM,
+		            i,
+		            1,
+		            &prop,
+		            sizeof(GLint),
+		            &length,
+		            &type
+		            );
+		    uni_settings settings{
+		        .name = name,
+		        .type = type
+		    };
+            uniforms[settings.name] = Uniform(settings, *this);
 		}
 	}
 

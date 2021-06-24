@@ -5,21 +5,21 @@
 #include <glish3/programGL.hpp>
 
 namespace glish3 {
-    std::map<std::string, void(Uniform::*)(void*)const> Uniform::function{
-			{"int", &Uniform::uniform1iv},
-			{"sampler2D", &Uniform::uniform1iv},
-			{"bool", &Uniform::uniform1iv},
-			{"ivec2", &Uniform::uniform2iv},
-			{"ivec3", &Uniform::uniform3iv},
-			{"ivec4", &Uniform::uniform4iv},
+    std::map<GLint, void(Uniform::*)(void*)const> Uniform::function{
+			{GL_INT, &Uniform::uniform1iv},
+			{GL_SAMPLER_2D, &Uniform::uniform1iv},
+			{GL_BOOL, &Uniform::uniform1iv},
+			{GL_INT_VEC2, &Uniform::uniform2iv},
+			{GL_INT_VEC3, &Uniform::uniform3iv},
+			{GL_INT_VEC4, &Uniform::uniform4iv},
 
-			{"float", &Uniform::uniform1fv},
-			{"vec2", &Uniform::uniform2fv},
-			{"vec3", &Uniform::uniform3fv},
-			{"vec4", &Uniform::uniform4fv},
-			{"mat2", &Uniform::uniform_matrix2fv},
-			{"mat3", &Uniform::uniform_matrix3fv},
-			{"mat4", &Uniform::uniform_matrix4fv}
+			{GL_FLOAT, &Uniform::uniform1fv},
+			{GL_FLOAT_VEC2, &Uniform::uniform2fv},
+			{GL_FLOAT_VEC3, &Uniform::uniform3fv},
+			{GL_FLOAT_VEC4, &Uniform::uniform4fv},
+			{GL_FLOAT_MAT2, &Uniform::uniform_matrix2fv},
+			{GL_FLOAT_MAT3, &Uniform::uniform_matrix3fv},
+			{GL_FLOAT_MAT4, &Uniform::uniform_matrix4fv}
 
     };
     Uniform::Uniform(uni_settings const & settings, ProgramGL &prog):

@@ -20,7 +20,7 @@ namespace glish3{
 		UniqueProgramGL _program = 0;
 		std::map<std::string, Uniform> uniforms;
 
-        void createUniform(Shader &shader);
+        void createUniform();
 	public:
 
 
@@ -43,7 +43,7 @@ namespace glish3{
 				log.info(ProgramErrorMessage.data());
 			}
 
-            (createUniform(shaders), ...);
+            createUniform();
 		}
 		void use();
 		explicit operator GLuint()const ;
