@@ -21,7 +21,7 @@ namespace glish3 {
 
         ~UniqueShader() {
             if (_shader != 0) {
-                glDeleteBuffers(1, &_shader);
+                glDeleteShader(_shader);
             }
         }
 

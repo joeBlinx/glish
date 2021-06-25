@@ -81,7 +81,7 @@ namespace glish3 {
 		return Shader(shaderType, data);
 	}
 
-	Shader::operator  GLuint () {
+	Shader::operator  GLuint () const{
 		return _shader.get();
 	}
 

@@ -40,6 +40,7 @@ target_sources(glish3
 		inc/glish3/log/log.hpp
 		inc/glish3/texture2d.hpp
 		inc/glish3/programGL.hpp
+		inc/glish3/program_pipeline.hpp
 		inc/glish3/shader.hpp
 		inc/glish3/uniform.hpp
         inc/glish3/buffer.hpp
@@ -48,8 +49,10 @@ target_sources(glish3
 		inc/glish3/gl_memory/unique_programgl.hpp
 		inc/glish3/gl_memory/unique_shader.hpp
 		inc/glish3/gl_memory/unique_texture.hpp
+		inc/glish3/gl_memory/unique_program_pipeline.hpp
 
 		src/programGL.cpp
+		src/program_pipeline.cpp
 		src/log/errorHandler.cpp
 		src/log/log.cpp
 		src/shader.cpp

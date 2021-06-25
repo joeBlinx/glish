@@ -20,7 +20,7 @@ namespace glish3 {
 
         ~UniqueProgramGL() {
             if (_program_gl != 0) {
-                glDeleteBuffers(1, &_program_gl);
+                glDeleteProgram(_program_gl);
             }
         }
         GLuint get() const{ return _program_gl;}

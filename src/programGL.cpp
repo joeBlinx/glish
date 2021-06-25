@@ -49,7 +49,9 @@ namespace glish3 {
 	Uniform const& ProgramGL::operator[](const std::string &name) const{
 		return uniforms.at(name);
 	}
-
+	ProgramGL ProgramGL::create_separate_program(Shader const& shader){
+           return ProgramGL(GL_TRUE, shader);
+	}
 
 }
 

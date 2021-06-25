@@ -29,7 +29,10 @@ namespace glish3 {
 
 		static Shader createShaderFromFile(GLenum shaderType, const char * path);
 		static Shader createShaderFromData(GLenum shaderType, const char * data);
-		explicit operator  GLuint ();
+		operator  GLuint () const;
+		GLenum get_type() const{
+		    return shaderType;
+		}
 
 
 	};

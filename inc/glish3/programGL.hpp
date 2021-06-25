@@ -25,10 +25,10 @@ namespace glish3{
 
 
 		template <class ...Shaders>
-		ProgramGL(Shaders  &... shaders):_program(make_unique_gl_program()){
-
+		ProgramGL(GLboolean separable, Shaders  &... shaders):_program(make_unique_gl_program()){
 
 			(glAttachShader(_program, (GLuint)shaders), ...);
+            glProgramParameteri(_program, GL_PROGRAM_SEPARABLE, separable);
 			glLinkProgram(_program);
 			(glDetachShader(_program, (GLuint)shaders), ...);
 			GLint Result;
@@ -49,7 +49,13 @@ namespace glish3{
 		explicit operator GLuint()const ;
 
 		Uniform const& operator[](const std::string &name) const;
+        static ProgramGL create_separate_program(Shader const& shader);
 
+        template<class ...Shaders>
+        static ProgramGL create_program(Shaders const& ...shaders)
+        requires (std::is_same_v<Shader, Shaders> && ...){
+            return ProgramGL(GL_FALSE, shaders ...);
+        }
 
 	};
 }
