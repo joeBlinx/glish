@@ -9,7 +9,7 @@ namespace glish3 {
     _vao(make_unique_vao())
     {}
 
-    void Vao::bind() {
+    void Vao::bind() const{
         glBindVertexArray(_vao.get());
     }
 
@@ -31,5 +31,7 @@ namespace glish3 {
                               GL_FLOAT, GL_FALSE,
                              settings.offset*vbo._size_of_data);
     }
+
+
 
 }

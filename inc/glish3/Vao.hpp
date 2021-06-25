@@ -33,7 +33,8 @@ namespace glish3{
     public:
         Vao();
 
-        void bind();
+        void bind() const;
+
 
         template<class ...Settings>
         void add_vbo (buffer && vbo, Settings&& ... settings)

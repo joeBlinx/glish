@@ -137,6 +137,7 @@ int main() {
 
                         width = ev.window.data1;
                         height = ev.window.data2;
+                        std::cout << "width: " << width << " height: " << height << "\n";
                         set_view_uniform(programGLvertex, width, height);
                     }
                     break;
