@@ -39,8 +39,6 @@ namespace glish3 {
 		void uniform_matrix3fv(void * value)const;
 		void uniform_matrix4fv(void * value)const;
 
-
-		void use_program() const; // here to avoid circular dependencies
     public:
 
         Uniform() = default;

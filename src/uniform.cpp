@@ -68,10 +68,6 @@ namespace glish3 {
 		glProgramUniform4iv((GLuint)*program, uniform, 1, (GLint*)value);
 	}
 
-	void Uniform::use_program() const{
-		program->use();
-	}
-
 	 std::ostream& operator<<(std::ostream &stream, Uniform const & uni){
                 std::cout << "my address is " << &uni << std::endl;
                 std::cout << "my name is "<< uni.settings.name << std::endl;
