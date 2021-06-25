@@ -12,7 +12,7 @@ endif()
 add_library(glish3 STATIC)
 
 if(WIN32)
-	target_compile_options(glish3 PRIVATE /Wall)
+	target_compile_options(glish3 PRIVATE /W4)
 else()
 	target_compile_options(glish3 PRIVATE -Wall -pedantic -Wextra -fconcepts )
 endif()
@@ -20,7 +20,11 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb OpenGL::GL GLEW::GLEW)
 target_include_directories(glish3 PUBLIC inc)
-target_compile_features(glish3 PRIVATE cxx_std_20)
+
+set_target_properties(glish3 PROPERTIES
+		CXX_STANDARD 20
+		CXX_EXTENSIONS OFF
+		)
 
 install(
 		TARGETS glish3

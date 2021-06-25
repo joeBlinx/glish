@@ -30,7 +30,7 @@ namespace glish3 {
     private:
         GLuint _pipeline_program{};
     };
-    inline UniqueProgramPipeline make_unique_gl_program(){
+    inline UniqueProgramPipeline make_unique_pipeline(){
         GLuint program_pipeline{};
         glCreateProgramPipelines(1, &program_pipeline);
         return {program_pipeline};

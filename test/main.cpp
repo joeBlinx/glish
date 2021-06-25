@@ -1,7 +1,7 @@
 //
 // Created by joe on 23/09/18.
 //
-
+#define SDL_MAIN_HANDLED
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
@@ -17,6 +17,7 @@
 #include <glish3/Vao.hpp>
 #include <glish3/programGL.hpp>
 #include <glish3/texture2d.hpp>
+#include <glish3/program_pipeline.hpp>
 
 using namespace glish3;
 void set_view_uniform(ProgramGL const& program_gl, int width, int height){
@@ -76,13 +77,24 @@ int main() {
 	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
 	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
 															   "frag.glsl");
+    glish3::Shader frag_color = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
+                                                               "frag_color.glsl");
 
 	glish3::Texture2D texture = glish3::Texture2D::readImage("black_hole.jpg");
 	texture.bind(0);
 	//glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
 	//		"geometry.glsl");
-	glish3::ProgramGL programGL{vertex/*, geo*/, frag};
-	programGL.use();
+	//glish3::ProgramGL programGL{GL_FALSE, vertex/*, geo*/, frag};
+    glish3::ProgramGL programGLvertex{GL_TRUE, vertex};
+    glish3::ProgramGL programGLfrag{GL_TRUE, frag};
+    glish3::ProgramGL programGLfrag_color{GL_TRUE, frag_color};
+
+    glish3::ProgramPipeline pipeline;
+    pipeline.use_stage(programGLvertex);
+    pipeline.use_stage(programGLfrag);
+    pipeline.bind();
+
+
 	SDL_Event ev;
 	glish3::Vao vao;
 
@@ -98,7 +110,7 @@ int main() {
                        square),
                 glish3::attrib_settings(2, 0, 4, 0),
                 glish3::attrib_settings(2, 1, 4, 2));
-    set_view_uniform(programGL, width, height);
+    set_view_uniform(programGLvertex, width, height);
 
 
     GLuint values[]={
@@ -115,7 +127,7 @@ int main() {
 			switch(ev.type){
 				case SDL_KEYDOWN:
 					if(ev.key.keysym.sym == SDLK_ESCAPE) {
-						run = false;
+                        pipeline.use_stage(programGLfrag_color);
 					}
 					break;
 				case SDL_QUIT:
@@ -127,7 +139,7 @@ int main() {
 
                         width = ev.window.data1;
                         height = ev.window.data2;
-                        set_view_uniform(programGL, width, height);
+                        set_view_uniform(programGLvertex, width, height);
                     }
                     break;
 			}

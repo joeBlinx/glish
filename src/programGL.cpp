@@ -6,7 +6,14 @@
 
 #include <iostream>
 namespace glish3 {
-
+    std::map<GLenum, GLenum> ProgramGL::shader_to_stage{
+            {GL_VERTEX_SHADER, GL_VERTEX_SHADER_BIT},
+            {GL_FRAGMENT_SHADER, GL_FRAGMENT_SHADER_BIT},
+            {GL_TESS_CONTROL_SHADER, GL_TESS_CONTROL_SHADER_BIT},
+            {GL_GEOMETRY_SHADER, GL_GEOMETRY_SHADER_BIT},
+            {GL_TESS_EVALUATION_SHADER, GL_TESS_EVALUATION_SHADER_BIT},
+            {GL_COMPUTE_SHADER, GL_COMPUTE_SHADER_BIT}
+    };
 	void ProgramGL::use() {
 		if (ProgramGL::currentProgram != _program.get()) {
 			glUseProgram(_program.get());

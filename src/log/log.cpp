@@ -85,7 +85,7 @@ void Log::fileNotFound(const std::string &file) {
 	std::string warn{"file not found : \""};
 	warn += file + std::string("\"");
 	warn += "<br/> Working directory is :";
-	warn += std::filesystem::current_path();
+	//warn += std::filesystem::current_path();
 	warning(warn);
 }
 

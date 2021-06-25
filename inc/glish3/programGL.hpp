@@ -17,15 +17,19 @@ namespace glish3{
     class Shader;
 	class ProgramGL{
 		inline static GLuint currentProgram = 0;
+		static std::map<GLenum, GLenum> shader_to_stage;
 		UniqueProgramGL _program = 0;
 		std::map<std::string, Uniform> uniforms;
-
+        GLbitfield _stages{};
         void createUniform();
 	public:
 
 
 		template <class ...Shaders>
-		ProgramGL(GLboolean separable, Shaders  &... shaders):_program(make_unique_gl_program()){
+		ProgramGL(GLboolean separable, Shaders  &... shaders):
+		_program(make_unique_gl_program()),
+		_stages((shader_to_stage[shaders.get_type()] | ...))
+		{
 
 			(glAttachShader(_program, (GLuint)shaders), ...);
             glProgramParameteri(_program, GL_PROGRAM_SEPARABLE, separable);
@@ -47,7 +51,7 @@ namespace glish3{
 		}
 		void use();
 		explicit operator GLuint()const ;
-
+        GLbitfield get_types() const{return _stages;}
 		Uniform const& operator[](const std::string &name) const;
         static ProgramGL create_separate_program(Shader const& shader);
 
