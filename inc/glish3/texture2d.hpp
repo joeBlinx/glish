@@ -35,7 +35,7 @@ namespace glish3 {
 		Texture2D() = default;
 		Texture2D(const texture_settings &settings);
 
-		void bind(int texture_number);
+		void bind(int texture_number) const;
 
 		static texture_settings readImage(const std::string &path);
 

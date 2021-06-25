@@ -23,7 +23,7 @@ namespace glish3 {
 
 	}
 
-	void Texture2D::bind(int texture_number) {
+	void Texture2D::bind(int texture_number) const {
 	    glBindTextureUnit(texture_number, _texture_id.get());
 	}
 

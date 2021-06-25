@@ -74,20 +74,18 @@ int main() {
 	glEnable (GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 // END Init
-	glish3::Shader vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
-	glish3::Shader frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
+	glish3::Shader const vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
+	glish3::Shader const frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
 															   "frag.glsl");
-    glish3::Shader frag_color = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
+    glish3::Shader const frag_color = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
                                                                "frag_color.glsl");
 
-	glish3::Texture2D texture = glish3::Texture2D::readImage("black_hole.jpg");
+	glish3::Texture2D const texture = glish3::Texture2D::readImage("black_hole.jpg");
 	texture.bind(0);
-	//glish3::Shader geo = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER,
-	//		"geometry.glsl");
-	//glish3::ProgramGL programGL{GL_FALSE, vertex/*, geo*/, frag};
-    glish3::ProgramGL programGLvertex{GL_TRUE, vertex};
-    glish3::ProgramGL programGLfrag{GL_TRUE, frag};
-    glish3::ProgramGL programGLfrag_color{GL_TRUE, frag_color};
+
+    auto const programGLvertex = glish3::ProgramGL::create_separate_program(vertex);
+    auto const programGLfrag = glish3::ProgramGL::create_separate_program(frag);
+    auto const programGLfrag_color = glish3::ProgramGL::create_separate_program(frag_color);
 
     glish3::ProgramPipeline pipeline;
     pipeline.use_stage(programGLvertex);
