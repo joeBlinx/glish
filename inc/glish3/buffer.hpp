@@ -14,20 +14,6 @@
 
 namespace glish3{
     class Vao;
-	struct vbo_settings
-	{
-		unsigned size;
-		unsigned index = 0;
-		unsigned stride = 0;
-		unsigned begin = 0;
-		vbo_settings(unsigned size, unsigned index = 0, unsigned stride = 0, unsigned begin = 0):
-		size(size),
-		index(index),
-		stride(stride),
-		begin(begin)
-		{
-		}
-	};
 	class buffer{
         friend class Vao;
 		UniqueBuffer _buffer;
