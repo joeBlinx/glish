@@ -105,9 +105,9 @@ int main() {
     vao.bind();
 	//VBO
     vao.add_vbo(buffer(GL_ARRAY_BUFFER,
-                       square),
-                glish3::attrib_settings(2, 0, 4, 0),
-                glish3::attrib_settings(2, 1, 4, 2));
+                       square), 4,
+                glish3::attrib_settings(2, 0, 0),
+                glish3::attrib_settings(2, 1, 2));
     set_view_uniform(programGLvertex, width, height);
 
 

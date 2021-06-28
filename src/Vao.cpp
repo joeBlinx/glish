@@ -22,9 +22,9 @@ namespace glish3 {
     }
 
 
-    void Vao::set_attrib(const buffer &vbo, const attrib_settings &settings) {
+    void Vao::set_attrib(const buffer &vbo, int stride, const attrib_settings &settings) {
 
-        glVertexArrayVertexBuffer(_vao.get(), 0, (GLuint)vbo, 0, settings.stride*vbo._size_of_data);
+        glVertexArrayVertexBuffer(_vao.get(), 0, (GLuint)vbo, 0, stride*vbo._size_of_data);
         glEnableVertexArrayAttrib(_vao.get(), settings.index);
         glVertexAttribBinding(settings.index, 0);
         glVertexAttribFormat(settings.index, settings.size,

@@ -15,12 +15,10 @@ namespace glish3{
     {
         unsigned size;
         unsigned index = 0;
-        unsigned stride = 0;
         unsigned offset = 0;
-        attrib_settings(unsigned size, unsigned index = 0, unsigned stride = 0, unsigned offset = 0):
+        attrib_settings(unsigned size, unsigned index = 0, unsigned offset = 0):
                 size(size),
                 index(index),
-                stride(stride),
                 offset(offset)
         {
         }
@@ -29,7 +27,7 @@ namespace glish3{
         UniqueVao _vao;
         std::vector<buffer> _vbos;
 
-        void set_attrib(const buffer &vbo, const attrib_settings &settings);
+        void set_attrib(const buffer &vbo, int stride, const attrib_settings &settings);
     public:
         Vao();
 
@@ -37,10 +35,10 @@ namespace glish3{
 
 
         template<class ...Settings>
-        void add_vbo (buffer && vbo, Settings&& ... settings)
+        void add_vbo (buffer && vbo, int stride, Settings&& ... settings)
         requires (std::is_same_v<Settings, attrib_settings> && ...){
             _vbos.push_back(std::move(vbo));
-            (set_attrib(_vbos.back(), settings), ...);
+            (set_attrib(_vbos.back(), 0, settings), ...);
         }
 
         operator bool() const;
