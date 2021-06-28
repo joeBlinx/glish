@@ -38,7 +38,7 @@ namespace glish3 {
             glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
                                  GL_DEBUG_TYPE_ERROR,
                                  0, GL_DEBUG_SEVERITY_HIGH,
-                                 error.size(),
+                                 static_cast<GLsizei>(error.size()),
                                  error.c_str());
         }
 		texture_settings textureSettings{width, height, decltype(texture_settings::data)(data)};
