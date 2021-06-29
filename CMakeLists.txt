@@ -24,6 +24,7 @@ target_include_directories(glish3 PUBLIC inc)
 set_target_properties(glish3 PROPERTIES
 		CXX_STANDARD 20
 		CXX_EXTENSIONS OFF
+		POSITION_INDEPENDENT_CODE ON
 		)
 
 install(
