@@ -38,7 +38,7 @@ namespace glish3{
         void add_vbo (buffer && vbo, int stride, Settings&& ... settings)
         requires (std::is_same_v<Settings, attrib_settings> && ...){
             _vbos.push_back(std::move(vbo));
-            (set_attrib(_vbos.back(), 0, settings), ...);
+            (set_attrib(_vbos.back(), stride, settings), ...);
         }
 
         operator bool() const;
