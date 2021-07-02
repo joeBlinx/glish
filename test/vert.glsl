@@ -1,12 +1,13 @@
-#version 400
-layout(location = 0) in vec2 pos;
-layout(location = 1) in vec2 uv_in;
+#version 450 core
 
-
-uniform mat3 view;
-out vec2 uv;
+layout(location = 0) in float tess_level_in;
+out float tess_level;
 void main(){
-
-    gl_Position =  vec4(view*vec3(500*pos, 1), 1);
-    uv = uv_in;
+    const vec4 positions[3] = vec4[3](
+        vec4(0.25, -0.25, 0.5, 1.0),
+        vec4(-0.25, -0.25, 0.5, 1.0),
+        vec4(0.25, 0.25, 0.5, 1.0)
+        );
+    gl_Position =  positions[gl_VertexID];
+    tess_level = tess_level_in;
 }

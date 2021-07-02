@@ -40,12 +40,15 @@ namespace glish3 {
 
 		if (infoLog > 0) {
 			std::vector<char> error (infoLog + 1);
-			glGetShaderInfoLog(shaderID, infoLog, nullptr, error.data());
+            glGetShaderInfoLog(shaderID, infoLog, nullptr, error.data());
+
+            std::stringstream error_message;
+            error_message << "Shader data is: " << data << "\nerror is: "<< error.data();
             glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
                                  GL_DEBUG_TYPE_ERROR,
                                  0, GL_DEBUG_SEVERITY_HIGH,
-                                 error.size(),
-                                 error.data());
+                                 error_message.str().size(),
+                                 error_message.str().data());
 			log.title("compile " + match[shaderType]);
 			log.info(error.data());
 		}

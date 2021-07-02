@@ -12,12 +12,12 @@
 #include <vector>
 #include <glish3/uniform.hpp>
 #include <map>
-#include <glish3/log/errorHandler.hpp>
-#include <glish3/shader.hpp>
-#include <glish3/Vao.hpp>
-#include <glish3/programGL.hpp>
-#include <glish3/texture2d.hpp>
-#include <glish3/program_pipeline.hpp>
+#include "glish3/log/errorHandler.hpp"
+#include "glish3/shader.hpp"
+#include "glish3/Vao.hpp"
+#include "glish3/programGL.hpp"
+#include "glish3/texture2d.hpp"
+#include "glish3/program_pipeline.hpp"
 
 using namespace glish3;
 void set_view_uniform(ProgramGL const& program_gl, int width, int height){
@@ -77,55 +77,38 @@ int main() {
 	glish3::Shader const vertex = glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, "vert.glsl");
 	glish3::Shader const frag = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
 															   "frag.glsl");
-    glish3::Shader const frag_color = glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER,
-                                                               "frag_color.glsl");
-
-	glish3::Texture2D const texture = glish3::Texture2D::readImage("black_hole.jpg");
-	texture.bind(0);
+    glish3::Shader const tess_eval = glish3::Shader::createShaderFromFile(GL_TESS_EVALUATION_SHADER, "tess_eval.glsl");
+    glish3::Shader const tess_control = glish3::Shader::createShaderFromFile(GL_TESS_CONTROL_SHADER, "tess_control.glsl");
+    glish3::Shader const geometry = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER, "geometry.glsl");
 
     auto const programGLvertex = glish3::ProgramGL::create_separate_program(vertex);
+    auto const program_tess_eval = glish3::ProgramGL::create_separate_program(tess_eval);
+    auto const program_tess_control = glish3::ProgramGL::create_separate_program(tess_control);
+    auto const program_geom = glish3::ProgramGL::create_separate_program(geometry);
     auto const programGLfrag = glish3::ProgramGL::create_separate_program(frag);
-    auto const programGLfrag_color = glish3::ProgramGL::create_separate_program(frag_color);
 
     glish3::ProgramPipeline pipeline;
     pipeline.use_stage(programGLvertex);
+    pipeline.use_stage(program_tess_control);
+    pipeline.use_stage(program_tess_eval);
     pipeline.use_stage(programGLfrag);
+    pipeline.use_stage(program_geom);
     pipeline.bind();
-
-
-	SDL_Event ev;
-	glish3::Vao vao;
-
-	float square[]={
-			-0.5, 0.5, 0, 0,
-			-0.5, -0.5, 0, 1,
-			0.5, 0.5, 1, 0,
-			0.5, -0.5, 1, 1
-	};
+    glish3::Vao vao;
     vao.bind();
-	//VBO
-    vao.add_vbo(buffer(GL_ARRAY_BUFFER,
-                       square), 4,
-                glish3::attrib_settings(2, 0, 0),
-                glish3::attrib_settings(2, 1, 2));
-    set_view_uniform(programGLvertex, width, height);
-
-
-    GLuint values[]={
-            4, 1, 0, 1
-    };
-
-    buffer indirect_draw(GL_DRAW_INDIRECT_BUFFER, values);
-    indirect_draw.bind();
-
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPatchParameteri(GL_PATCH_VERTICES, 3);
+	SDL_Event ev;
+    glPointSize(5.0f);
     bool run = true;
+    float tess_level = 1.0f;
 	while(run){
 		glClear(GL_COLOR_BUFFER_BIT);
 		while(SDL_PollEvent(&ev)){
 			switch(ev.type){
 				case SDL_KEYDOWN:
 					if(ev.key.keysym.sym == SDLK_ESCAPE) {
-                        pipeline.use_stage(programGLfrag_color);
+					    tess_level += 1.f;
 					}
 					break;
 				case SDL_QUIT:
@@ -138,13 +121,13 @@ int main() {
                         width = ev.window.data1;
                         height = ev.window.data2;
                         std::cout << "width: " << width << " height: " << height << "\n";
-                        set_view_uniform(programGLvertex, width, height);
+                        //set_view_uniform(programGLvertex, width, height);
                     }
                     break;
 			}
 		}
-
-        glDrawArraysIndirect(GL_TRIANGLE_STRIP, (void*)0);
+        glVertexAttrib1f(0, tess_level);
+        glDrawArrays(GL_PATCHES, 0, 3);
 		SDL_GL_SwapWindow(window);
 	}
 
