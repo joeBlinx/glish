@@ -1,6 +1,6 @@
 #version 330
 layout(triangles) in;
-layout(points, max_vertices = 30) out;
+layout(triangle_strip, max_vertices = 30) out;
 
 void main() {
 

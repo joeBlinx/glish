@@ -94,9 +94,16 @@ int main() {
     pipeline.use_stage(programGLfrag);
     pipeline.use_stage(program_geom);
     pipeline.bind();
+
+
+    GLfloat const vertices[]={0.25, -0.25, 0.5, 1.0,
+                                -0.25, -0.25, 0.5, 1.0,
+                                0.25, 0.25, 0.5, 1.0};
+
     glish3::Vao vao;
     vao.bind();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    vao.add_vbo(glish3::buffer(GL_ARRAY_BUFFER, vertices), 4, glish3::attrib_settings(4, 1));
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPatchParameteri(GL_PATCH_VERTICES, 3);
 	SDL_Event ev;
     glPointSize(5.0f);
