@@ -14,7 +14,7 @@ namespace glish3 {
             {GL_TESS_EVALUATION_SHADER, GL_TESS_EVALUATION_SHADER_BIT},
             {GL_COMPUTE_SHADER, GL_COMPUTE_SHADER_BIT}
     };
-	void ProgramGL::use() {
+	void ProgramGL::use() const{
 		if (ProgramGL::currentProgram != _program.get()) {
 			glUseProgram(_program.get());
 			ProgramGL::currentProgram = _program.get();
@@ -59,6 +59,19 @@ namespace glish3 {
 	ProgramGL ProgramGL::create_separate_program(Shader const& shader){
            return ProgramGL(GL_TRUE, shader);
 	}
+
+    void ProgramGL::gather_attributes() {
+        GLint active_attributes {};
+        glGetProgramInterfaceiv(_program, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &active_attributes);
+        for (GLint i = 0; i < active_attributes; i++){
+            constexpr int buf_size = 15;
+            char name[buf_size];
+            GLsizei length{};
+            glGetProgramResourceName(_program, GL_PROGRAM_INPUT, i, buf_size, &length, name);
+            _attributes.insert(std::pair(name, glGetAttribLocation(_program, name)));
+
+        }
+    }
 
 }
 

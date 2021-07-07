@@ -69,6 +69,10 @@ int main() {
 	}
 	glGetError();
 	glish3::use_debug_output();
+	int major, minor;
+    glGetIntegerv(GL_MAJOR_VERSION, &major);
+    glGetIntegerv(GL_MINOR_VERSION, &minor);
+    std::cout << major << '.' << minor << '\n';
 // Init code outside the scope of OpenGL API
 	glClearColor(0.5, 0.5, 0.5, 1);
 	glEnable (GL_BLEND);
@@ -81,20 +85,11 @@ int main() {
     glish3::Shader const tess_control = glish3::Shader::createShaderFromFile(GL_TESS_CONTROL_SHADER, "tess_control.glsl");
     glish3::Shader const geometry = glish3::Shader::createShaderFromFile(GL_GEOMETRY_SHADER, "geometry.glsl");
 
-    auto const programGLvertex = glish3::ProgramGL::create_separate_program(vertex);
-    auto const program_tess_eval = glish3::ProgramGL::create_separate_program(tess_eval);
-    auto const program_tess_control = glish3::ProgramGL::create_separate_program(tess_control);
-    auto const program_geom = glish3::ProgramGL::create_separate_program(geometry);
-    auto const programGLfrag = glish3::ProgramGL::create_separate_program(frag);
 
-    glish3::ProgramPipeline pipeline;
-    pipeline.use_stage(programGLvertex);
-    pipeline.use_stage(program_tess_control);
-    pipeline.use_stage(program_tess_eval);
-    pipeline.use_stage(programGLfrag);
-    pipeline.use_stage(program_geom);
-    pipeline.bind();
-
+    auto const program_gl = glish3::ProgramGL::create_program(
+            vertex, tess_control, tess_eval, geometry, frag
+            );
+    program_gl.use();
 
     GLfloat const vertices[]={0.25, -0.25, 0.5, 1.0,
                                 -0.25, -0.25, 0.5, 1.0,
@@ -102,8 +97,8 @@ int main() {
 
     glish3::Vao vao;
     vao.bind();
-    vao.add_vbo(glish3::buffer(GL_ARRAY_BUFFER, vertices), 4, glish3::attrib_settings(4, 1));
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    vao.add_vbo(glish3::buffer(vertices), 4, glish3::attrib_settings(4, 1));
+    glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
     glPatchParameteri(GL_PATCH_VERTICES, 3);
 	SDL_Event ev;
     glPointSize(5.0f);

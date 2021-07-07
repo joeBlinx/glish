@@ -20,6 +20,7 @@ namespace glish3{
 		static std::map<GLenum, GLenum> shader_to_stage;
 		UniqueProgramGL _program = 0;
 		std::map<std::string, Uniform> uniforms;
+		std::map<std::string, GLint> _attributes;
         GLbitfield _stages{};
         void createUniform();
 	public:
@@ -43,13 +44,20 @@ namespace glish3{
 			if (InfoLogLength > 0) {
 				std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
 				glGetProgramInfoLog(_program, InfoLogLength, nullptr, ProgramErrorMessage.data());
+                glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
+                                     GL_DEBUG_TYPE_ERROR,
+                                     0, GL_DEBUG_SEVERITY_HIGH,
+                                     ProgramErrorMessage.size(),
+                                     ProgramErrorMessage.data());
 				log.title("compile Program");
 				log.info(ProgramErrorMessage.data());
 			}
 
             createUniform();
+			gather_attributes();
 		}
-		void use();
+		void gather_attributes();
+		void use()const;
 		explicit operator GLuint()const ;
         GLbitfield get_types() const{return _stages;}
 		Uniform const& operator[](const std::string &name) const;

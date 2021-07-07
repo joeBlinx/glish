@@ -13,7 +13,10 @@ namespace glish3{
 	buffer::operator bool() const {
 		return (bool)_buffer.get();
 	}
-    void buffer::bind() const {
+    void buffer::bind(GLenum target) const {
         glBindBuffer(target, _buffer.get());
+    }
+    void buffer::allocate(std::size_t size, GLbitfield flags) const{
+        glNamedBufferStorage(_buffer, size, nullptr, flags);
     }
 }

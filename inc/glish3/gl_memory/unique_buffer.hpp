@@ -26,6 +26,7 @@ namespace glish3 {
             }
         }
         GLuint get() const{ return _buffer;}
+        operator GLuint() const{ return get();}
 
     private:
         GLuint _buffer{};
