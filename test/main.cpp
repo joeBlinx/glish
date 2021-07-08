@@ -91,13 +91,25 @@ int main() {
             );
     program_gl.use();
 
+    struct vec4{
+        float a,b,c,d;
+    };
     GLfloat const vertices[]={0.25, -0.25, 0.5, 1.0,
                                 -0.25, -0.25, 0.5, 1.0,
                                 0.25, 0.25, 0.5, 1.0};
 
-    glish3::Vao vao;
+    GLfloat const vertices2[]={0.25, -0.50, 0.5, 1.0,
+                              -0.25, -0.25, 0.5, 1.0,
+                              0.25, 0.6, 0.5, 1.0};
+
+    glish3::Vao vao(program_gl);
+    vao.set_attrib(glish3::Format<vec4>{.index_names{"pos"},
+                                                    .size_of_data{4}});
+    vao.add_vbo(glish3::buffer(vertices), 0);
+    vao.add_vbo(glish3::buffer(vertices2), 1);
+
+    vao.bind_vbo("pos", 1);
     vao.bind();
-    vao.add_vbo(glish3::buffer(vertices), 4, glish3::attrib_settings(4, 1));
     glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
     glPatchParameteri(GL_PATCH_VERTICES, 3);
 	SDL_Event ev;
@@ -111,6 +123,8 @@ int main() {
 				case SDL_KEYDOWN:
 					if(ev.key.keysym.sym == SDLK_ESCAPE) {
 					    tess_level += 1.f;
+					}else if(ev.key.keysym.sym == SDLK_e){
+					    vao.bind_vbo("pos", 0);
 					}
 					break;
 				case SDL_QUIT:

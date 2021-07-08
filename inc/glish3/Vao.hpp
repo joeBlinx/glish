@@ -8,39 +8,50 @@
 #include <glish3/gl_glew.hpp>
 #include <vector>
 #include <glish3/buffer.hpp>
+#include <array>
 #include "glish3/gl_memory/unique_vao.hpp"
+#include <algorithm>
+#include <string_view>
+#include <map>
 
 namespace glish3{
-    struct attrib_settings
-    {
-        unsigned size;
-        unsigned index = 0;
-        unsigned offset = 0;
-        attrib_settings(unsigned size, unsigned index = 0, unsigned offset = 0):
-                size(size),
-                index(index),
-                offset(offset)
-        {
-        }
+
+    struct ProgramGL;
+    template<class ...Ts>
+    struct Format{
+        static constexpr int stride = sizeof(std::tuple<Ts...>);
+        static constexpr std::array offset{0ul, sizeof(Ts)...};
+        static constexpr int size = sizeof...(Ts);
+        std::array<std::string_view, size> index_names;
+        std::array<int, size> size_of_data;
     };
+
     class Vao{
         UniqueVao _vao;
         std::vector<buffer> _vbos;
+        std::map<std::string, GLint> _attributes;
+        int _stride{};
+        void set_attrib(std::string_view index_name, int offset, int size);
 
-        void set_attrib(const buffer &vbo, int stride, const attrib_settings &settings);
     public:
-        Vao();
 
+        explicit Vao(ProgramGL const &progam_gl);
         void bind() const;
 
-
-        template<class ...Settings>
-        void add_vbo (buffer && vbo, int stride, Settings&& ... settings)
-        requires (std::is_same_v<Settings, attrib_settings> && ...){
-            _vbos.push_back(std::move(vbo));
-            (set_attrib(_vbos.back(), stride, settings), ...);
+        template<class ...Types>
+        void set_attrib(Format<Types...> const& format){
+            _stride = format.stride;
+            std::array<int, format.size> indices;
+            std::ranges::generate(indices, [i = 0]()mutable{
+                return i++;
+            });
+            for(auto const i : indices){
+                set_attrib(format.index_names[i], format.offset[i], format.size_of_data[i]);
+            }
         }
 
+        void add_vbo(buffer && vbo, int binding_point);
+        void bind_vbo(std::string_view index_name, int binding_point);
         operator bool() const;
 
         operator GLuint();

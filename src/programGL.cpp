@@ -60,7 +60,8 @@ namespace glish3 {
            return ProgramGL(GL_TRUE, shader);
 	}
 
-    void ProgramGL::gather_attributes() {
+	std::map<std::string, GLint> ProgramGL::gather_attributes() const{
+	    std::map<std::string, GLint> attributes;
         GLint active_attributes {};
         glGetProgramInterfaceiv(_program, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &active_attributes);
         for (GLint i = 0; i < active_attributes; i++){
@@ -68,9 +69,9 @@ namespace glish3 {
             char name[buf_size];
             GLsizei length{};
             glGetProgramResourceName(_program, GL_PROGRAM_INPUT, i, buf_size, &length, name);
-            _attributes.insert(std::pair(name, glGetAttribLocation(_program, name)));
-
+            attributes.insert(std::pair(name, glGetAttribLocation(_program, name)));
         }
+        return attributes;
     }
 
 }

@@ -21,16 +21,19 @@ namespace glish3{
 
 	public:
         buffer():_buffer(make_unique_buffer()){}
+
         template<class T, size_t N>
         void allocate(T(&data)[N], GLbitfield flags) {
             _size_of_data = sizeof(T);
             glNamedBufferStorage(_buffer, N*_size_of_data, data, flags);
         }
+
         template<class T>
         void allocate(T * data, size_t size, GLbitfield flags) {
             _size_of_data = sizeof(T);
             glNamedBufferStorage(_buffer, size*_size_of_data, data, flags);
         }
+
         template<class T>
         requires
         requires (T a){ a.size(); a.size_type; a.data();}

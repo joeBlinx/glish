@@ -20,11 +20,10 @@ namespace glish3{
 		static std::map<GLenum, GLenum> shader_to_stage;
 		UniqueProgramGL _program = 0;
 		std::map<std::string, Uniform> uniforms;
-		std::map<std::string, GLint> _attributes;
         GLbitfield _stages{};
         void createUniform();
-	public:
 
+	public:
 
 		template <class ...Shaders>
 		ProgramGL(GLboolean separable, Shaders  &... shaders):
@@ -56,7 +55,7 @@ namespace glish3{
             createUniform();
 			gather_attributes();
 		}
-		void gather_attributes();
+		std::map<std::string, GLint> gather_attributes() const;
 		void use()const;
 		explicit operator GLuint()const ;
         GLbitfield get_types() const{return _stages;}

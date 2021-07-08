@@ -3,10 +3,15 @@
 //
 
 #include <glish3/Vao.hpp>
+#include <array>
+#include <cassert>
+#include "glish3/programGL.hpp"
 
 namespace glish3 {
-    Vao::Vao():
-    _vao(make_unique_vao())
+
+    Vao::Vao(ProgramGL const &progam_gl) :
+    _vao(make_unique_vao()),
+    _attributes(progam_gl.gather_attributes())
     {}
 
     void Vao::bind() const{
@@ -22,16 +27,22 @@ namespace glish3 {
     }
 
 
-    void Vao::set_attrib(const buffer &vbo, int stride, const attrib_settings &settings) {
-
-        glVertexArrayVertexBuffer(_vao.get(), 0, (GLuint)vbo, 0, stride*vbo._size_of_data);
-        glEnableVertexArrayAttrib(_vao.get(), settings.index);
-        glVertexAttribBinding(settings.index, 0);
-        glVertexAttribFormat(settings.index, settings.size,
-                              GL_FLOAT, GL_FALSE,
-                             settings.offset*vbo._size_of_data);
+    void Vao::set_attrib(std::string_view index_name, int offset, int size) {
+        GLint index = _attributes.at(std::string(index_name));
+        glEnableVertexArrayAttrib(_vao.get(), index);
+        glVertexArrayAttribFormat(_vao.get(), index, size,
+                                  GL_FLOAT, GL_FALSE,
+                                  offset);
     }
 
+    void Vao::add_vbo(buffer &&vbo, int binding_point) {
+        glVertexArrayVertexBuffer(_vao.get(), binding_point, (GLuint)vbo, 0, _stride);
+    }
+
+    void Vao::bind_vbo(std::string_view index_name, int binding_point) {
+        assert(_attributes.contains(std::string(index_name)) && "index_name not present in the program");
+        glVertexArrayAttribBinding(_vao.get(), _attributes.at(std::string(index_name)), binding_point);
+    }
 
 
 }
