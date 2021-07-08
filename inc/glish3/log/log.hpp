@@ -6,7 +6,7 @@
 #define GLISH3_LOG_HPP
 
 #include <fstream>
-
+#include <string>
 struct Log{
 
 	Log() = default;

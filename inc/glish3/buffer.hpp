@@ -5,15 +5,13 @@
 #ifndef GLISH3_BUFFER_HPP
 #define GLISH3_BUFFER_HPP
 
-#include <glish3/gl_glew.hpp>
-#include <initializer_list>
+#include <GL/glew.h>
+#include <cstddef>
 
-#include <type_traits>
-#include <glish3/gl_memory/unique_buffer.hpp>
+#include "glish3/gl_memory/unique_buffer.hpp"
 #include <limits>
 
 namespace glish3{
-    class Vao;
 	class buffer{
         friend class Vao;
 		UniqueBuffer _buffer;

@@ -2,9 +2,7 @@
 // Created by joe on 01/10/18.
 //
 
-#include <glish3/programGL.hpp>
-
-#include <iostream>
+#include "glish3/programGL.hpp"
 namespace glish3 {
     std::map<GLenum, GLenum> ProgramGL::shader_to_stage{
             {GL_VERTEX_SHADER, GL_VERTEX_SHADER_BIT},
@@ -57,7 +55,7 @@ namespace glish3 {
 		return uniforms.at(name);
 	}
 	ProgramGL ProgramGL::create_separate_program(Shader const& shader){
-           return ProgramGL(GL_TRUE, shader);
+           return {GL_TRUE, shader};
 	}
 
 	std::map<std::string, GLint> ProgramGL::gather_attributes() const{

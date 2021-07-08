@@ -5,20 +5,20 @@
 #ifndef GLISH3_UNIFORM_H
 #define GLISH3_UNIFORM_H
 
-#include <glish3/gl_glew.hpp>
+#include <GL/glew.h>
 
 #include <string>
 #include <map>
 #include <iostream>
 namespace glish3 {
-	class ProgramGL;
+	struct ProgramGL;
 	struct uni_settings{
 		std::string name;
         GLint type;
 	};
 
     class Uniform {
-		friend class ProgramGL;
+		friend struct ProgramGL;
     	static std::map<GLint, void(Uniform::*)(void*)const> function;
     	uni_settings settings;
 		ProgramGL *program = nullptr;

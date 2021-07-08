@@ -4,18 +4,18 @@
 
 #ifndef GLISH3_ProgramGL_HPP
 #define GLISH3_ProgramGL_HPP
-
-#include <glish3/gl_glew.hpp>
-#include <glish3/shader.hpp>
-#include <glish3/log/errorHandler.hpp>
+#include <GL/glew.h>
+#include <string>
 #include <vector>
+#include "glish3/log/log.hpp"
 #include <map>
-#include <glish3/gl_memory/unique_programgl.hpp>
-#include "uniform.hpp"
+#include "glish3/log/errorHandler.hpp"// IWYU pragma: keep
+#include "glish3/gl_memory/unique_programgl.hpp"
+#include "glish3/uniform.hpp"
+#include "glish3/shader.hpp" // IWYU pragma: keep
 
 namespace glish3{
-    class Shader;
-	class ProgramGL{
+	struct ProgramGL{
 		inline static GLuint currentProgram = 0;
 		static std::map<GLenum, GLenum> shader_to_stage;
 		UniqueProgramGL _program = 0;

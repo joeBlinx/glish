@@ -6,11 +6,10 @@
 #define GLISH3_SHADER_HPP
 
 
-#include <GL/gl.h>
-#include <string>
+#include <GL/glew.h>
 #include <vector>
-#include <glish3/uniform.hpp>
-#include <glish3/gl_memory/unique_shader.hpp>
+#include "glish3/uniform.hpp"
+#include "glish3/gl_memory/unique_shader.hpp"
 
 namespace glish3 {
 

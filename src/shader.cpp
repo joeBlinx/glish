@@ -1,15 +1,14 @@
 //
 // Created by joe on 01/10/18.
 //
-#include <glish3/gl_glew.hpp>
-#include <glish3/shader.hpp>
-#include <glish3/log/errorHandler.hpp>
+#include "glish3/shader.hpp"
+#include "glish3/log/errorHandler.hpp" // IWYU pragma: keep
 #include <map>
 #include <vector>
-#include <utils/stringUtil.h>
 #include <sstream>
 #include <filesystem>
-
+#include <string>
+#include "glish3/log/log.hpp"
 namespace glish3 {
 	static std::map<GLenum, std::string> match{
 			{GL_VERTEX_SHADER, "vertex shader"},

@@ -5,11 +5,11 @@
 #ifndef TESTGLISH3_TEXTURE_HPP
 #define TESTGLISH3_TEXTURE_HPP
 
-#include <glish3/gl_glew.hpp>
+#include <GL/glew.h>
 #include <string>
 #include <memory>
 #include <stb_image.h>
-#include <glish3/gl_memory/unique_texture.hpp>
+#include "glish3/gl_memory/unique_texture.hpp"
 
 namespace glish3 {
 	struct deleter

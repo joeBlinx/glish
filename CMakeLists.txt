@@ -5,6 +5,14 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(dependencies)
 add_subdirectory(utils)
+
+find_program(iwyu
+		NAMES include-what-you-use iwyu)
+if(NOT iwyu_NOTFOUND)
+	message(STATUS "IWYU: include what you use have been found here \"${iwyu}\" and thus will be used")
+	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${iwyu})
+endif()
+
 option(BUILD_SAMPLE OFF)
 if(${BUILD_SAMPLE})
 	add_subdirectory(test)

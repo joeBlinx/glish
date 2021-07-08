@@ -3,9 +3,10 @@
 //
 
 #include <GL/glew.h>
-#include <glish3/log/errorHandler.hpp>
+#include "glish3/log/errorHandler.hpp"
 #include <iostream>
-
+#include <string>
+#include "glish3/log/log.hpp"
 namespace glish3 {
 	Log log;
 	void init(const std::string &path, const std::string &project) {

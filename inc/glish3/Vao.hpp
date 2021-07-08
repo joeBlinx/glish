@@ -5,14 +5,17 @@
 #ifndef GLISH3_VAP_H
 #define GLISH3_VAP_H
 
-#include <glish3/gl_glew.hpp>
-#include <vector>
-#include <glish3/buffer.hpp>
+
+#include "glish3/buffer.hpp"
+#include <GL/glew.h>
 #include <array>
 #include "glish3/gl_memory/unique_vao.hpp"
 #include <algorithm>
 #include <string_view>
 #include <map>
+#include <tuple>
+#include <string>
+#include <vector>
 
 namespace glish3{
 

@@ -2,8 +2,7 @@
 // Created by stiven on 10/19/18.
 //
 
-#include <glish3/Vao.hpp>
-#include <array>
+#include "glish3/Vao.hpp"
 #include <cassert>
 #include "glish3/programGL.hpp"
 

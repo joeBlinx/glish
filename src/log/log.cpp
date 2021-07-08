@@ -2,15 +2,10 @@
 // Created by joe on 23/09/18.
 //
 
-#include <glish3/log/log.hpp>
+#include "glish3/log/log.hpp"
 #include <ctime>
 #include <utils/stringUtil.h>
 
-#include <glish3/log/log.hpp>
-#include <ctime>
-#include <utils/stringUtil.h>
-#include <iostream>
-#include <filesystem>
 
 Log::Log(const std::string &path, std::string const &project) :_project(project){
 

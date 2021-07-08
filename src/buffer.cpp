@@ -3,7 +3,6 @@
 //
 
 #include "glish3/buffer.hpp"
-#include "glish3/Vao.hpp"
 namespace glish3{
 
 	buffer::operator GLuint() {
