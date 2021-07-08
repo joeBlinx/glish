@@ -56,6 +56,7 @@ namespace glish3{
 		}
 
         void bind(GLenum target) const;
+		void bind_base(GLenum target, GLuint index) const;
 		explicit operator GLuint();
 		operator bool() const;
 

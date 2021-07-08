@@ -2,9 +2,10 @@ add_executable(sample_test)
 
 
 target_sources(sample_test PRIVATE main.cpp)
+
 find_package(SDL2 CONFIG REQUIRED)
-target_link_libraries(sample_test PRIVATE glish3 SDL2::SDL2 SDL2::SDL2main)
-file(GLOB shaders *.glsl)
+target_link_libraries(sample_test PRIVATE glish3 SDL2::SDL2 SDL2::SDL2main CONAN_PKG::glm)
+file(GLOB shaders shaders/*.glsl)
 
 add_custom_target(shaders_copy
         COMMAND cmake -E copy_if_different

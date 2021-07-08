@@ -18,4 +18,8 @@ namespace glish3{
     void buffer::allocate(std::size_t size, GLbitfield flags) const{
         glNamedBufferStorage(_buffer, size, nullptr, flags);
     }
+
+    void buffer::bind_base(GLenum target, GLuint index) const {
+        glBindBufferBase(target, index, _buffer);
+    }
 }
