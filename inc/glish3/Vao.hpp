@@ -12,7 +12,7 @@
 #include "glish3/gl_memory/unique_vao.hpp"
 #include <algorithm>
 #include <string_view>
-#include <map>
+#include <unordered_map>
 #include <tuple>
 #include <string>
 #include <vector>
@@ -32,7 +32,7 @@ namespace glish3{
     class Vao{
         UniqueVao _vao;
         std::vector<buffer> _vbos;
-        std::map<std::string, GLint> _attributes;
+        std::unordered_map<std::string, GLint> _attributes;
         int _stride{};
         void set_attrib(std::string_view index_name, int offset, int size);
 

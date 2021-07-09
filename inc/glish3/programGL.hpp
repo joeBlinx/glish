@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include "glish3/log/log.hpp"
-#include <map>
+#include <unordered_map>
 #include "glish3/log/errorHandler.hpp"// IWYU pragma: keep
 #include "glish3/gl_memory/unique_programgl.hpp"
 #include "glish3/uniform.hpp"
@@ -19,7 +19,7 @@ namespace glish3{
 		inline static GLuint currentProgram = 0;
 		static std::map<GLenum, GLenum> shader_to_stage;
 		UniqueProgramGL _program = 0;
-		std::map<std::string, Uniform> uniforms;
+		std::unordered_map<std::string, Uniform> uniforms;
         GLbitfield _stages{};
         void createUniform();
 
@@ -55,7 +55,7 @@ namespace glish3{
             createUniform();
 			gather_attributes();
 		}
-		std::map<std::string, GLint> gather_attributes() const;
+		std::unordered_map<std::string, GLint> gather_attributes() const;
 		void use()const;
 		explicit operator GLuint()const ;
         GLbitfield get_types() const{return _stages;}

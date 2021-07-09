@@ -58,8 +58,8 @@ namespace glish3 {
            return {GL_TRUE, shader};
 	}
 
-	std::map<std::string, GLint> ProgramGL::gather_attributes() const{
-	    std::map<std::string, GLint> attributes;
+	std::unordered_map<std::string, GLint> ProgramGL::gather_attributes() const{
+	    std::unordered_map<std::string, GLint> attributes;
         GLint active_attributes {};
         glGetProgramInterfaceiv(_program, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &active_attributes);
         for (GLint i = 0; i < active_attributes; i++){
