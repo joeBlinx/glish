@@ -5,11 +5,14 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <utils/stringUtil.h>
+#include <glish3/sampler.hpp>
 #include "glish3/log/errorHandler.hpp"
 #include "glish3/shader.hpp"
 #include "glish3/Vao.hpp"
 #include "glish3/programGL.hpp"
 #include "GLFW/glfw3.h"
+#include "glish3/texture2d.hpp"
+
 using namespace glish3;
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -46,25 +49,31 @@ int main() {
     auto const program_counter = ProgramGL::create_program(vertex, counter_frag);
     program_gl.use();
 
-    struct vec4{
-        float a,b,c,d;
+    struct Vertex{
+        struct Pos{
+            float a,b,c,d;
+        }pos;
+        struct Uv{
+            float u, v;
+        }uv;
     };
-    GLfloat const vertices[]={0.25, -0.25, 1, 1.0,
-                                -0.25, -0.25, 1, 1.0,
-                                0.25, 0.25, 1, 1.0};
+    Vertex const vertices[]={{0.25, -0.25, 1, 1.0, 90., 90.},
+                              {-0.25, -0.25, 1, 1.0, 90.5, 90.5},
+                               {0.25, 0.25, 1, 1.0, 91., 91.}};
 
-    GLfloat const vertices2[]={0.25, -0.50, 1, 1.0,
-                              -0.25, -0.25, 1, 1.0,
-                              0.25, 0, 1, 1.0};
+    Vertex const vertices2[]={{0.25, -0.50, 1, 1.0, 90., 90.},
+                               {-0.25, -0.25, 1, 1.0, 90.5, 90.5},
+                                {0.25, 0, 1, 1.0, 91., 91.}};
 
     glish3::Vao vao(program_gl);
-    vao.set_attrib(glish3::Format<vec4>{.index_names{"pos"},
-                                                    .size_of_data{4}});
+    vao.set_attrib(glish3::Format<Vertex::Pos, Vertex::Uv>{.index_names{"pos", "uv"},
+                                                    .size_of_data{4, 2}});
 
     vao.add_vbo(glish3::buffer(vertices), 0);
     vao.add_vbo(glish3::buffer(vertices2), 1);
 
     vao.bind_vbo("pos", 1);
+    vao.bind_vbo("uv", 1);
     vao.bind();
 
 	GLfloat const colors[] = {0.5, 0.8, 0.2, 1};
@@ -76,6 +85,17 @@ int main() {
 	GLuint constexpr count = 0;
 	atomic_counter.allocate(&count, 1, GL_DYNAMIC_STORAGE_BIT);
 
+	glish3::Texture2D const black_hole {Texture2D::readImage("black_hole.jpg")};
+	glish3::sampler const sampler;
+	sampler.linear();
+	sampler.bind(3);
+
+	sampler.parameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
+	sampler.parameter(GL_TEXTURE_WRAP_R, GL_REPEAT);
+	sampler.parameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
+
+	black_hole.bind(3);
+
     bool run = true;
     float tess_level = 1.0f;
     while(!glfwWindowShouldClose(window)){
@@ -86,19 +106,7 @@ int main() {
 	    atomic_counter.sub_data(0, 1, &count);
 	    atomic_counter.bind_base(GL_ATOMIC_COUNTER_BUFFER, 1);
 		glClearBufferfv(GL_COLOR, 0, clear_color);
-			/*switch(ev.type){
-				case SDL_KEYDOWN:
-					if(ev.key.keysym.sym == SDLK_ESCAPE) {
-					   run = false;
-					   break;
-					}else if(ev.key.keysym.sym == SDLK_e){
-					    vao.bind_vbo("pos", 0);
-					}
-					break;
-				case SDL_QUIT:
-					run = false;
-					break;
-			}*/
+
 		program_counter.use();
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
         glDrawArrays(GL_TRIANGLES, 0, 3);

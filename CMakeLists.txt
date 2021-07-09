@@ -56,6 +56,7 @@ target_sources(glish3
 		inc/glish3/shader.hpp
 		inc/glish3/uniform.hpp
         inc/glish3/buffer.hpp
+		inc/glish3/sampler.hpp
 		inc/glish3/gl_memory/unique_vao.hpp
 		inc/glish3/gl_memory/unique_buffer.hpp
 		inc/glish3/gl_memory/unique_programgl.hpp
@@ -69,6 +70,7 @@ target_sources(glish3
 		src/log/log.cpp
 		src/shader.cpp
         src/buffer.cpp
+		src/sampler.cpp
 		src/Vao.cpp
 		src/texture2d.cpp
 		src/uniform.cpp

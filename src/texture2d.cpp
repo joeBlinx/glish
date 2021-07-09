@@ -17,14 +17,10 @@ namespace glish3 {
                 settings.width, settings.height,
                 GL_RGBA, GL_UNSIGNED_BYTE,
                 settings.data.get());
-
-		glTextureParameteri(_texture_id.get(), GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTextureParameteri(_texture_id.get(), GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
 	}
 
-	void Texture2D::bind(int texture_number) const {
-	    glBindTextureUnit(texture_number, _texture_id.get());
+	void Texture2D::bind(int binding_point) const {
+	    glBindTextureUnit(binding_point, _texture_id.get());
 	}
 
 	texture_settings Texture2D::readImage(const std::string &path) {

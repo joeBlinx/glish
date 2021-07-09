@@ -8,8 +8,12 @@ layout(std140, binding = 2) uniform CountBlock{
     uint count;
 }count;
 
+in VS_OUT{
+    vec2 uv;
+}fs_in;
+
+layout (binding = 3) uniform sampler2D color_map;
 void main() {
 
-    color = colors.colors*clamp(float(count.count)/40000, 0., 1.);
-
+    color = texture(color_map, fs_in.uv)*clamp(float(count.count)/40000, 0., 1.);
 }
