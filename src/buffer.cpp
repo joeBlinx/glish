@@ -22,4 +22,6 @@ namespace glish3{
     void buffer::bind_base(GLenum target, GLuint index) const {
         glBindBufferBase(target, index, _buffer);
     }
+
+
 }

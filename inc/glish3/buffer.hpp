@@ -27,7 +27,7 @@ namespace glish3{
         }
 
         template<class T>
-        void allocate(T * data, size_t size, GLbitfield flags) {
+        void allocate(T const* data, size_t size, GLbitfield flags) {
             _size_of_data = sizeof(T);
             glNamedBufferStorage(_buffer, size*_size_of_data, data, flags);
         }
@@ -57,6 +57,10 @@ namespace glish3{
 
         void bind(GLenum target) const;
 		void bind_base(GLenum target, GLuint index) const;
+		template<class T>
+        void sub_data(std::size_t offset, std::size_t number_of_element, const T *data) const{
+		            glNamedBufferSubData(_buffer, offset, number_of_element*sizeof(T), data);
+		        }
 		explicit operator GLuint();
 		operator bool() const;
 

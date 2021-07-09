@@ -23,8 +23,8 @@ namespace glish3{
     template<class ...Ts>
     struct Format{
         static constexpr int stride = sizeof(std::tuple<Ts...>);
-        static constexpr std::array offset{0ul, sizeof(Ts)...};
         static constexpr int size = sizeof...(Ts);
+        static constexpr std::array<std::size_t, size+1> offset{0ul, sizeof(Ts)...};
         std::array<std::string_view, size> index_names;
         std::array<int, size> size_of_data;
     };

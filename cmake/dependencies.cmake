@@ -9,6 +9,11 @@ endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(REQUIRES glm/0.9.9.8
         stb/20200203
+        glew/2.2.0
+        glfw/3.3.4
+        OPTIONS glew:shared=True
+        glfw:shared=True
         BASIC_SETUP CMAKE_TARGETS
         BUILD missing
-        NO_OUTPUT_DIRS)
+        NO_OUTPUT_DIRS
+        IMPORTS "bin, *.dll -> ./bin")

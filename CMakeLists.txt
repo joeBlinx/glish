@@ -8,7 +8,7 @@ add_subdirectory(utils)
 
 find_program(iwyu
 		NAMES include-what-you-use iwyu)
-if(NOT iwyu_NOTFOUND)
+if(NOT ${iwyu} STREQUAL "iwyu-NOTFOUND")
 	message(STATUS "IWYU: include what you use have been found here \"${iwyu}\" and thus will be used")
 	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${iwyu})
 endif()
@@ -22,11 +22,10 @@ add_library(glish3 STATIC)
 if(WIN32)
 	target_compile_options(glish3 PRIVATE /W4)
 else()
-	target_compile_options(glish3 PRIVATE -Wall -pedantic -Wextra -fconcepts )
+	target_compile_options(glish3 PRIVATE -Wall -pedantic -Wextra)
 endif()
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
-target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb OpenGL::GL GLEW::GLEW)
+target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb OpenGL::GL CONAN_PKG::glew)
 target_include_directories(glish3 PUBLIC inc)
 
 set_target_properties(glish3 PROPERTIES
