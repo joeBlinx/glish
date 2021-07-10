@@ -25,8 +25,9 @@ namespace glish3{
         static constexpr int stride = sizeof(std::tuple<Ts...>);
         static constexpr int size = sizeof...(Ts);
         static constexpr std::array<std::size_t, size+1> offset{0ul, sizeof(Ts)...};
-        static constexpr std::array size_of_data{sizeof(Ts)/4 ...};
+        static constexpr std::array size_of_data{sizeof(Ts)/4 ...}; //type inside Ts... must be 32bits type
         std::array<std::string_view, size> index_names;
+
     };
 
     class Vao{
