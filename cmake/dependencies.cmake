@@ -16,4 +16,5 @@ conan_cmake_run(REQUIRES glm/0.9.9.8
         BASIC_SETUP CMAKE_TARGETS
         BUILD missing
         NO_OUTPUT_DIRS
-        IMPORTS "bin, *.dll -> ./bin")
+        IMPORTS "bin, *.dll -> ./bin"
+        IMPORTS "bin, *.so -> ./bin")

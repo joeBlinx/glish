@@ -36,6 +36,7 @@ namespace glish3 {
 
     void Vao::add_vbo(buffer &&vbo, int binding_point) {
         glVertexArrayVertexBuffer(_vao.get(), binding_point, (GLuint)vbo, 0, _stride);
+        _vbos.push_back(std::move(vbo));
     }
 
     void Vao::bind_vbo(std::string_view index_name, int binding_point) {

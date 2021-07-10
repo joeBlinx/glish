@@ -44,7 +44,7 @@ namespace glish3{
         template<class ...Types>
         void set_attrib(Format<Types...> const& format){
             _stride = format.stride;
-            std::array<int, format.size> indices;
+            std::array<int, Format<Types...>::size> indices;
             std::ranges::generate(indices, [i = 0]()mutable{
                 return i++;
             });

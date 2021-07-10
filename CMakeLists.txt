@@ -6,19 +6,21 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(dependencies)
 add_subdirectory(utils)
 
-find_program(iwyu
-		NAMES include-what-you-use iwyu)
-if(NOT ${iwyu} STREQUAL "iwyu-NOTFOUND")
-	message(STATUS "IWYU: include what you use have been found here \"${iwyu}\" and thus will be used")
-	set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${iwyu})
-endif()
+
 
 option(BUILD_SAMPLE OFF)
 if(${BUILD_SAMPLE})
 	add_subdirectory(test)
 endif()
 add_library(glish3 STATIC)
-
+find_program(iwyu
+		NAMES include-what-you-use iwyu)
+if(NOT ${iwyu} STREQUAL "iwyu-NOTFOUND")
+	set_target_properties(glish3 PROPERTIES
+			CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${iwyu}
+			)
+	message(STATUS "IWYU: include what you use have been found here \"${iwyu}\" and thus will be used")
+endif()
 if(WIN32)
 	target_compile_options(glish3 PRIVATE /W4)
 else()

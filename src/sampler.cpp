@@ -25,4 +25,17 @@ namespace glish3{
         parameter(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         parameter(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     }
+
+    void sampler::repeat() const {
+        parameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
+        parameter(GL_TEXTURE_WRAP_R, GL_REPEAT);
+        parameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
+
+    }
+
+    void sampler::clamp_to_edge() const {
+        parameter(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        parameter(GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        parameter(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    }
 }
