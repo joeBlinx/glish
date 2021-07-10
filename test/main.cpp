@@ -62,13 +62,11 @@ int main() {
                               {1., -1., 1, 1.0, 11., 11.}};
 
     glish3::Vao vao(program_gl);
-    vao.set_attrib(glish3::Format<Vertex::Pos, Vertex::Uv>{.index_names{"pos", "uv"},
-                                                    .size_of_data{4, 2}});
+    vao.set_attrib(glish3::Format<Vertex::Pos, Vertex::Uv>{.index_names{"pos", "uv"}});
 
     vao.add_vbo(glish3::buffer(vertices), 0);
 
-    vao.bind_vbo("pos", 0);
-    vao.bind_vbo("uv", 0);
+    vao.bind_vbo(0);
     vao.bind();
 
 	GLfloat const colors[] = {0.5, 0.8, 0.2, 1};

@@ -25,8 +25,8 @@ namespace glish3{
         static constexpr int stride = sizeof(std::tuple<Ts...>);
         static constexpr int size = sizeof...(Ts);
         static constexpr std::array<std::size_t, size+1> offset{0ul, sizeof(Ts)...};
+        static constexpr std::array size_of_data{sizeof(Ts)/4 ...};
         std::array<std::string_view, size> index_names;
-        std::array<int, size> size_of_data;
     };
 
     class Vao{
@@ -54,7 +54,7 @@ namespace glish3{
         }
 
         void add_vbo(buffer && vbo, int binding_point);
-        void bind_vbo(std::string_view index_name, int binding_point);
+        void bind_vbo(int binding_point);
         operator bool() const;
 
         operator GLuint();

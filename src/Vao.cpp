@@ -39,9 +39,11 @@ namespace glish3 {
         _vbos.push_back(std::move(vbo));
     }
 
-    void Vao::bind_vbo(std::string_view index_name, int binding_point) {
-        assert(_attributes.contains(std::string(index_name)) && "index_name not present in the program");
-        glVertexArrayAttribBinding(_vao.get(), _attributes.at(std::string(index_name)), binding_point);
+    void Vao::bind_vbo(int binding_point) {
+        std::ranges::for_each(_attributes, [&](auto const pair){
+            auto const& [key, value] = pair;
+            glVertexArrayAttribBinding(_vao.get(), value, binding_point);
+        });
     }
 
 
