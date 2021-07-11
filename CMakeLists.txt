@@ -28,7 +28,8 @@ else()
 endif()
 find_package(OpenGL REQUIRED)
 target_link_libraries(glish3 PUBLIC utils CONAN_PKG::stb OpenGL::GL CONAN_PKG::glew)
-target_include_directories(glish3 PUBLIC inc)
+target_include_directories(glish3 PUBLIC inc
+									PRIVATE inc/glish3)
 
 set_target_properties(glish3 PROPERTIES
 		CXX_STANDARD 20
@@ -52,7 +53,8 @@ target_sources(glish3
 		inc/glish3/Vao.hpp
 		inc/glish3/log/errorHandler.hpp
 		inc/glish3/log/log.hpp
-		inc/glish3/texture2d.hpp
+        inc/glish3/texture/texture2d.hpp
+		inc/glish3/texture/texture2d_array.hpp
 		inc/glish3/programGL.hpp
 		inc/glish3/program_pipeline.hpp
 		inc/glish3/shader.hpp
@@ -74,7 +76,8 @@ target_sources(glish3
         src/buffer.cpp
 		src/sampler.cpp
 		src/Vao.cpp
-		src/texture2d.cpp
+		src/texture/texture2d.cpp
+		src/texture/texture2d_array.cpp
 		src/uniform.cpp
 
 

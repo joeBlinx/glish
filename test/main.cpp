@@ -11,13 +11,19 @@
 #include "glish3/Vao.hpp"
 #include "glish3/programGL.hpp"
 #include "GLFW/glfw3.h"
-#include "glish3/texture2d.hpp"
-
+#include "glish3/texture/texture2d.hpp"
+#include "glish3/texture/texture2d_array.hpp"
+#include <array>
 using namespace glish3;
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+    if(action == GLFW_PRESS){
+        if(key == GLFW_KEY_E){
+            glVertexAttrib1f(2, 1);
+        }
+    }
 }
 int main() {
     glfwInit();
@@ -73,16 +79,18 @@ int main() {
 
 	glish3::buffer block(colors);
 	block.bind_base(GL_UNIFORM_BUFFER, 0);
+    using namespace std::string_view_literals;
+    std::string_view paths[]{
+        "black_hole.jpg"sv, "yoda.jpeg"sv
+    };
+    glish3::texture2d_array const textures{texture2d_array::read_images(paths)};
 
-
-	glish3::Texture2D const black_hole {Texture2D::readImage("black_hole.jpg")};
 	glish3::sampler const sampler;
 	sampler.linear();
     sampler.bind(1);
-
+    glVertexAttrib1f(2, 0);
     sampler.repeat();
-
-    black_hole.bind(1);
+    textures.bind(1);
 
     while(!glfwWindowShouldClose(window)){
         GLfloat constexpr clear_color[] = {

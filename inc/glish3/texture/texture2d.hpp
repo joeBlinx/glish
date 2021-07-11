@@ -19,25 +19,25 @@ namespace glish3 {
 			stbi_image_free(surface);
 		}
 	};
-	struct texture_settings
-	{
-		int width;
-		int height;
-		std::unique_ptr<void, deleter> data;
 
-	};
-	class Texture2D {
+	class texture2d {
 
 		UniqueTexture _texture_id = 0;
 		static GLenum constexpr target = GL_TEXTURE_2D;
 
 	public:
-		Texture2D() = default;
-		Texture2D(const texture_settings &settings);
+	    struct settings{
+	        int width;
+	        int height;
+	        std::unique_ptr<void, deleter> data;
+
+        };
+		texture2d() = default;
+		texture2d(const settings &settings);
 
 		void bind(int binding_point) const;
 
-		static texture_settings readImage(const std::string &path);
+		static settings readImage(const std::string &path);
 
 	};
 }

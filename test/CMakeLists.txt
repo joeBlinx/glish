@@ -13,9 +13,10 @@ add_custom_target(shaders_copy
         )
 
 add_dependencies(sample_test shaders_copy)
+file(GLOB _images images/*)
 add_custom_command(TARGET sample_test POST_BUILD
         COMMAND cmake -E copy_if_different
-        ${CMAKE_CURRENT_LIST_DIR}/black_hole.jpg $<TARGET_FILE_DIR:sample_test>
+        ${_images} $<TARGET_FILE_DIR:sample_test>
         )
 file(GLOB _binaries ${CMAKE_BINARY_DIR}/bin/*)
 
