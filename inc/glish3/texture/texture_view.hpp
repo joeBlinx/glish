@@ -14,8 +14,8 @@
 
 namespace glish3{
     struct texture_view{
-        template<class Texture>
-        texture_view(Texture const& texture_base, GLuint target);
+        template<class TextureBase, class TextureTarget>
+                static texture_view create_view();
     private:
         static GLuint constexpr corresponding_types[][5]{
             {GL_TEXTURE_1D, GL_TEXTURE_1D, GL_TEXTURE_1D_ARRAY, 0, 0},
@@ -34,8 +34,9 @@ namespace glish3{
             {GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE_ARRAY, 0, 0},
             {GL_TEXTURE_2D_MULTISAMPLE_ARRAY, GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE_ARRAY, 0, 0}
         };
+        texture_view(GLuint texture_id):_texture_id(texture_id){}
         UniqueTexture _texture_id;
-        static constexpr bool check_correspdonding_type(GLuint base, GLuint target){
+        static consteval bool check_correspdonding_type(GLuint base, GLuint target){
             auto const compatibility_array_it = std::ranges::find_if(corresponding_types, [&](auto const& array){
                 return array[0] == base;
             });
@@ -47,16 +48,16 @@ namespace glish3{
     };
 
 
-    template<class Texture>
-            texture_view::texture_view(Texture const& texture_base, GLuint target){
-        static_assert(check_correspdonding_type(Texture::target, target),
+    template<class TextureBase, class TextureTarget>
+            texture_view texture_view::create_view(){
+                static_assert(check_correspdonding_type(TextureBase::target, TextureTarget::target),
                 "The base texture type and the target texture type are not compatible");
-        {
-            GLuint texture_id;
-            glGenTextures(1, &texture_id);
-            _texture_id = UniqueTexture(texture_id);
-        }
 
+        GLuint texture_id;
+        glGenTextures(1, &texture_id);
+
+
+        return {texture_id};
     }
 }
 #endif //GLISH3_TEXTURE_VIEW_HPP

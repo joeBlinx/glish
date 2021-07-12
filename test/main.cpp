@@ -94,7 +94,7 @@ int main() {
     glVertexAttrib1f(2, 0);
     sampler.repeat();
     textures.bind(1);
-    glish3::texture_view view{textures, GL_TEXTURE_2D};
+    glish3::texture_view view = glish3::texture_view::create_view<glish3::texture2d, glish3::texture2d_array>();
     while(!glfwWindowShouldClose(window)){
         GLfloat constexpr clear_color[] = {
 	            0.5, 0.5, 0.5, 1
