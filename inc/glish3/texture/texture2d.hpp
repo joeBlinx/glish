@@ -23,16 +23,16 @@ namespace glish3 {
 	class texture2d {
 
 		UniqueTexture _texture_id = 0;
-		static GLenum constexpr target = GL_TEXTURE_2D;
-
 	public:
-	    struct settings{
+
+        static GLenum constexpr target = GL_TEXTURE_2D;
+        struct settings{
 	        int width;
 	        int height;
 	        std::unique_ptr<void, deleter> data;
 
         };
-		texture2d() = default;
+        texture2d() = default;
 		texture2d(const settings &settings);
 
 		void bind(int binding_point) const;
