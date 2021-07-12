@@ -7,7 +7,6 @@
 #include <GL/glew.h>
 #include <string>
 #include <vector>
-#include "glish3/log/log.hpp"
 #include <unordered_map>
 #include "glish3/log/errorHandler.hpp"// IWYU pragma: keep
 #include "glish3/gl_memory/unique_programgl.hpp"
@@ -48,8 +47,6 @@ namespace glish3{
                                      0, GL_DEBUG_SEVERITY_HIGH,
                                      ProgramErrorMessage.size(),
                                      ProgramErrorMessage.data());
-				log.title("compile Program");
-				log.info(ProgramErrorMessage.data());
 			}
 
             createUniform();

@@ -8,7 +8,8 @@
 #include <sstream>
 #include <filesystem>
 #include <string>
-#include "glish3/log/log.hpp"
+#include <fstream>
+
 namespace glish3 {
 	static std::map<GLenum, std::string> match{
 			{GL_VERTEX_SHADER, "vertex shader"},
@@ -21,7 +22,12 @@ namespace glish3 {
 	_shader(make_unique_shader(shader_type)),
 	shaderType(shader_type){
 		if(!data){
-			log.warning("data pass to shader is null, shader will not be compiled");
+		    const char error[] = "data pass to shader is null, shader will not be compiled";
+		    glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION,
+                                 GL_DEBUG_TYPE_ERROR,
+                                 0, GL_DEBUG_SEVERITY_HIGH,
+                                 sizeof(error),
+                                 error);
 			return;
 		}
 		compileShader(data);
@@ -48,8 +54,7 @@ namespace glish3 {
                                  0, GL_DEBUG_SEVERITY_HIGH,
                                  error_message.str().size(),
                                  error_message.str().data());
-			log.title("compile " + match[shaderType]);
-			log.info(error.data());
+
 		}
 	}
 
@@ -59,7 +64,6 @@ namespace glish3 {
 		const char * cdata = nullptr;
 		std::string data;
 		if(!stream){
-			log.fileNotFound(path);
 			std::stringstream error_message;
 			error_message << "File: " << path << " not found. cwd is " << std::filesystem::current_path();
 			std::string error = error_message.str();

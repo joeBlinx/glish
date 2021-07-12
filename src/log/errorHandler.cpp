@@ -6,14 +6,8 @@
 #include "glish3/log/errorHandler.hpp"
 #include <iostream>
 #include <string>
-#include "glish3/log/log.hpp"
 namespace glish3 {
-	Log log;
-	void init(const std::string &path, const std::string &project) {
-		if constexpr (debug) {
-			log = Log(path, project);
-		}
-	}
+
 
 	std::string createLink(std::string const &functionName) {
 		std::string website = "https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/" +

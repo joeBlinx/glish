@@ -52,7 +52,6 @@ target_sources(glish3
 		inc/glish3/gl_glew.hpp
 		inc/glish3/Vao.hpp
 		inc/glish3/log/errorHandler.hpp
-		inc/glish3/log/log.hpp
         inc/glish3/texture/texture2d.hpp
 		inc/glish3/texture/texture2d_array.hpp
 		inc/glish3/programGL.hpp
@@ -71,7 +70,6 @@ target_sources(glish3
 		src/programGL.cpp
 		src/program_pipeline.cpp
 		src/log/errorHandler.cpp
-		src/log/log.cpp
 		src/shader.cpp
         src/buffer.cpp
 		src/sampler.cpp

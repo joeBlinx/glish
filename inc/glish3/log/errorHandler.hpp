@@ -8,8 +8,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <cstring>
-#include "log.hpp"
-
+#include <string>
 namespace glish3 {
     void use_debug_output();
 #ifdef NDEBUG
@@ -17,25 +16,9 @@ namespace glish3 {
 #else
 	bool constexpr debug = true;
 #endif
-	extern Log log;
-	void init(const std::string &path, std::string const &project = "undefined") ;
 
 	std::string createLink(std::string const & functionName);
 
-	[[maybe_unused]] static void getError(std::string const &functionName,
-			std::string const & file, std::string const & line) {
-
-		if constexpr(debug) {
-			GLenum error = glGetError();
-			if (error) {
-				size_t constexpr size = 50;
-				char b [size];
-				std::memcpy(b, glewGetErrorString(error), size);
-				std::string message = "file : " + file + ", line: " + line +" "+ b;
-				log.error(message+", " + createLink(functionName)) ;
-			}
-		}
-	}
 }
 
 #endif //GLISH3_ERRORHANDLER_HPP
