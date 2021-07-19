@@ -10,6 +10,8 @@
 #include <cstring>
 #include <array>
 #include <span>
+#include <string_view>
+#include <cstddef>
 namespace glish3{
 
     struct texture2d_array{

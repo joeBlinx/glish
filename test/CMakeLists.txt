@@ -6,13 +6,12 @@ target_sources(sample_test PRIVATE main.cpp)
 target_link_libraries(sample_test PRIVATE glish3 CONAN_PKG::glfw CONAN_PKG::glm CONAN_PKG::glew)
 file(GLOB shaders shaders/*.glsl)
 
-add_custom_target(shaders_copy
+add_custom_command(TARGET sample_test POST_BUILD
         COMMAND cmake -E copy_if_different
         ${shaders}
-        ${CMAKE_CURRENT_BINARY_DIR}/
+        $<TARGET_FILE_DIR:sample_test>
         )
 
-add_dependencies(sample_test shaders_copy)
 file(GLOB _images images/*)
 add_custom_command(TARGET sample_test POST_BUILD
         COMMAND cmake -E copy_if_different
@@ -20,7 +19,7 @@ add_custom_command(TARGET sample_test POST_BUILD
         )
 file(GLOB _binaries ${CMAKE_BINARY_DIR}/bin/*)
 
-if( NOT ${_binaries} STREQUAL "")
+if( NOT _binaries STREQUAL "")
     add_custom_command(TARGET sample_test POST_BUILD
         COMMAND cmake -E copy_if_different
          ${_binaries} $<TARGET_FILE_DIR:sample_test>)

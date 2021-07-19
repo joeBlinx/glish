@@ -14,6 +14,7 @@
 #include "glish3/texture/texture2d.hpp"
 #include "glish3/texture/texture2d_array.hpp"
 #include <array>
+#include <string_view>
 using namespace glish3;
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
