@@ -29,7 +29,7 @@ glish3::texture2d_array::settings glish3::texture2d_array::read_images(std::span
 }
 
 glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings &settings){
-    glTextureStorage3D(_texture_unit, 1,
+    glTextureStorage3D(_texture_id, 1,
                        GL_RGBA8,
                        settings.width,
                        settings.height,
@@ -39,7 +39,7 @@ glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings
 
         int const offset = index*settings.width*settings.height*4;
         glTextureSubImage3D(
-                _texture_unit, 0, 0, 0, index,
+                _texture_id, 0, 0, 0, index,
                 settings.width, settings.height, 1,
                 GL_RGBA, GL_UNSIGNED_BYTE, settings.data.get() + offset
                 );
@@ -47,5 +47,5 @@ glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings
 }
 
 void glish3::texture2d_array::bind(int binding_point) const {
-    glBindTextureUnit(binding_point, _texture_unit);
+    glBindTextureUnit(binding_point, _texture_id);
 }
