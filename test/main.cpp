@@ -15,6 +15,8 @@
 #include "glish3/texture/texture2d_array.hpp"
 #include <array>
 #include <string_view>
+#include "glish3/texture/texture_view.hpp"
+
 using namespace glish3;
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -92,7 +94,7 @@ int main() {
     glVertexAttrib1f(2, 0);
     sampler.repeat();
     textures.bind(1);
-
+    glish3::texture_view view{textures, GL_TEXTURE_2D};
     while(!glfwWindowShouldClose(window)){
         GLfloat constexpr clear_color[] = {
 	            0.5, 0.5, 0.5, 1

@@ -54,6 +54,7 @@ target_sources(glish3
 		inc/glish3/log/errorHandler.hpp
         inc/glish3/texture/texture2d.hpp
 		inc/glish3/texture/texture2d_array.hpp
+		inc/glish3/texture/texture_view.hpp
 		inc/glish3/programGL.hpp
 		inc/glish3/program_pipeline.hpp
 		inc/glish3/shader.hpp
@@ -76,6 +77,7 @@ target_sources(glish3
 		src/Vao.cpp
 		src/texture/texture2d.cpp
 		src/texture/texture2d_array.cpp
+		src/texture/texture_view.cpp
 		src/uniform.cpp
 
 
