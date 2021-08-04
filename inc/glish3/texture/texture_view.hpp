@@ -11,53 +11,29 @@
 #include <vector>
 #include <array>
 #include <algorithm>
-
+#include <cassert>
+#include "texture_base.hpp"
+#include <unordered_map>
 namespace glish3{
-    struct texture_view{
-        template<class TextureBase, class TextureTarget>
-                static texture_view create_view();
-    private:
-        static GLuint constexpr corresponding_types[][5]{
-            {GL_TEXTURE_1D, GL_TEXTURE_1D, GL_TEXTURE_1D_ARRAY, 0, 0},
-            {GL_TEXTURE_2D, GL_TEXTURE_2D, GL_TEXTURE_2D_ARRAY, 0, 0},
-            {GL_TEXTURE_3D, GL_TEXTURE_3D, 0, 0, 0},
-            {GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP,
-                                   GL_TEXTURE_2D,
-                                   GL_TEXTURE_2D_ARRAY,
-                                   GL_TEXTURE_CUBE_MAP_ARRAY},
-           {GL_TEXTURE_1D_ARRAY, GL_TEXTURE_1D, GL_TEXTURE_1D_ARRAY, 0, 0},
-           {GL_TEXTURE_2D_ARRAY, GL_TEXTURE_2D, GL_TEXTURE_2D_ARRAY, 0, 0},
-           {GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_CUBE_MAP,
-                                        GL_TEXTURE_2D,
-                                        GL_TEXTURE_2D_ARRAY,
-                                        GL_TEXTURE_CUBE_MAP_ARRAY},
-            {GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE_ARRAY, 0, 0},
-            {GL_TEXTURE_2D_MULTISAMPLE_ARRAY, GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_2D_MULTISAMPLE_ARRAY, 0, 0}
-        };
-        texture_view(GLuint texture_id):_texture_id(texture_id){}
-        UniqueTexture _texture_id;
-        static consteval bool check_correspdonding_type(GLuint base, GLuint target){
-            auto const compatibility_array_it = std::ranges::find_if(corresponding_types, [&](auto const& array){
-                return array[0] == base;
-            });
+    struct texture_view: texture_base{
+        GLenum get_target() const override{return _target;}
 
-            return std::ranges::any_of(*compatibility_array_it, [&](auto const& target_value){
+        static texture_view
+        create_view(texture_base const &origin, GLenum target, GLuint min_level, GLuint num_levels,
+                    GLuint min_layer, GLuint num_layers);
+    private:
+        texture_view(glish3::UniqueTexture &&texture, GLenum target);
+        GLenum _target;
+        static std::unordered_map<GLuint, std::vector<GLuint>> const corresponding_types;
+
+        static bool check_corresponding_type(GLuint base, GLuint target){
+            auto const& compatibility_array = corresponding_types.at(base);
+
+            return std::ranges::any_of(compatibility_array, [&](auto const& target_value){
                 return target_value == target;
             });
         }
     };
 
-
-    template<class TextureBase, class TextureTarget>
-            texture_view texture_view::create_view(){
-                static_assert(check_correspdonding_type(TextureBase::target, TextureTarget::target),
-                "The base texture type and the target texture type are not compatible");
-
-        GLuint texture_id;
-        glGenTextures(1, &texture_id);
-
-
-        return {texture_id};
-    }
 }
 #endif //GLISH3_TEXTURE_VIEW_HPP

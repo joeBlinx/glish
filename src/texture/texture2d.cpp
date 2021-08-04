@@ -9,7 +9,7 @@
 #include <filesystem>
 
 namespace glish3 {
-    texture2d::texture2d(const settings &settings): _texture_id(make_unique_texture(target)) {
+    texture2d::texture2d(const settings &settings):texture_base(make_unique_texture(target)) {
 
         glTextureStorage2D(_texture_id.get(), 1, GL_RGBA8, settings.width, settings.height);
         glTextureSubImage2D(_texture_id.get(),
@@ -17,10 +17,6 @@ namespace glish3 {
                 settings.width, settings.height,
                 GL_RGBA, GL_UNSIGNED_BYTE,
                 settings.data.get());
-	}
-
-	void texture2d::bind(int binding_point) const {
-	    glBindTextureUnit(binding_point, _texture_id.get());
 	}
 
 	texture2d::settings texture2d::readImage(const std::string &path) {

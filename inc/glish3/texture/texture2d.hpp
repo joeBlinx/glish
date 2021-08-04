@@ -10,6 +10,7 @@
 #include <memory>
 #include <stb_image.h>
 #include "glish3/gl_memory/unique_texture.hpp"
+#include "texture_base.hpp"
 
 namespace glish3 {
 	struct deleter
@@ -20,9 +21,7 @@ namespace glish3 {
 		}
 	};
 
-	class texture2d {
-
-		UniqueTexture _texture_id = 0;
+class texture2d: public texture_base {
 	public:
 
         static GLenum constexpr target = GL_TEXTURE_2D;
@@ -35,10 +34,9 @@ namespace glish3 {
         texture2d() = default;
 		texture2d(const settings &settings);
 
-		void bind(int binding_point) const;
 
 		static settings readImage(const std::string &path);
-
+		GLenum get_target() const override{return target;}
 	};
 }
 
