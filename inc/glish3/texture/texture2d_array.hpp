@@ -6,6 +6,7 @@
 #define GLISH3_TEXTURE2D_ARRAY_H
 #include <GL/glew.h>
 #include "glish3/gl_memory/unique_texture.hpp"
+#include "texture_base.hpp"
 #include <memory>
 #include <cstring>
 #include <array>
@@ -14,7 +15,7 @@
 #include <cstddef>
 namespace glish3{
 
-    struct texture2d_array{
+    struct texture2d_array: texture_base{
         struct settings{
             int width, height;
             int number_images;
@@ -22,10 +23,8 @@ namespace glish3{
         };
         static GLenum constexpr target = GL_TEXTURE_2D_ARRAY;
         texture2d_array(settings const& settings);
-        void bind(int binding_point) const;
         static settings read_images(std::span<std::string_view> image_paths);
-    private:
-        UniqueTexture _texture_id{make_unique_texture(target)};
+        GLenum get_target() const override{return target;}
     };
 
 }

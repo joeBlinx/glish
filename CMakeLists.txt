@@ -52,6 +52,7 @@ target_sources(glish3
 		inc/glish3/gl_glew.hpp
 		inc/glish3/Vao.hpp
 		inc/glish3/log/errorHandler.hpp
+		inc/glish3/texture/texture_base.hpp
         inc/glish3/texture/texture2d.hpp
 		inc/glish3/texture/texture2d_array.hpp
 		inc/glish3/texture/texture_view.hpp

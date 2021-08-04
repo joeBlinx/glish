@@ -28,7 +28,8 @@ glish3::texture2d_array::settings glish3::texture2d_array::read_images(std::span
     return {width, height, static_cast<int>(std::size(image_paths)), std::unique_ptr<std::byte>(data)};
 }
 
-glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings &settings){
+glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings &settings):
+texture_base(make_unique_texture(target)){
     glTextureStorage3D(_texture_id, 1,
                        GL_RGBA8,
                        settings.width,
@@ -44,8 +45,4 @@ glish3::texture2d_array::texture2d_array(const glish3::texture2d_array::settings
                 GL_RGBA, GL_UNSIGNED_BYTE, settings.data.get() + offset
                 );
     }
-}
-
-void glish3::texture2d_array::bind(int binding_point) const {
-    glBindTextureUnit(binding_point, _texture_id);
 }
